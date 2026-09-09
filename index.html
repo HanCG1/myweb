@@ -364,7 +364,7 @@
           </div>
         </div>
         <div class="stat-grid">
-          <div class="stat"><div class="t">今晚任务</div><div class="v"><span class="dot ok"></span>2/2 已完成</div></div>
+          <div class="stat"><div class="t">今晚任务</div><div class="v" id="tonightStat"><span class="dot todo"></span>待更新</div></div>
           <div class="stat"><div class="t">练字进度</div><div class="v"><span class="dot doing"></span>笔画阶段</div></div>
           <div class="stat"><div class="t">下次周报</div><div class="v" id="nextReport"><span class="dot todo"></span>9/12 周六自动生成</div></div>
           <div class="stat"><div class="t">下次考试</div><div class="v"><span class="dot todo"></span>暂无安排</div></div>
@@ -387,20 +387,11 @@
         <div class="v-head"><h2>今日计划</h2><span class="en">TODAY</span></div>
         <div class="card open" data-fold>
           <h3>今日安排 <span class="date-tag" id="todayTag">—</span><span class="arrow">▸</span></h3>
-          <div class="body">
-            <table>
-              <tr><th style="width:90px;">时段</th><th style="width:100px;">任务</th><th>说明</th><th style="width:80px;">状态</th></tr>
-              <tr><td>19:00-19:15</td><td>老师任务</td><td>语文/数学作业——把今天老师通知发给我，我来更新</td><td><span class="badge todo">待更新</span></td></tr>
-              <tr><td>19:15-19:30</td><td>练字</td><td id="todayWritingDesc">笔画① 横：短横→长横，临写"一 二 三"（15分钟）</td><td><span class="badge doing">计划中</span></td></tr>
-            </table>
-          </div>
+          <div class="body" id="todayTasksBox"></div>
         </div>
         <div class="card">
           <h3>明日预告 <span class="date-tag" id="tomorrowTag">—</span><span class="arrow">▸</span></h3>
-          <div class="body">
-            <div class="rec"><li><span class="tag">练字</span>笔画① 横：短横→长横，继续临写"一 二 三"（15分钟）</li>
-            <li><span class="tag">说明</span>日期自动更新，具体安排以当天老师通知为准</li></div>
-          </div>
+          <div class="body" id="tomorrowBox"></div>
         </div>
         <div class="card open" data-fold>
           <h3>晚间固定框架 <span class="arrow">▸</span></h3>
@@ -816,10 +807,57 @@
     if(now.getDay() === 6 && now.getHours() >= 20 && now.getMinutes() >= 30){ sat.setDate(sat.getDate() + 7); }
     var nr = document.getElementById('nextReport');
     if(nr) nr.innerHTML = '<span class="dot todo"></span>' + fmtMD(sat) + ' 周六自动生成';
-    var wd = document.getElementById('todayWritingDesc');
-    if(wd && (now.getDay() === 0 || now.getDay() === 6)){ wd.textContent = '周末自愿：可休息或继续练字'; }
   }
   setDates();
+
+  /* ===== 今日/明日任务数据化渲染 ===== */
+  /* 每天由我更新这两个数组：老师任务收到通知后替换 desc 与 status */
+  var todayTasks = [
+    {time:'19:00-19:15', name:'老师任务', desc:'语文/数学作业——把今天老师通知发给我，我来更新', status:'todo', statusText:'待更新'},
+    {time:'19:15-19:30', name:'练字', desc:'笔画① 横：短横→长横，临写"一 二 三"（15分钟）', status:'doing', statusText:'计划中'}
+  ];
+  var tomorrowTasks = [
+    {name:'练字', desc:'笔画① 横：短横→长横，继续临写"一 二 三"（15分钟）'}
+  ];
+
+  function renderToday(){
+    var box = document.getElementById('todayTasksBox');
+    if(!box) return;
+    var tasks = todayTasks.slice();
+    var now = new Date();
+    if(now.getDay() === 0 || now.getDay() === 6){
+      tasks.forEach(function(t){ if(t.name === '练字'){ t.desc = '周末自愿：可休息或继续练字'; t.status = 'todo'; t.statusText = '自愿'; } });
+    }
+    if(!tasks.length){ box.innerHTML = '<div class="empty"><b>今日暂无安排</b></div>'; }
+    else{
+      var h = '<table><tr><th style="width:90px;">时段</th><th style="width:100px;">任务</th><th>说明</th><th style="width:80px;">状态</th></tr>';
+      tasks.forEach(function(t){
+        h += '<tr><td>' + t.time + '</td><td>' + t.name + '</td><td>' + t.desc + '</td><td><span class="badge ' + t.status + '">' + t.statusText + '</span></td></tr>';
+      });
+      box.innerHTML = h + '</table>';
+    }
+    var done = tasks.filter(function(t){ return t.status === 'ok'; }).length;
+    var st = document.getElementById('tonightStat');
+    if(st){
+      var dot = done === tasks.length ? 'ok' : (done > 0 ? 'doing' : 'todo');
+      var label = done === tasks.length ? '已完成' : (done > 0 ? '进行中' : '待更新');
+      st.innerHTML = '<span class="dot ' + dot + '"></span>' + done + '/' + tasks.length + ' ' + label;
+    }
+  }
+
+  function renderTomorrow(){
+    var box = document.getElementById('tomorrowBox');
+    if(!box) return;
+    if(!tomorrowTasks.length){ box.innerHTML = '<div class="empty"><b>明日安排待定</b></div>'; return; }
+    var h = '<div class="rec">';
+    tomorrowTasks.forEach(function(t){
+      h += '<li><span class="tag">' + t.name + '</span>' + t.desc + '</li>';
+    });
+    h += '<li><span class="tag">说明</span>日期自动更新，具体安排以当天老师通知为准</li></div>';
+    box.innerHTML = h;
+  }
+  renderToday();
+  renderTomorrow();
 
   document.querySelectorAll('[data-fold]').forEach(function(card){
     card.querySelector('h3').addEventListener('click', function(){
