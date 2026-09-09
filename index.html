@@ -155,6 +155,13 @@
   .empty b{color:var(--ink);display:block;font-size:15px;font-weight:600;margin-bottom:4px;}
   .empty span{font-size:13px;}
 
+  .review-good,.review-watch{margin:6px 0 12px;}
+  .review-good b,.review-watch b{font-size:13px;font-weight:600;display:block;margin-bottom:4px;}
+  .review-good b{color:var(--ok);}
+  .review-watch b{color:var(--err);}
+  .review-good ul,.review-watch ul{margin:0;padding-left:18px;}
+  .review-good li,.review-watch li{font-size:13px;line-height:1.7;color:var(--ink);}
+
   /* 总览 */
   .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:12px;margin-bottom:6px;}
   .stat{background:var(--stat-bg);border:var(--stat-border);border-radius:var(--radius);box-shadow:var(--stat-shadow);padding:12px 14px;}
@@ -381,6 +388,10 @@
           <h3>今日安排 <span class="date-tag" id="todayTag">—</span><span class="arrow">▸</span></h3>
           <div class="body" id="todayTasksBox"></div>
         </div>
+        <div class="card" id="todayReviewCard" style="display:none;">
+          <h3>今日反馈 <span class="arrow">▸</span></h3>
+          <div class="body" id="todayReviewBox"></div>
+        </div>
         <div class="card">
           <h3>明日预告 <span class="date-tag" id="tomorrowTag">—</span><span class="arrow">▸</span></h3>
           <div class="body" id="tomorrowBox"></div>
@@ -424,6 +435,14 @@
               <tr><td>20:00-20:30</td><td>阅读</td><td>西游记绘本《四探无底洞》</td><td><span class="badge ok">已完成</span></td></tr>
               <tr><td>20:40-21:00</td><td>整理</td><td>整理书包带齐文具；田字格本写上名字，明天带来</td><td><span class="badge ok">已完成</span></td></tr>
             </table>
+            <div class="rec">
+              <li><span class="tag">常规</span>静坐完成很好：头正、身直、肩平、足安；<span class="tag">观察点</span>脚轻微活动，明日留意足安</li>
+              <li><span class="tag">语文</span>完成很好</li>
+              <li><span class="tag">数学</span>完成很好</li>
+              <li><span class="tag">练字</span>完成，照片已查看（格线水平、照片无倾斜）；<span class="tag">观察点</span>横画左高右低（应左低右高、微扛肩），明日重点纠正</li>
+              <li><span class="tag">阅读</span>30分钟读完《四探无底洞》，完成</li>
+              <li><span class="tag">整理</span>文具带齐、田字格本写名，完成</li>
+            </div>
           </div>
         </div>
         <div class="card open" data-fold data-date="2026-09-08">
@@ -780,6 +799,9 @@
     {time:'19:28-19:40', name:'练字', desc:'悬针竖：临写"十""干"（以质量为准，不赶进度）', status:'ok', statusText:'已完成'},
     {time:'20:40-21:00', name:'整理', desc:'睡前整理书包带齐文具；田字格本写上名字，明天带来', status:'ok', statusText:'已完成'}
   ];
+  var dailyReview = [
+    {date:'9月9日', good:['6项任务全部按时完成','语文朗读流利顺畅','静坐头正、身直、肩平','练字认真，收笔有回锋意识'], watch:['静坐时脚轻微活动，足安需加强','练字横画左高右低，应左低右高微微扛肩（明日重点纠正）']}
+  ];
   var tomorrowTasks = [
     {name:'练字', desc:'笔画② 悬针竖：继续临写"十""干"（15分钟）'}
   ];
@@ -806,6 +828,25 @@
       var dot = done === tasks.length ? 'ok' : (done > 0 ? 'doing' : 'todo');
       var label = done === tasks.length ? '已完成' : (done > 0 ? '进行中' : '待更新');
       st.innerHTML = '<span class="dot ' + dot + '"></span>' + done + '/' + tasks.length + ' ' + label;
+    }
+    /* 今日反馈：好 / 注意 */
+    var now = new Date();
+    var key = (now.getMonth()+1) + '月' + now.getDate() + '日';
+    var card = document.getElementById('todayReviewCard');
+    var rb = document.getElementById('todayReviewBox');
+    var rev = null;
+    for(var i=0;i<dailyReview.length;i++){ if(dailyReview[i].date === key){ rev = dailyReview[i]; break; } }
+    if(card && rb){
+      if(rev){
+        var rh = '<div class="review-good"><b>做得好的地方</b><ul>';
+        rev.good.forEach(function(g){ rh += '<li>' + g + '</li>'; });
+        rh += '</ul></div>';
+        rh += '<div class="review-watch"><b>需要注意的地方</b><ul>';
+        rev.watch.forEach(function(w){ rh += '<li>' + w + '</li>'; });
+        rh += '</ul></div>';
+        rb.innerHTML = rh;
+        card.style.display = '';
+      } else { card.style.display = 'none'; }
     }
   }
 
