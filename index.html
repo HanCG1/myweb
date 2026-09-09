@@ -256,7 +256,7 @@
   }
 </style>
 </head>
-<body data-theme="notion">
+<body data-theme="classic">
 <div class="app">
 
   <!-- ============ 左侧导航 ============ -->
@@ -923,7 +923,7 @@
   }
   var savedTheme = null;
   try{ savedTheme = localStorage.getItem('lz-theme'); }catch(e){}
-  if(['classic','notion','workspace'].indexOf(savedTheme) === -1) savedTheme = 'notion';
+  if(['classic','notion','workspace'].indexOf(savedTheme) === -1) savedTheme = 'classic';
   applyTheme(savedTheme);
   themeBtns.forEach(function(b){
     b.addEventListener('click', function(){ applyTheme(b.dataset.themeBtn); });
