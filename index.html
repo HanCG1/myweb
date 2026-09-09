@@ -2,6 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>韩长歌 · 学习档案</title>
 <style>
   /* ===== 主题变量：notion（默认） / classic / workspace ===== */
@@ -97,6 +98,7 @@
 
   /* ============ 主区 ============ */
   .main{flex:1;display:flex;flex-direction:column;min-width:0;}
+  .hamburger{display:none;}
   .topbar{
     height:52px;flex-shrink:0;background:var(--side-bg);border-bottom:1px solid var(--line);
     display:flex;align-items:center;gap:14px;padding:0 26px;
@@ -212,6 +214,46 @@
     opacity:0;pointer-events:none;transition:all .25s;z-index:50;
   }
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+  .mask{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:55;opacity:0;pointer-events:none;transition:opacity .25s;}
+  .mask.show{opacity:1;pointer-events:auto;}
+
+  /* ============ 手机端适配（≤900px） ============ */
+  @media (max-width:900px){
+    body{min-width:0;}
+    .app{flex-direction:column;height:auto;min-height:100vh;}
+    .sidebar{
+      position:fixed;left:0;top:0;bottom:0;width:230px;z-index:60;
+      transform:translateX(-100%);transition:transform .25s;
+      box-shadow:2px 0 14px rgba(0,0,0,.10);
+    }
+    .sidebar.open{transform:translateX(0);}
+    .main{order:1;width:100%;}
+    .topbar{height:50px;padding:0 12px;gap:8px;}
+    .hamburger{
+      display:flex;align-items:center;justify-content:center;width:34px;height:34px;
+      border:none;background:transparent;border-radius:6px;cursor:pointer;flex-shrink:0;padding:0;
+    }
+    .hamburger svg{width:18px;height:18px;stroke:var(--ink);}
+    .hamburger:active{background:var(--bg-sub);}
+    .topbar .date{font-size:12.5px;}
+    .search{display:none;}
+    .save-state{font-size:0;}
+    .save-state .dot{width:8px;height:8px;}
+    .btn-add{padding:5px 10px;font-size:12.5px;}
+    .content{padding:16px 14px 40px;}
+    .v-head{margin-bottom:16px;}
+    .v-head h2{font-size:19px;}
+    .v-head .en{font-size:10px;}
+    .card{padding:14px 14px;}
+    .card .body{overflow-x:auto;}
+    .card table{min-width:0;}
+    .card table.wide{min-width:560px;}
+    #examTable.wide{min-width:780px;}
+    .stat-grid{grid-template-columns:repeat(auto-fit,minmax(150px,1fr));}
+    .detail{order:2;width:100%;border-left:none;border-top:1px solid var(--line);padding:16px 14px 30px;}
+    .theme-switch button{flex:1 1 40%;}
+  }
 </style>
 </head>
 <body data-theme="notion">
@@ -287,6 +329,9 @@
   <!-- ============ 主内容区 ============ -->
   <div class="main">
     <div class="topbar">
+      <button class="hamburger" id="hamburger" type="button" aria-label="菜单">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
       <div class="date" id="topDate"><b>2026年9月8日</b> 周二</div>
       <div class="search">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -387,7 +432,7 @@
         <div class="card open" data-fold data-date="2026-09-08">
           <h3>2026-09-08 <span class="date-tag">周二</span><span class="arrow">▸</span></h3>
           <div class="body">
-            <table>
+            <table class="wide">
               <tr><th style="width:64px;">学科</th><th>任务</th><th style="width:100px;">预计时长</th><th style="width:90px;">状态</th></tr>
               <tr><td>语文</td><td>指读课本6-8页（先听范读，每页读2遍，不拍视频）<br><span style="color:var(--sub);font-size:12px;">P6《上学歌》｜P7 我爱学语文｜P8 识字①《天地人》</span></td><td>5-10分钟</td><td><span class="badge ok">已完成</span></td></tr>
               <tr><td>数学</td><td>数字"1"写一行（田字格，右半格、斜线、一笔写成）</td><td>约5分钟</td><td><span class="badge ok">已完成</span></td></tr>
@@ -402,7 +447,7 @@
         <div class="card open" data-fold data-date="2026-09-05">
           <h3>2026-09-05 <span class="date-tag">周六 · 周末任务</span><span class="arrow">▸</span></h3>
           <div class="body">
-            <table>
+            <table class="wide">
               <tr><th style="width:64px;">学科</th><th>任务</th><th style="width:100px;">截止</th><th style="width:90px;">状态</th></tr>
               <tr><td>语文</td><td>周末指读：课本2-5页（先听范读，再按指读要求朗读）</td><td>9/7 上课前</td><td><span class="badge ok">已完成</span></td></tr>
               <tr><td>口语表达</td><td>创编小故事：周末自编简短故事，待轮到后到校讲给同学听</td><td>排队中</td><td><span class="badge todo">排队中</span></td></tr>
@@ -421,7 +466,7 @@
         <div class="card open" data-fold>
           <h3>考试记录 <span class="arrow">▸</span></h3>
           <div class="body">
-            <table id="examTable">
+            <table id="examTable" class="wide">
               <tr><th style="width:84px;">日期</th><th>考试名称</th><th style="width:56px;">科目</th><th style="width:72px;">类型</th><th style="width:130px;">范围</th><th style="width:56px;">计分</th><th style="width:80px;">满分/等级</th><th style="width:68px;">分数/等级</th><th style="width:76px;">状态</th><th>复盘备注</th></tr>
               <tr><td colspan="10" style="color:var(--sub);text-align:center;padding:26px 10px;">暂无考试记录 · 有考试通知时发给我，我会录入并启动倒计时与考前复习计划</td></tr>
             </table>
@@ -454,7 +499,7 @@
         <div class="card open" data-fold>
           <h3>语文 <span class="date-tag">累计 0 道 · 本周 0 道 · 重复出错知识点 0 个</span><span class="arrow">▸</span></h3>
           <div class="body">
-            <table>
+            <table class="wide">
               <tr><th style="width:72px;">日期</th><th style="width:150px;">知识点</th><th>错题内容</th><th style="width:100px;">错误原因</th><th style="width:80px;">订正</th><th style="width:60px;">复现</th></tr>
               <tr><td colspan="6" style="color:var(--sub);text-align:center;padding:22px 10px;">暂无语文错题记录 · 发现错题时告诉我内容，我来登记归类</td></tr>
             </table>
@@ -463,7 +508,7 @@
         <div class="card open" data-fold>
           <h3>数学 <span class="date-tag">累计 0 道 · 本周 0 道 · 重复出错知识点 0 个</span><span class="arrow">▸</span></h3>
           <div class="body">
-            <table>
+            <table class="wide">
               <tr><th style="width:72px;">日期</th><th style="width:150px;">知识点</th><th>错题内容</th><th style="width:100px;">错误原因</th><th style="width:80px;">订正</th><th style="width:60px;">复现</th></tr>
               <tr><td colspan="6" style="color:var(--sub);text-align:center;padding:22px 10px;">暂无数学错题记录 · 发现错题时告诉我内容，我来登记归类</td></tr>
             </table>
@@ -620,6 +665,8 @@
   </aside>
 </div>
 
+<div class="mask" id="mask"></div>
+
 <div class="toast" id="toast"></div>
 
 <script>
@@ -660,6 +707,11 @@
     if(quick[name]) qi.textContent = quick[name];
     document.getElementById('content').scrollTop = 0;
     if(name === 'exam') drawTrend();
+    /* 手机端：切换视图后关闭抽屉菜单 */
+    var sb = document.querySelector('.sidebar');
+    if(sb) sb.classList.remove('open');
+    var mk = document.getElementById('mask');
+    if(mk) mk.classList.remove('show');
   }
 
   /* ===== 各科分数走势图（数据来自考试记录表，空则显示空态） ===== */
@@ -723,6 +775,24 @@
       if(history.replaceState){ history.replaceState(null, '', '#' + hash); }
     });
   });
+
+  /* 手机端抽屉菜单 */
+  var hamburger = document.getElementById('hamburger');
+  var mask = document.getElementById('mask');
+  var sidebarEl = document.querySelector('.sidebar');
+  function closeSidebar(){
+    if(sidebarEl) sidebarEl.classList.remove('open');
+    if(mask) mask.classList.remove('show');
+  }
+  if(hamburger){
+    hamburger.addEventListener('click', function(){
+      if(sidebarEl) sidebarEl.classList.add('open');
+      if(mask) mask.classList.add('show');
+    });
+  }
+  if(mask){
+    mask.addEventListener('click', closeSidebar);
+  }
 
   var init = (location.hash || '#dashboard').replace('#', '');
   if(!notes[init]) init = 'dashboard';
