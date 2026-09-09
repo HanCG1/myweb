@@ -390,12 +390,7 @@
         </div>
         <div class="card open" data-fold>
           <h3>阅读记录 <span class="arrow">▸</span></h3>
-          <div class="body">
-            <table class="wide">
-              <tr><th style="width:72px;">日期</th><th>书目</th><th style="width:100px;">阅读时长</th><th style="width:130px;">孩子状态</th></tr>
-              <tr><td>9/9</td><td>西游记绘本《四探无底洞》</td><td>30分钟</td><td>已完成</td></tr>
-            </table>
-          </div>
+          <div class="body" id="readingBox"></div>
         </div>
         <div class="card" id="todayReviewCard" style="display:none;">
           <h3>今日反馈 <span class="arrow">▸</span></h3>
@@ -792,15 +787,21 @@
   }
   setDates();
 
-  /* ===== 今日/明日任务数据化渲染 ===== */
-  /* 每天由我更新这两个数组：老师任务收到通知后替换 desc 与 status */
-  var todayTasks = [
-    {time:'19:00-19:05', name:'静坐', desc:'5分钟：头正、身直、肩平、足安（常规任务）', status:'ok', statusText:'已完成'},
-    {time:'19:05-19:20', name:'语文', desc:'P8《天地人》朗读3遍（先听范读）+ 6生字认读组词 + "你我他"说话练习', status:'ok', statusText:'已完成'},
-    {time:'19:20-19:28', name:'数学', desc:'数字"1""2"各一行（②号本·田字格左半格，口诀：先点点再落笔）', status:'ok', statusText:'已完成'},
-    {time:'19:28-19:40', name:'练字', desc:'悬针竖：临写"十""干"（以质量为准，不赶进度）', status:'ok', statusText:'已完成'},
-    {time:'20:40-21:00', name:'整理', desc:'睡前整理书包带齐文具；田字格本写上名字，明天带来', status:'ok', statusText:'已完成'},
-    {time:'21:00', name:'睡觉', desc:'规定21:00入睡；今日实际22:00入睡（超时1小时，注意调整作息）', status:'ok', statusText:'22:00入睡'}
+  /* ===== 每日任务数据化渲染 ===== */
+  /* 按日期存储：收到老师通知后，把当天任务填入 taskDB["YYYY-MM-DD"]（每天默认含"睡觉"项，实际时间以家长告知为准更新） */
+  var taskDB = {
+    '2026-09-09': [
+      {time:'19:00-19:05', name:'静坐', desc:'5分钟：头正、身直、肩平、足安（常规任务）', status:'ok', statusText:'已完成'},
+      {time:'19:05-19:20', name:'语文', desc:'P8《天地人》朗读3遍（先听范读）+ 6生字认读组词 + "你我他"说话练习', status:'ok', statusText:'已完成'},
+      {time:'19:20-19:28', name:'数学', desc:'数字"1""2"各一行（②号本·田字格左半格，口诀：先点点再落笔）', status:'ok', statusText:'已完成'},
+      {time:'19:28-19:40', name:'练字', desc:'悬针竖：临写"十""干"（以质量为准，不赶进度）', status:'ok', statusText:'已完成'},
+      {time:'20:40-21:00', name:'整理', desc:'睡前整理书包带齐文具；田字格本写上名字，明天带来', status:'ok', statusText:'已完成'},
+      {time:'21:00', name:'睡觉', desc:'规定21:00入睡；今日实际22:00入睡（超时1小时，注意调整作息）', status:'ok', statusText:'22:00入睡'}
+    ],
+    '2026-09-10': []
+  };
+  var readingLog = [
+    {date:'2026-09-09', book:'西游记绘本《四探无底洞》', dur:'30分钟', state:'已完成'}
   ];
   var dailyReview = [
     {date:'9月9日', good:['7项任务全部按时完成','语文朗读流利顺畅','静坐头正、身直、肩平','练字认真，收笔有回锋意识'], watch:['静坐时脚轻微活动，足安需加强','练字横画左高右低，应左低右高微微扛肩（明日重点纠正）','睡觉22:00入睡，超出规定21:00达1小时，明日注意睡前节奏']}
@@ -809,36 +810,48 @@
     {name:'练字', desc:'笔画② 悬针竖：继续临写"十""干"（15分钟）'}
   ];
 
+  function ymdKey(d){ return d.getFullYear() + '-' + ('0'+(d.getMonth()+1)).slice(-2) + '-' + ('0'+d.getDate()).slice(-2); }
+
   function renderToday(){
     var box = document.getElementById('todayTasksBox');
     if(!box) return;
-    var tasks = todayTasks.slice();
     var now = new Date();
+    var key = ymdKey(now);
+    var hasData = taskDB[key] && taskDB[key].length > 0;
+    var tasks = hasData ? taskDB[key].slice() : [];
     if(now.getDay() === 0 || now.getDay() === 6){
       tasks.forEach(function(t){ if(t.name === '练字'){ t.desc = '周末自愿：可休息或继续练字'; t.status = 'todo'; t.statusText = '自愿'; } });
     }
-    if(!tasks.length){ box.innerHTML = '<div class="empty"><b>今日暂无安排</b></div>'; }
-    else{
-      var h = '<table class="wide"><tr><th style="width:100px;">时段</th><th style="width:72px;">任务</th><th>说明</th><th style="width:90px;">状态</th></tr>';
+    var h;
+    if(hasData){
+      h = '<table class="wide"><tr><th style="width:100px;">时段</th><th style="width:72px;">任务</th><th>说明</th><th style="width:90px;">状态</th></tr>';
       tasks.forEach(function(t){
         h += '<tr><td>' + t.time + '</td><td>' + t.name + '</td><td>' + t.desc + '</td><td><span class="badge ' + t.status + '">' + t.statusText + '</span></td></tr>';
       });
-      box.innerHTML = h + '</table>';
+      h += '</table>';
+    } else {
+      h = '<div class="empty" style="padding:20px 10px;"><b>今日任务待布置</b><span>收到老师通知后，我会更新今日安排</span></div>';
+      h += '<table class="wide"><tr><th style="width:100px;">时段</th><th style="width:72px;">任务</th><th>说明</th><th style="width:90px;">状态</th></tr>';
+      h += '<tr><td>21:00</td><td>睡觉</td><td>规定21:00入睡；实际时间待家长告知</td><td><span class="badge todo">待告知</span></td></tr></table>';
     }
-    var done = tasks.filter(function(t){ return t.status === 'ok'; }).length;
+    box.innerHTML = h;
     var st = document.getElementById('tonightStat');
     if(st){
-      var dot = done === tasks.length ? 'ok' : (done > 0 ? 'doing' : 'todo');
-      var label = done === tasks.length ? '已完成' : (done > 0 ? '进行中' : '待更新');
-      st.innerHTML = '<span class="dot ' + dot + '"></span>' + done + '/' + tasks.length + ' ' + label;
+      if(hasData){
+        var done = tasks.filter(function(t){ return t.status === 'ok'; }).length;
+        var dot = done === tasks.length ? 'ok' : (done > 0 ? 'doing' : 'todo');
+        var label = done === tasks.length ? '已完成' : (done > 0 ? '进行中' : '待更新');
+        st.innerHTML = '<span class="dot ' + dot + '"></span>' + done + '/' + tasks.length + ' ' + label;
+      } else {
+        st.innerHTML = '<span class="dot todo"></span>待布置';
+      }
     }
     /* 今日反馈：好 / 注意 */
-    var now = new Date();
-    var key = (now.getMonth()+1) + '月' + now.getDate() + '日';
+    var key2 = (now.getMonth()+1) + '月' + now.getDate() + '日';
     var card = document.getElementById('todayReviewCard');
     var rb = document.getElementById('todayReviewBox');
     var rev = null;
-    for(var i=0;i<dailyReview.length;i++){ if(dailyReview[i].date === key){ rev = dailyReview[i]; break; } }
+    for(var i=0;i<dailyReview.length;i++){ if(dailyReview[i].date === key2){ rev = dailyReview[i]; break; } }
     if(card && rb){
       if(rev){
         var rh = '<div class="review-good"><b>做得好的地方</b><ul>';
@@ -853,6 +866,22 @@
     }
   }
 
+  function renderReading(){
+    var box = document.getElementById('readingBox');
+    if(!box) return;
+    var key = ymdKey(new Date());
+    var rows = readingLog.filter(function(r){ return r.date === key; });
+    var h = '<table class="wide"><tr><th style="width:72px;">日期</th><th>书目</th><th style="width:100px;">阅读时长</th><th style="width:130px;">孩子状态</th></tr>';
+    if(!rows.length){
+      h += '<tr><td colspan="4" style="color:var(--sub);text-align:center;padding:20px 10px;">今日阅读待安排（20:00-20:30 亲子阅读，书目随老师通知或自选）</td></tr>';
+    } else {
+      rows.forEach(function(r){
+        h += '<tr><td>' + r.date.slice(5).replace('-','/') + '</td><td>' + r.book + '</td><td>' + r.dur + '</td><td>' + r.state + '</td></tr>';
+      });
+    }
+    box.innerHTML = h + '</table>';
+  }
+
   function renderTomorrow(){
     var box = document.getElementById('tomorrowBox');
     if(!box) return;
@@ -865,6 +894,7 @@
     box.innerHTML = h;
   }
   renderToday();
+  renderReading();
   renderTomorrow();
 
   document.querySelectorAll('[data-fold]').forEach(function(card){
