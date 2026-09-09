@@ -362,8 +362,8 @@
           <div class="body">
             <table>
               <tr><th style="width:90px;">日期</th><th style="width:64px;">学科</th><th>任务</th><th style="width:90px;">状态</th></tr>
-              <tr><td>9/9</td><td>语文</td><td>指读课本2-8页</td><td><span class="badge todo">待完成</span></td></tr>
-              <tr><td>9/9</td><td>数学</td><td>数字"1""2" + 思维打卡</td><td><span class="badge todo">待完成</span></td></tr>
+              <tr><td>9/9</td><td>语文</td><td>P8《天地人》朗读3遍 + 生字组词 + "你我他"说话</td><td><span class="badge todo">待完成</span></td></tr>
+              <tr><td>9/9</td><td>数学</td><td>数字"1""2"各一行（②号本·左半格）</td><td><span class="badge todo">待完成</span></td></tr>
               <tr><td>9/9</td><td>练字</td><td>悬针竖：临写"十""干"</td><td><span class="badge todo">待完成</span></td></tr>
               <tr><td>9/9</td><td>阅读</td><td>西游记绘本《四探无底洞》</td><td><span class="badge todo">待完成</span></td></tr>
               <tr><td>9/8</td><td>语文</td><td>指读课本6-8页（每页2遍）</td><td><span class="badge ok">已完成</span></td></tr>
@@ -417,10 +417,12 @@
           <div class="body">
             <table class="wide">
               <tr><th style="width:100px;">时间</th><th style="width:72px;">学科</th><th>任务</th><th style="width:90px;">状态</th></tr>
-              <tr><td>19:00-19:10</td><td>语文</td><td>指读课本2-8页（先听范读，再指读）</td><td><span class="badge todo">待完成</span></td></tr>
-              <tr><td>19:10-19:20</td><td>数学</td><td>书写数字"1""2" + 数学思维打卡</td><td><span class="badge todo">待完成</span></td></tr>
-              <tr><td>19:20-19:35</td><td>练字</td><td>悬针竖：临写"十""干"（15分钟）</td><td><span class="badge todo">待完成</span></td></tr>
+              <tr><td>19:00-19:05</td><td>常规</td><td>静坐5分钟：头正、身直、肩平、足安</td><td><span class="badge todo">待完成</span></td></tr>
+              <tr><td>19:05-19:20</td><td>语文</td><td>P8《天地人》朗读3遍（先听范读）+ 生字"天地人你我他"读3遍打乱认读组词 + "你我他"说话练习</td><td><span class="badge todo">待完成</span></td></tr>
+              <tr><td>19:20-19:28</td><td>数学</td><td>数字"1""2"各写一行（②号本·田字格左半格，口诀：先点点再落笔）</td><td><span class="badge todo">待完成</span></td></tr>
+              <tr><td>19:28-19:40</td><td>练字</td><td>悬针竖：临写"十""干"</td><td><span class="badge todo">待完成</span></td></tr>
               <tr><td>20:00-20:30</td><td>阅读</td><td>西游记绘本《四探无底洞》</td><td><span class="badge todo">待完成</span></td></tr>
+              <tr><td>20:40-21:00</td><td>整理</td><td>整理书包带齐文具；田字格本写上名字，明天带来</td><td><span class="badge todo">待完成</span></td></tr>
             </table>
           </div>
         </div>
@@ -434,7 +436,7 @@
             </table>
             <div class="rec">
               <li><span class="tag">数学</span>照片已查看：斜度正确（未写成竖线）、起笔偏上收笔偏下、大小适中不顶格、10个整体一致</li>
-              <li><span class="tag">观察点</span>占格略居中，规范应更靠右半格 —— 明日写时自然提醒一句</li>
+              <li><span class="tag">观察点</span>占格略居中；9/9老师明确规范：数字写在田字格<strong>左半格</strong>，已纠正此前"应靠右"的判断，今晚书写重点提醒靠左</li>
             </div>
           </div>
         </div>
@@ -772,9 +774,11 @@
   /* ===== 今日/明日任务数据化渲染 ===== */
   /* 每天由我更新这两个数组：老师任务收到通知后替换 desc 与 status */
   var todayTasks = [
-    {time:'19:00-19:10', name:'语文', desc:'指读课本2-8页：先听范读，再指读（5-10分钟）', status:'todo', statusText:'待完成'},
-    {time:'19:10-19:20', name:'数学', desc:'书写数字"1""2" + 数学思维打卡', status:'todo', statusText:'待完成'},
-    {time:'19:20-19:35', name:'练字', desc:'笔画② 悬针竖：临写"十""干"（15分钟）', status:'todo', statusText:'待完成'}
+    {time:'19:00-19:05', name:'静坐', desc:'5分钟：头正、身直、肩平、足安（常规任务）', status:'todo', statusText:'待完成'},
+    {time:'19:05-19:20', name:'语文', desc:'P8《天地人》朗读3遍（先听范读）+ 6生字认读组词 + "你我他"说话练习', status:'todo', statusText:'待完成'},
+    {time:'19:20-19:28', name:'数学', desc:'数字"1""2"各一行（②号本·田字格左半格，口诀：先点点再落笔）', status:'todo', statusText:'待完成'},
+    {time:'19:28-19:40', name:'练字', desc:'悬针竖：临写"十""干"（以质量为准，不赶进度）', status:'todo', statusText:'待完成'},
+    {time:'20:40-21:00', name:'整理', desc:'睡前整理书包带齐文具；田字格本写上名字，明天带来', status:'todo', statusText:'待完成'}
   ];
   var tomorrowTasks = [
     {name:'练字', desc:'笔画② 悬针竖：继续临写"十""干"（15分钟）'}
