@@ -282,6 +282,10 @@
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
         任务日志
       </div>
+      <div class="menu-item" data-view="reading">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        阅读记录
+      </div>
       <div class="menu-item" data-view="exam">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
         考试
@@ -365,19 +369,8 @@
           <div class="stat"><div class="t">下次考试</div><div class="v"><span class="dot todo"></span>暂无安排</div></div>
         </div>
         <div class="card open" data-fold>
-          <h3>近期任务 <span class="arrow">▸</span></h3>
-          <div class="body">
-            <table class="wide">
-              <tr><th style="width:90px;">日期</th><th style="width:64px;">学科</th><th>任务</th><th style="width:90px;">状态</th></tr>
-              <tr><td>9/9</td><td>语文</td><td>P8《天地人》朗读3遍 + 生字组词 + "你我他"说话</td><td><span class="badge ok">已完成</span></td></tr>
-              <tr><td>9/9</td><td>数学</td><td>数字"1""2"各一行（②号本·左半格）</td><td><span class="badge ok">已完成</span></td></tr>
-              <tr><td>9/9</td><td>练字</td><td>悬针竖：临写"十""干"</td><td><span class="badge ok">已完成</span></td></tr>
-              <tr><td>9/9</td><td>阅读</td><td>西游记绘本《四探无底洞》</td><td><span class="badge ok">已完成</span></td></tr>
-              <tr><td>9/8</td><td>语文</td><td>指读课本6-8页（每页2遍）</td><td><span class="badge ok">已完成</span></td></tr>
-              <tr><td>9/8</td><td>数学</td><td>数字"1"写一行</td><td><span class="badge ok">已完成</span></td></tr>
-              <tr><td>9/5</td><td>口语</td><td>创编小故事（排队中，未轮到讲述）</td><td><span class="badge todo">排队中</span></td></tr>
-            </table>
-          </div>
+          <h3>近期任务（最近10条） <span class="arrow">▸</span></h3>
+          <div class="body" id="recentBox"></div>
         </div>
       </div>
 
@@ -387,10 +380,6 @@
         <div class="card open" data-fold>
           <h3>今日安排 <span class="date-tag" id="todayTag">—</span><span class="arrow">▸</span></h3>
           <div class="body" id="todayTasksBox"></div>
-        </div>
-        <div class="card open" data-fold>
-          <h3>阅读记录 <span class="arrow">▸</span></h3>
-          <div class="body" id="readingBox"></div>
         </div>
         <div class="card" id="todayReviewCard" style="display:none;">
           <h3>今日反馈 <span class="arrow">▸</span></h3>
@@ -418,6 +407,27 @@
       <div class="view" id="view-tasks">
         <div class="v-head"><h2>任务日志</h2><span class="en">TASK LOG</span><span style="margin-left:auto;display:flex;align-items:center;gap:10px;"><span class="filter-group"><button type="button" data-filter="week">本周</button><button type="button" data-filter="month">本月</button><button type="button" data-filter="all" class="on">全部</button></span></span></div>
 
+        <div class="card open" data-fold data-date="2026-09-10">
+          <h3>2026-09-10 <span class="date-tag">周四</span><span class="arrow">▸</span></h3>
+          <div class="body">
+            <table class="wide">
+              <tr><th style="width:100px;">时间</th><th style="width:72px;">学科</th><th>任务</th><th style="width:90px;">状态</th></tr>
+              <tr><td>19:00-19:05</td><td>常规</td><td>静坐5分钟：头正、肩平、身直、足安</td><td><span class="badge ok">已完成</span></td></tr>
+              <tr><td>19:05-19:20</td><td>语文</td><td>识字②《金木水火土》：认田字格读儿歌 + "一"写一行 + 朗读课文2遍</td><td><span class="badge ok">已完成</span></td></tr>
+              <tr><td>19:20-19:28</td><td>数学</td><td>数字"1""2""3"各写一行（二号本；先点点再动笔）</td><td><span class="badge ok">已完成</span></td></tr>
+              <tr><td>19:28-19:40</td><td>练字</td><td>悬针竖：临写"十""干"（重点纠正横画左高右低）</td><td><span class="badge ok">已完成</span></td></tr>
+              <tr><td>20:00-20:30</td><td>阅读</td><td>西游记绘本《四探无底洞》</td><td><span class="badge todo">待完成</span></td></tr>
+              <tr><td>20:40-21:00</td><td>整理</td><td>整理书包带齐文具（每日默认）</td><td><span class="badge todo">待完成</span></td></tr>
+              <tr><td>21:00</td><td>睡觉</td><td>规定21:00入睡（每日默认）</td><td><span class="badge todo">待告知</span></td></tr>
+            </table>
+            <div class="rec">
+              <li><span class="tag">常规</span>主动提出、全程按要求完成；<span class="tag">观察点</span>今天足安没动（比昨天进步），剩1分钟快坚持不住时努力克制坚持完成</li>
+              <li><span class="tag">语文</span>书写"一"一行规范、指读规范，完成</li>
+              <li><span class="tag">数学</span>态度认真、整体规范，完成；<span class="tag">观察点</span>数字3个别书写不够规范，明日留意</li>
+              <li><span class="tag">练字</span>完成；<span class="tag">观察点</span>态度比昨天认真，书写进步很大</li>
+            </div>
+          </div>
+        </div>
         <div class="card open" data-fold data-date="2026-09-09">
           <h3>2026-09-09 <span class="date-tag">周三</span><span class="arrow">▸</span></h3>
           <div class="body">
@@ -470,6 +480,15 @@
               <li><span class="tag">额外</span>完成后主动预习了下一课（自发行为，值得持续观察）</li>
             </div>
           </div>
+        </div>
+      </div>
+
+      <!-- ===== 阅读记录 ===== -->
+      <div class="view" id="view-reading">
+        <div class="v-head"><h2>阅读记录</h2><span class="en">READING</span><span style="margin-left:auto;font-size:12px;color:var(--sub);">累计读过 <b id="readingCount">0</b> 本</span></div>
+        <div class="card open" data-fold>
+          <h3>读过的书 <span class="arrow">▸</span></h3>
+          <div class="body" id="readingBox"></div>
         </div>
       </div>
 
@@ -761,7 +780,7 @@
     mask.addEventListener('click', closeSidebar);
   }
 
-  var validViews = ['dashboard','today','tasks','errors','weak','weekly','exam','writing','chess','settings'];
+  var validViews = ['dashboard','today','tasks','reading','errors','weak','weekly','exam','writing','chess','settings'];
   var init = (location.hash || '#dashboard').replace('#', '');
   if(validViews.indexOf(init) === -1) init = 'dashboard';
   switchView(init);
@@ -798,16 +817,47 @@
       {time:'20:40-21:00', name:'整理', desc:'睡前整理书包带齐文具；田字格本写上名字，明天带来', status:'ok', statusText:'已完成'},
       {time:'21:00', name:'睡觉', desc:'规定21:00入睡；今日实际22:00入睡（超时1小时，注意调整作息）', status:'ok', statusText:'22:00入睡'}
     ],
-    '2026-09-10': []
+    '2026-09-10': [
+      {time:'19:00-19:05', name:'静坐', desc:'5分钟：头正、肩平、身直、足安（常规任务）', status:'ok', statusText:'已完成'},
+      {time:'19:05-19:20', name:'语文', desc:'识字②《金木水火土》：认田字格读儿歌 + 会写的字"一"写一行 + 朗读课文2遍（大声、正确、流利）', status:'ok', statusText:'已完成'},
+      {time:'19:20-19:28', name:'数学', desc:'数字"1""2""3"各写一行（二号本；先点点再动笔；铅笔勿过粗，先削好）', status:'ok', statusText:'已完成'},
+      {time:'19:28-19:40', name:'练字', desc:'悬针竖：临写"十""干"；重点纠正横画左高右低（应左低右高微扛肩）', status:'ok', statusText:'已完成'},
+      {time:'20:00-20:30', name:'阅读', desc:'西游记绘本《四探无底洞》（昨日读过，可重读或继续下一回）', status:'todo', statusText:'待完成'},
+      {time:'20:40-21:00', name:'整理', desc:'睡前整理书包带齐文具', status:'todo', statusText:'待完成'},
+      {time:'21:00', name:'睡觉', desc:'规定21:00入睡；实际时间待家长告知（昨日22:00超时，今晚注意节奏）', status:'todo', statusText:'待告知'}
+    ]
   };
   var readingLog = [
     {date:'2026-09-09', book:'西游记绘本《四探无底洞》', dur:'30分钟', state:'已完成'}
   ];
   var dailyReview = [
-    {date:'9月9日', good:['7项任务全部按时完成','语文朗读流利顺畅','静坐头正、身直、肩平','练字认真，收笔有回锋意识'], watch:['静坐时脚轻微活动，足安需加强','练字横画左高右低，应左低右高微微扛肩（明日重点纠正）','睡觉22:00入睡，超出规定21:00达1小时，明日注意睡前节奏']}
+    {date:'9月9日', good:['7项任务全部按时完成','语文朗读流利顺畅','静坐头正、身直、肩平','练字认真，收笔有回锋意识'], watch:['静坐时脚轻微活动，足安需加强','练字横画左高右低，应左低右高微微扛肩（明日重点纠正）','睡觉22:00入睡，超出规定21:00达1小时，明日注意睡前节奏']},
+    {date:'9月10日', good:['全程主动完成、专注认真','静坐主动提出且全程规范（足安今天没动，比昨天进步）','练字态度比昨天认真，书写进步很大','数学书写态度认真、整体规范'], watch:['数字3个别书写不够规范，明日留意','静坐剩1分钟时略有吃力，可继续通过静坐锻炼耐力','阅读、整理书包、睡觉时间待反馈']}
   ];
   var tomorrowTasks = [
     {name:'练字', desc:'笔画② 悬针竖：继续临写"十""干"（15分钟）'}
+  ];
+
+  /* 首页近期任务：按时间倒序维护，渲染最近10条 */
+  var recentTasks = [
+    {date:'9/10', subj:'常规', task:'静坐5分钟：头正、肩平、身直、足安', status:'ok', statusText:'已完成'},
+    {date:'9/10', subj:'语文', task:'识字②《金木水火土》：认田字格读儿歌 + "一"写一行 + 朗读2遍', status:'ok', statusText:'已完成'},
+    {date:'9/10', subj:'数学', task:'数字"1""2""3"各写一行（二号本）', status:'ok', statusText:'已完成'},
+    {date:'9/10', subj:'练字', task:'悬针竖：临写"十""干"（纠正横画）', status:'ok', statusText:'已完成'},
+    {date:'9/10', subj:'阅读', task:'西游记绘本《四探无底洞》', status:'todo', statusText:'待完成'},
+    {date:'9/10', subj:'整理', task:'整理书包带齐文具（每日默认）', status:'todo', statusText:'待完成'},
+    {date:'9/10', subj:'睡觉', task:'规定21:00入睡（每日默认）', status:'todo', statusText:'待告知'},
+    {date:'9/9', subj:'常规', task:'静坐5分钟：头正、身直、肩平、足安', status:'ok', statusText:'已完成'},
+    {date:'9/9', subj:'语文', task:'P8《天地人》朗读3遍 + 生字组词 + "你我他"说话', status:'ok', statusText:'已完成'},
+    {date:'9/9', subj:'数学', task:'数字"1""2"各一行（②号本·左半格）', status:'ok', statusText:'已完成'},
+    {date:'9/9', subj:'练字', task:'悬针竖：临写"十""干"', status:'ok', statusText:'已完成'},
+    {date:'9/9', subj:'阅读', task:'西游记绘本《四探无底洞》', status:'ok', statusText:'已完成'},
+    {date:'9/9', subj:'整理', task:'整理书包带齐文具', status:'ok', statusText:'已完成'},
+    {date:'9/9', subj:'睡觉', task:'21:00入睡（实际22:00，超时1小时）', status:'doing', statusText:'22:00入睡'},
+    {date:'9/8', subj:'语文', task:'指读课本6-8页（每页2遍）', status:'ok', statusText:'已完成'},
+    {date:'9/8', subj:'数学', task:'数字"1"写一行', status:'ok', statusText:'已完成'},
+    {date:'9/5', subj:'语文', task:'周末指读课本2-5页', status:'ok', statusText:'已完成'},
+    {date:'9/5', subj:'口语', task:'创编小故事（排队中，未轮到讲述）', status:'todo', statusText:'排队中'}
   ];
 
   function ymdKey(d){ return d.getFullYear() + '-' + ('0'+(d.getMonth()+1)).slice(-2) + '-' + ('0'+d.getDate()).slice(-2); }
@@ -832,6 +882,7 @@
     } else {
       h = '<div class="empty" style="padding:20px 10px;"><b>今日任务待布置</b><span>收到老师通知后，我会更新今日安排</span></div>';
       h += '<table class="wide"><tr><th style="width:100px;">时段</th><th style="width:72px;">任务</th><th>说明</th><th style="width:90px;">状态</th></tr>';
+      h += '<tr><td>20:40-21:00</td><td>整理</td><td>睡前整理书包带齐文具（每日默认必做）</td><td><span class="badge todo">待完成</span></td></tr>';
       h += '<tr><td>21:00</td><td>睡觉</td><td>规定21:00入睡；实际时间待家长告知</td><td><span class="badge todo">待告知</span></td></tr></table>';
     }
     box.innerHTML = h;
@@ -869,16 +920,29 @@
   function renderReading(){
     var box = document.getElementById('readingBox');
     if(!box) return;
-    var key = ymdKey(new Date());
-    var rows = readingLog.filter(function(r){ return r.date === key; });
+    var rows = readingLog.slice().reverse();
+    var cnt = document.getElementById('readingCount');
+    if(cnt) cnt.textContent = rows.length;
     var h = '<table class="wide"><tr><th style="width:72px;">日期</th><th>书目</th><th style="width:100px;">阅读时长</th><th style="width:130px;">孩子状态</th></tr>';
     if(!rows.length){
-      h += '<tr><td colspan="4" style="color:var(--sub);text-align:center;padding:20px 10px;">今日阅读待安排（20:00-20:30 亲子阅读，书目随老师通知或自选）</td></tr>';
+      h += '<tr><td colspan="4" style="color:var(--sub);text-align:center;padding:26px 10px;">暂无阅读记录 · 每晚亲子阅读后告诉我书目与状态，我会录入</td></tr>';
     } else {
       rows.forEach(function(r){
-        h += '<tr><td>' + r.date.slice(5).replace('-','/') + '</td><td>' + r.book + '</td><td>' + r.dur + '</td><td>' + r.state + '</td></tr>';
+        var md = r.date.slice(5).split('-');
+        h += '<tr><td>' + (+md[0]) + '/' + (+md[1]) + '</td><td>' + r.book + '</td><td>' + r.dur + '</td><td>' + r.state + '</td></tr>';
       });
     }
+    box.innerHTML = h + '</table>';
+  }
+
+  function renderRecent(){
+    var box = document.getElementById('recentBox');
+    if(!box) return;
+    var rows = recentTasks.slice(0, 10);
+    var h = '<table class="wide"><tr><th style="width:90px;">日期</th><th style="width:64px;">学科</th><th>任务</th><th style="width:90px;">状态</th></tr>';
+    rows.forEach(function(t){
+      h += '<tr><td>' + t.date + '</td><td>' + t.subj + '</td><td>' + t.task + '</td><td><span class="badge ' + t.status + '">' + t.statusText + '</span></td></tr>';
+    });
     box.innerHTML = h + '</table>';
   }
 
@@ -896,6 +960,7 @@
   renderToday();
   renderReading();
   renderTomorrow();
+  renderRecent();
 
   document.querySelectorAll('[data-fold]').forEach(function(card){
     card.querySelector('h3').addEventListener('click', function(){
