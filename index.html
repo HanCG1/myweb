@@ -248,6 +248,23 @@
     #examTable.wide{min-width:780px;}
     .stat-grid{grid-template-columns:repeat(auto-fit,minmax(150px,1fr));}
     .theme-switch button{flex:1 1 40%;}
+    /* 近期任务：手机端不再横向滚动，压缩日期/学科/状态列，任务列占主要宽度 */
+    table.recent-table{min-width:0 !important;}
+    table.recent-table th:nth-child(1),table.recent-table td:nth-child(1){width:52px !important;}
+    table.recent-table th:nth-child(2),table.recent-table td:nth-child(2){width:44px !important;}
+    table.recent-table th:nth-child(4),table.recent-table td:nth-child(4){width:64px !important;}
+    table.recent-table th:nth-child(1),table.recent-table td:nth-child(1),
+    table.recent-table th:nth-child(2),table.recent-table td:nth-child(2),
+    table.recent-table th:nth-child(4),table.recent-table td:nth-child(4){white-space:nowrap;}
+    table.recent-table td:last-child{max-width:64px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+    table.recent-table th:nth-child(3),table.recent-table td:nth-child(3){width:auto;}
+    /* 任务日志：手机端同样自适应，任务列占主要宽度（时间列保证单行） */
+    table.log-table{min-width:0 !important;}
+    table.log-table th:nth-child(1),table.log-table td:nth-child(1){width:96px !important;white-space:nowrap;}
+    table.log-table th:nth-child(2),table.log-table td:nth-child(2){width:46px !important;white-space:nowrap;}
+    table.log-table th:nth-child(4),table.log-table td:nth-child(4){width:64px !important;}
+    table.log-table td:last-child{max-width:64px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+    table.log-table th:nth-child(3),table.log-table td:nth-child(3){width:auto;}
   }
 </style>
 </head>
@@ -369,7 +386,7 @@
         <div class="stat-grid">
           <div class="stat"><div class="t">今晚任务</div><div class="v" id="tonightStat"><span class="dot todo"></span>待更新</div></div>
           <div class="stat"><div class="t">练字进度</div><div class="v"><span class="dot doing"></span>笔画阶段</div></div>
-          <div class="stat"><div class="t">下次周报</div><div class="v" id="nextReport"><span class="dot todo"></span>9/12 周六自动生成</div></div>
+          <div class="stat"><div class="t">下次周报</div><div class="v" id="nextReport"><span class="dot todo"></span>9/20 周日21:00自动生成</div></div>
           <div class="stat"><div class="t">下次考试</div><div class="v"><span class="dot todo"></span>暂无安排</div></div>
         </div>
         <div class="card open" data-fold>
@@ -716,11 +733,11 @@
     var tomorrow = new Date(now); tomorrow.setDate(now.getDate() + 1);
     var tm = document.getElementById('tomorrowTag');
     if(tm) tm.textContent = fmtMD(tomorrow) + ' 周' + weeks[tomorrow.getDay()];
-    var sat = new Date(now);
-    sat.setDate(now.getDate() + ((6 - now.getDay() + 7) % 7));
-    if(now.getDay() === 6 && now.getHours() >= 20 && now.getMinutes() >= 30){ sat.setDate(sat.getDate() + 7); }
+    var sun = new Date(now);
+    sun.setDate(now.getDate() + ((7 - now.getDay() + 7) % 7));
+    if(now.getDay() === 0 && now.getHours() >= 21){ sun.setDate(sun.getDate() + 7); }
     var nr = document.getElementById('nextReport');
-    if(nr) nr.innerHTML = '<span class="dot todo"></span>' + fmtMD(sat) + ' 周六自动生成';
+    if(nr) nr.innerHTML = '<span class="dot todo"></span>' + fmtMD(sun) + ' 周日21:00自动生成';
   }
   setDates();
 
@@ -770,6 +787,15 @@
       {time:'19:30-20:00', name:'阅读', desc:'亲子阅读（书目未定，推荐续读西游记绘本或家中绘本）', status:'ok', statusText:'已完成（21:30-21:50 睡前阅读20分钟，书目待补）'},
       {time:'20:00-20:10', name:'整理', desc:'睡前整理书包带齐文具（每日默认必做）', status:'ok', statusText:'已完成'},
       {time:'21:00', name:'睡觉', desc:'规定21:00入睡（每日默认；严格执行睡眠硬边界）', status:'ok', statusText:'21:50关灯入睡（超时50分钟；家长目标提前至21:30）'}
+    ],
+    '2026-09-15': [
+      {time:'18:30-18:40', name:'常规', desc:'静坐5分钟：头正、肩平、身直、足安（常规任务）', status:'todo', statusText:'待完成'},
+      {time:'18:40-19:00', name:'语文', desc:'第3课《口耳目手足》：横折笔画写两行 + 指读课本11-12页（生字认读）', status:'todo', statusText:'待完成'},
+      {time:'19:00-19:25', name:'数学', desc:'2、3、4、5的分成：小棒/圆片按顺序边摆边说，不重复不遗漏，口头熟练后书写一遍（划线用直尺：一标、二按、三贴、四画）', status:'todo', statusText:'待完成'},
+      {time:'19:25-19:40', name:'练字', desc:'笔画阶段：临写"口""中"（横折重点观察；规则前置：定时间与标准）', status:'todo', statusText:'待完成'},
+      {time:'19:40-20:10', name:'阅读', desc:'亲子阅读（推荐续读西游记绘本或家中绘本）', status:'todo', statusText:'待完成'},
+      {time:'20:10-20:20', name:'整理', desc:'睡前整理书包带齐文具（每日默认必做）', status:'todo', statusText:'待完成'},
+      {time:'21:00', name:'睡觉', desc:'规定21:00入睡（家长目标21:30前，坚持睡眠硬边界）', status:'todo', statusText:'待就寝'}
     ]
   };
   /* 每日小结（任务日志显示，每晚完成后同步更新当日 rec） */
@@ -796,9 +822,9 @@
     {date:'9月14日', good:['静坐主动完成且专注（家长进卧室拿东西也未受影响）','练字比周末又有进步：观察占格仔细、用时较短，孩子发现"只要想写好就能写好"','数学1-5各一行书写规范、认真','语文"一、二、三、上"笔顺书写认真（刚开始接触笔顺）','全部任务完成、自觉性好'], watch:['语文笔顺"二""上"第二笔直接写了完整汉字，后用橡皮擦掉多余笔顺（刚开始接触书写笔顺，明日继续观察笔顺意识）','睡觉21:50关灯，超时50分钟（家长目标提前至21:30）','奖励看电视占用了晚间时间，亲子阅读被推到21:30-21:50，需优化奖励安排']}
   ];
   var tomorrowTasks = [
-    {name:'上课日', desc:'9/15（周二）上课：带齐课本、作业本、田字格本'},
-    {name:'时间管理', desc:'放学先完成书面作业再吃饭（今日总结的整改目标）；作业尽早完成，留足亲子阅读时间'},
-    {name:'睡眠', desc:'目标21:30入睡（比今日21:50提前；坚持睡眠硬边界）'},
+    {name:'上课日', desc:'9/16（周三）上课：带齐课本、作业本、田字格本'},
+    {name:'时间管理', desc:'放学先完成书面作业再吃饭；作业尽早完成，留足亲子阅读时间'},
+    {name:'睡眠', desc:'目标21:30入睡（坚持睡眠硬边界）'},
     {name:'习惯提醒', desc:'放学先检查书包带齐再离校（长期习惯，引以为戒）'}
   ];
 
@@ -982,7 +1008,7 @@
     var box = document.getElementById('recentBox');
     if(!box) return;
     var rows = buildRecent().slice(0, 10);
-    var h = '<table class="wide"><tr><th style="width:90px;">日期</th><th style="width:64px;">学科</th><th>任务</th><th style="width:90px;">状态</th></tr>';
+    var h = '<table class="wide recent-table"><tr><th style="width:90px;">日期</th><th style="width:64px;">学科</th><th>任务</th><th style="width:90px;">状态</th></tr>';
     rows.forEach(function(t){
       h += '<tr><td>' + t.date + '</td><td>' + t.subj + '</td><td>' + t.task + '</td><td><span class="badge ' + t.status + '">' + t.statusText + '</span></td></tr>';
     });
@@ -1034,7 +1060,7 @@
       h += '<div class="card open" data-fold data-date="' + k + '">';
       h += '<h3>' + k + ' <span class="date-tag">' + tag + '</span><span class="arrow">▸</span></h3><div class="body">';
       if(tasks.length){
-        h += '<table class="wide"><tr><th style="width:100px;">时间</th><th style="width:72px;">学科</th><th>任务</th><th style="width:90px;">状态</th></tr>';
+        h += '<table class="wide log-table"><tr><th style="width:100px;">时间</th><th style="width:72px;">学科</th><th>任务</th><th style="width:90px;">状态</th></tr>';
         tasks.forEach(function(t){
           h += '<tr><td>' + t.time + '</td><td>' + t.name + '</td><td>' + t.desc + '</td><td><span class="badge ' + t.status + '">' + t.statusText + '</span></td></tr>';
         });
