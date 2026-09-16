@@ -285,6 +285,23 @@
     #weakBoxCn td[data-label],#weakBoxMa td[data-label]{margin-right:8px;}
     #weakBoxCn td:last-child,#weakBoxMa td:last-child{order:2;margin-left:auto;}
     #weakBoxCn td:nth-child(4),#weakBoxMa td:nth-child(4){order:3;flex-basis:100%;margin-top:6px;}
+    /* 错题记录：手机端卡片化 */
+    #mistakeBoxCn table,#mistakeBoxMa table{display:block;}
+    #mistakeBoxCn table.wide,#mistakeBoxMa table.wide{min-width:0;}
+    #mistakeBoxCn thead,#mistakeBoxMa thead{display:none;}
+    #mistakeBoxCn tbody,#mistakeBoxMa tbody{display:block;}
+    #mistakeBoxCn tr,#mistakeBoxMa tr{display:flex;flex-wrap:wrap;border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin-bottom:10px;background:var(--card-bg);}
+    #mistakeBoxCn td,#mistakeBoxMa td{display:block;border:none;padding:0;font-size:13px;color:var(--sub);line-height:1.8;}
+    #mistakeBoxCn td:first-child,#mistakeBoxMa td:first-child{font-weight:700;font-size:14px;color:var(--ink);}
+    #mistakeBoxCn td:last-child,#mistakeBoxMa td:last-child{order:2;margin-left:auto;font-size:12px;color:var(--sub);}
+    #mistakeBoxCn td:nth-child(2),#mistakeBoxMa td:nth-child(2){order:3;font-weight:700;font-size:15px;color:var(--ink);margin:4px 0 2px;}
+    #mistakeBoxCn td:nth-child(3),#mistakeBoxMa td:nth-child(3){order:4;}
+    #mistakeBoxCn td:nth-child(4),#mistakeBoxMa td:nth-child(4){order:5;}
+    #mistakeBoxCn td:nth-child(5),#mistakeBoxMa td:nth-child(5){order:6;}
+    #mistakeBoxCn td:nth-child(3)::before,#mistakeBoxMa td:nth-child(3)::before{content:'错题 ';font-weight:700;color:var(--ink);}
+    #mistakeBoxCn td:nth-child(4)::before,#mistakeBoxMa td:nth-child(4)::before{content:'原因 ';font-weight:700;color:var(--ink);}
+    #mistakeBoxCn td:nth-child(5)::before,#mistakeBoxMa td:nth-child(5)::before{content:'订正 ';font-weight:700;color:var(--ink);}
+    #mistakeBoxCn td[colspan],#mistakeBoxMa td[colspan]{flex-basis:100%;text-align:center;color:var(--sub);}
   }
 </style>
 </head>
@@ -1203,7 +1220,7 @@
       var dupN = 0;
       for(var p in dupPoints){ if(dupPoints[p] > 1) dupN++; }
       if(el) el.textContent = '累计 ' + rows.length + ' 道 · 本周 ' + weekCount + ' 道 · 重复出错知识点 ' + dupN + ' 个';
-      var h = '<table class="wide"><tr><th style="width:72px;">日期</th><th style="width:150px;">知识点</th><th>错题内容</th><th style="width:100px;">错误原因</th><th style="width:80px;">订正</th><th style="width:60px;">复现</th></tr>';
+      var h = '<table class="wide"><tr><th style="width:72px;">日期</th><th style="width:130px;">知识点</th><th style="width:280px;">错题内容</th><th style="width:150px;">错误原因</th><th style="width:110px;">订正</th><th style="width:60px;">复现</th></tr>';
       if(!rows.length){
         h += '<tr><td colspan="6" style="color:var(--sub);text-align:center;padding:22px 10px;">暂无错题记录 · 发现错题时告诉我内容，我来登记归类</td></tr>';
       } else {
