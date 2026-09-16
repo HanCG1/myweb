@@ -229,9 +229,6 @@
   .mask.show{opacity:1;pointer-events:auto;}
 
   /* ============ 手机端适配（≤900px） ============ */
-  table.today-tb{table-layout:fixed;width:542px;min-width:542px;}
-  table.today-tb td{word-break:break-word;overflow-wrap:anywhere;vertical-align:top;line-height:1.55;}
-
 @media (max-width:900px){
     body{min-width:0;}
     .app{flex-direction:column;height:auto;min-height:100vh;}
@@ -262,18 +259,23 @@
     .card .body{overflow-x:auto;}
     .card table{min-width:0;}
     .card table.wide{min-width:560px;}
+    table.today-tb{table-layout:fixed;width:492px;min-width:492px;}
+    table.today-tb th:nth-child(1),table.today-tb td:nth-child(1){width:50px !important;}
+    table.today-tb th:nth-child(3){width:220px !important;}
+    table.today-tb th:nth-child(4){width:150px !important;}
+    table.today-tb td{word-break:break-word;overflow-wrap:anywhere;vertical-align:top;line-height:1.55;}
     #examTable.wide{min-width:780px;}
     .stat-grid{grid-template-columns:repeat(auto-fit,minmax(150px,1fr));}
     .theme-switch button{flex:1 1 40%;}
     /* 近期任务 / 任务日志：手机端任务列200px、状态列150px固定，保证每天列宽一致；内容列内换行、高度自适应 */
     table.recent-table,table.log-table{table-layout:fixed;}
     table.recent-table{width:520px;}
-    table.log-table{width:530px;}
+    table.log-table{width:480px;}
     table.recent-table th:nth-child(1),table.recent-table td:nth-child(1){width:90px;}
     table.recent-table th:nth-child(2),table.recent-table td:nth-child(2){width:80px;}
     table.recent-table th:nth-child(3),table.recent-table td:nth-child(3){width:200px;}
     table.recent-table th:nth-child(4),table.recent-table td:nth-child(4){width:150px;}
-    table.log-table th:nth-child(1),table.log-table td:nth-child(1){width:100px;}
+    table.log-table th:nth-child(1),table.log-table td:nth-child(1){width:50px;}
     table.log-table th:nth-child(2),table.log-table td:nth-child(2){width:80px;}
     table.log-table th:nth-child(3),table.log-table td:nth-child(3){width:200px;}
     table.log-table th:nth-child(4),table.log-table td:nth-child(4){width:150px;}
@@ -1022,9 +1024,9 @@
     }
     var h;
     if(hasData){
-      h = '<table class="today-tb"><tr><th style="width:100px;">时段</th><th style="width:72px;">任务</th><th style="width:220px;">说明</th><th style="width:150px;">状态</th></tr>';
-      tasks.forEach(function(t){
-        h += '<tr><td>' + t.time + '</td><td>' + t.name + '</td><td><span class="task-cell">' + t.desc + '</span></td><td><span class="badge ' + t.status + '">' + t.statusText + '</span></td></tr>';
+      h = '<table class="today-tb"><tr><th style="width:50px;">序号</th><th style="width:72px;">任务</th><th>说明</th><th style="width:90px;">状态</th></tr>';
+      tasks.forEach(function(t, idx){
+        h += '<tr><td>' + (idx + 1) + '</td><td>' + t.name + '</td><td><span class="task-cell">' + t.desc + '</span></td><td><span class="badge ' + t.status + '">' + t.statusText + '</span></td></tr>';
       });
       h += '</table>';
       var al = planAlert[key];
@@ -1035,9 +1037,9 @@
       }
     } else {
       h = '<div class="empty" style="padding:20px 10px;"><b>今日任务待布置</b><span>收到老师通知后，我会更新今日安排</span></div>';
-      h += '<table class="today-tb"><tr><th style="width:100px;">时段</th><th style="width:72px;">任务</th><th style="width:220px;">说明</th><th style="width:150px;">状态</th></tr>';
-      h += '<tr><td>20:40-21:00</td><td>整理</td><td>睡前整理书包带齐文具（每日默认必做）</td><td><span class="badge todo">待完成</span></td></tr>';
-      h += '<tr><td>21:00</td><td>睡觉</td><td>规定21:00入睡；实际时间待家长告知</td><td><span class="badge todo">待告知</span></td></tr></table>';
+      h += '<table class="today-tb"><tr><th style="width:50px;">序号</th><th style="width:72px;">任务</th><th>说明</th><th style="width:90px;">状态</th></tr>';
+      h += '<tr><td>1</td><td>整理</td><td>睡前整理书包带齐文具（每日默认必做）</td><td><span class="badge todo">待完成</span></td></tr>';
+      h += '<tr><td>2</td><td>睡觉</td><td>规定21:00入睡；实际时间待家长告知</td><td><span class="badge todo">待告知</span></td></tr></table>';
     }
     box.innerHTML = h;
     var st = document.getElementById('tonightStat');
@@ -1152,9 +1154,9 @@
       h += '<div class="card open" data-fold data-date="' + k + '">';
       h += '<h3>' + k + ' <span class="date-tag">' + tag + '</span><span class="arrow">▸</span></h3><div class="body">';
       if(tasks.length){
-        h += '<table class="wide log-table"><tr><th style="width:100px;">时间</th><th style="width:72px;">学科</th><th>任务</th><th style="width:90px;">状态</th></tr>';
-        tasks.forEach(function(t){
-          h += '<tr><td>' + t.time + '</td><td>' + t.name + '</td><td><span class="task-cell">' + t.desc + '</span></td><td><span class="badge ' + t.status + '">' + t.statusText + '</span></td></tr>';
+        h += '<table class="wide log-table"><tr><th style="width:50px;">序号</th><th style="width:72px;">学科</th><th>任务</th><th style="width:90px;">状态</th></tr>';
+        tasks.forEach(function(t, idx){
+          h += '<tr><td>' + (idx + 1) + '</td><td>' + t.name + '</td><td><span class="task-cell">' + t.desc + '</span></td><td><span class="badge ' + t.status + '">' + t.statusText + '</span></td></tr>';
         });
         h += '</table>';
       }
