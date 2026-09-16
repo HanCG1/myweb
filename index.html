@@ -152,6 +152,13 @@
   .alert-box.done{background:var(--ok-soft);border-left-color:var(--ok);}
   .alert-title{font-weight:700;margin-bottom:2px;color:var(--ink);}
   .alert-line{padding-left:2px;color:var(--ink);}
+
+  .sevbar{display:inline-flex;gap:3px;vertical-align:middle;margin-right:6px;}
+  .sevbar-cell{width:11px;height:16px;border-radius:2px;background:var(--line-soft);display:inline-block;border:1px solid var(--line);}
+  .sevbar-cell.yellow{background:#FAAD14;border-color:#FAAD14;}
+  .sevbar-cell.red{background:#EA6668;border-color:#EA6668;}
+  .sevbar-cell.gray{background:#C9C9C4;border-color:#C9C9C4;}
+  .sev-text{font-size:12px;color:var(--sub);}
   .rec{margin-top:12px;font-size:13px;background:var(--rec-bg);border-left:var(--rec-left);padding:10px 14px;border-radius:var(--radius);line-height:1.8;}
   .rec li{margin-left:16px;}
   .rec .tag{display:inline-block;font-size:11px;color:var(--accent);font-weight:500;margin-right:6px;}
@@ -1229,7 +1236,12 @@
       } else {
         points.sort(function(a,b){ return a.state === b.state ? 0 : (a.state === '重点薄弱' ? -1 : 1); });
         points.forEach(function(x){
-          h += '<tr><td>' + x.point + '</td><td>' + x.first + '</td><td>' + x.n + '</td><td>' + (x.state === '关注' ? '关注（黄）' : x.state === '重点薄弱' ? '重点薄弱（红）' : '已巩固（灰）') + '</td><td><span class="badge ' + (x.level === 'red' ? 'doing' : x.level === 'yellow' ? 'warn' : 'todo') + '">' + x.state + '</span></td></tr>';
+          var filled = x.state === '已巩固' ? 0 : (x.n >= 3 ? 3 : x.n);
+          var cellCls = x.state === '重点薄弱' ? 'red' : x.state === '已巩固' ? 'gray' : 'yellow';
+          var bar = '<span class="sevbar">';
+          for(var bi = 1; bi <= 3; bi++){ bar += '<span class="sevbar-cell' + (bi <= filled ? ' ' + cellCls : '') + '"></span>'; }
+          bar += '</span><span class="sev-text">' + x.state + '</span>';
+          h += '<tr><td>' + x.point + '</td><td>' + x.first + '</td><td>' + x.n + '</td><td>' + bar + '</td><td><span class="badge ' + (x.level === 'red' ? 'doing' : x.level === 'yellow' ? 'warn' : 'todo') + '">' + x.state + '</span></td></tr>';
         });
       }
       box.innerHTML = h + '</table>';
