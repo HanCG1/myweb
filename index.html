@@ -285,23 +285,18 @@
     #weakBoxCn td[data-label],#weakBoxMa td[data-label]{margin-right:8px;}
     #weakBoxCn td:last-child,#weakBoxMa td:last-child{order:2;margin-left:auto;}
     #weakBoxCn td:nth-child(4),#weakBoxMa td:nth-child(4){order:3;flex-basis:100%;margin-top:6px;}
-    /* 错题记录：手机端卡片化 */
+    /* 错题记录：手机端垂直字段卡片 */
     #mistakeBoxCn table,#mistakeBoxMa table{display:block;}
     #mistakeBoxCn table.wide,#mistakeBoxMa table.wide{min-width:0;}
     #mistakeBoxCn thead,#mistakeBoxMa thead{display:none;}
     #mistakeBoxCn tbody,#mistakeBoxMa tbody{display:block;}
-    #mistakeBoxCn tr,#mistakeBoxMa tr{display:flex;flex-wrap:wrap;border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin-bottom:10px;background:var(--card-bg);}
-    #mistakeBoxCn td,#mistakeBoxMa td{display:block;border:none;padding:0;font-size:13px;color:var(--sub);line-height:1.8;}
-    #mistakeBoxCn td:first-child,#mistakeBoxMa td:first-child{font-weight:700;font-size:14px;color:var(--ink);}
-    #mistakeBoxCn td:last-child,#mistakeBoxMa td:last-child{order:2;margin-left:auto;font-size:12px;color:var(--sub);}
-    #mistakeBoxCn td:nth-child(2),#mistakeBoxMa td:nth-child(2){order:3;font-weight:700;font-size:15px;color:var(--ink);margin:4px 0 2px;}
-    #mistakeBoxCn td:nth-child(3),#mistakeBoxMa td:nth-child(3){order:4;}
-    #mistakeBoxCn td:nth-child(4),#mistakeBoxMa td:nth-child(4){order:5;}
-    #mistakeBoxCn td:nth-child(5),#mistakeBoxMa td:nth-child(5){order:6;}
-    #mistakeBoxCn td:nth-child(3)::before,#mistakeBoxMa td:nth-child(3)::before{content:'错题 ';font-weight:700;color:var(--ink);}
-    #mistakeBoxCn td:nth-child(4)::before,#mistakeBoxMa td:nth-child(4)::before{content:'原因 ';font-weight:700;color:var(--ink);}
-    #mistakeBoxCn td:nth-child(5)::before,#mistakeBoxMa td:nth-child(5)::before{content:'订正 ';font-weight:700;color:var(--ink);}
-    #mistakeBoxCn td[colspan],#mistakeBoxMa td[colspan]{flex-basis:100%;text-align:center;color:var(--sub);}
+    #mistakeBoxCn tr,#mistakeBoxMa tr{display:block;border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin-bottom:10px;background:var(--card-bg);}
+    #mistakeBoxCn td,#mistakeBoxMa td{display:block;border:none;padding:2px 0;font-size:13px;color:var(--ink);line-height:1.7;}
+    #mistakeBoxCn td::before,#mistakeBoxMa td::before{content:attr(data-label) '：';font-weight:700;color:var(--ink);}
+    #mistakeBoxCn td:nth-child(2),#mistakeBoxMa td:nth-child(2){font-size:15px;margin:2px 0 3px;}
+    #mistakeBoxCn td:nth-child(3),#mistakeBoxMa td:nth-child(3){margin:2px 0;}
+    #mistakeBoxCn td[colspan],#mistakeBoxMa td[colspan]{text-align:center;color:var(--sub);}
+    #mistakeBoxCn td[colspan]::before,#mistakeBoxMa td[colspan]::before{content:none;}
   }
 </style>
 </head>
@@ -1225,7 +1220,7 @@
         h += '<tr><td colspan="6" style="color:var(--sub);text-align:center;padding:22px 10px;">暂无错题记录 · 发现错题时告诉我内容，我来登记归类</td></tr>';
       } else {
         rows.forEach(function(r){
-          h += '<tr><td>' + r.date + '</td><td>' + r.point + '</td><td>' + r.content + '</td><td>' + r.reason + '</td><td>' + r.corrected + '</td><td>' + r.repeat + '</td></tr>';
+          h += '<tr><td data-label="日期">' + r.date + '</td><td data-label="知识点">' + r.point + '</td><td data-label="错题内容">' + r.content + '</td><td data-label="错误原因">' + r.reason + '</td><td data-label="订正">' + r.corrected + '</td><td data-label="复现">' + r.repeat + '</td></tr>';
         });
       }
       box.innerHTML = h + '</table>';
