@@ -274,21 +274,27 @@
     table.log-table th:nth-child(2),table.log-table td:nth-child(2){width:80px;}
     table.log-table th:nth-child(3),table.log-table td:nth-child(3){width:200px;}
     table.log-table th:nth-child(4),table.log-table td:nth-child(4){width:150px;}
-    /* 薄弱知识点：手机端卡片化 */
+    /* 薄弱知识点：手机端垂直字段卡片 */
     #weakBoxCn table,#weakBoxMa table{display:block;}
-    #weakBoxCn thead,#weakBoxMa thead{display:none;}
+    #weakBoxCn th,#weakBoxMa th{display:none;}
     #weakBoxCn tbody,#weakBoxMa tbody{display:block;}
-    #weakBoxCn tr,#weakBoxMa tr{display:flex;flex-wrap:wrap;align-items:baseline;border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin-bottom:10px;background:var(--card-bg);}
-    #weakBoxCn td,#weakBoxMa td{display:inline-block;border:none;padding:0;font-size:13px;color:var(--sub);line-height:1.8;}
-    #weakBoxCn td:first-child,#weakBoxMa td:first-child{font-weight:700;font-size:15px;color:var(--ink);margin-right:8px;}
-    #weakBoxCn td[data-label]::before,#weakBoxMa td[data-label]::before{content:attr(data-label) ' ';color:var(--sub);}
-    #weakBoxCn td[data-label],#weakBoxMa td[data-label]{margin-right:8px;}
-    #weakBoxCn td:last-child,#weakBoxMa td:last-child{order:2;margin-left:auto;}
-    #weakBoxCn td:nth-child(4),#weakBoxMa td:nth-child(4){order:3;flex-basis:100%;margin-top:6px;}
+    #weakBoxCn tr,#weakBoxMa tr{display:block;border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin-bottom:10px;background:var(--card-bg);}
+    #weakBoxCn td,#weakBoxMa td{display:block;border:none;padding:2px 0;font-size:13px;color:var(--ink);line-height:1.7;}
+    #weakBoxCn td::before,#weakBoxMa td::before{content:attr(data-label) '：';font-weight:700;color:var(--ink);}
+    #weakBoxCn td:first-child,#weakBoxMa td:first-child{font-size:15px;margin:0 0 3px;}
+    #weakBoxCn td:nth-child(4),#weakBoxMa td:nth-child(4){display:flex;align-items:center;gap:6px;padding:3px 0;}
+    #weakBoxCn td:last-child,#weakBoxMa td:last-child{padding:3px 0;}
+    #weakBoxCn td[colspan],#weakBoxMa td[colspan]{text-align:center;color:var(--sub);}
+    #weakBoxCn td[colspan]::before,#weakBoxMa td[colspan]::before{content:none;}
+    /* 科目标题：手机端分组小标题 */
+    #view-weak .subj-card{background:transparent;border:none;box-shadow:none;border-radius:0;padding:0 2px;margin:0 0 4px;}
+    #view-weak .subj-card h3{font-size:13.5px;color:var(--sub);padding:0;border:none;margin:0;line-height:1.5;}
+    #view-weak .subj-card h3 .date-tag{font-size:12px;color:var(--sub);}
+    #view-weak .subj-card .arrow{display:none;}
     /* 错题记录：手机端垂直字段卡片 */
     #mistakeBoxCn table,#mistakeBoxMa table{display:block;}
     #mistakeBoxCn table.wide,#mistakeBoxMa table.wide{min-width:0;}
-    #mistakeBoxCn thead,#mistakeBoxMa thead{display:none;}
+    #mistakeBoxCn th,#mistakeBoxMa th{display:none;}
     #mistakeBoxCn tbody,#mistakeBoxMa tbody{display:block;}
     #mistakeBoxCn tr,#mistakeBoxMa tr{display:block;border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin-bottom:10px;background:var(--card-bg);}
     #mistakeBoxCn td,#mistakeBoxMa td{display:block;border:none;padding:2px 0;font-size:13px;color:var(--ink);line-height:1.7;}
@@ -297,6 +303,11 @@
     #mistakeBoxCn td:nth-child(3),#mistakeBoxMa td:nth-child(3){margin:2px 0;}
     #mistakeBoxCn td[colspan],#mistakeBoxMa td[colspan]{text-align:center;color:var(--sub);}
     #mistakeBoxCn td[colspan]::before,#mistakeBoxMa td[colspan]::before{content:none;}
+    /* 科目标题卡片：手机端改为分组小标题，不单独成卡片 */
+    #view-errors .subj-card{background:transparent;border:none;box-shadow:none;border-radius:0;padding:0 2px;margin:0 0 4px;}
+    #view-errors .subj-card h3{font-size:13.5px;color:var(--sub);padding:0;border:none;margin:0;line-height:1.5;}
+    #view-errors .subj-card h3 .date-tag{font-size:12px;color:var(--sub);}
+    #view-errors .subj-card .arrow{display:none;}
   }
 </style>
 </head>
@@ -502,11 +513,11 @@
       <!-- ===== 错题记录 ===== -->
       <div class="view" id="view-errors">
         <div class="v-head"><h2>错题记录</h2><span class="en">MISTAKE LOG</span><span style="margin-left:auto;font-size:12px;color:var(--sub);">按科目分区 · 自动联动薄弱知识点</span></div>
-        <div class="card open" data-fold>
+        <div class="card subj-card open" data-fold>
           <h3>语文 <span class="date-tag" id="mistakeStatCn">累计 0 道 · 本周 0 道 · 重复出错知识点 0 个</span><span class="arrow">▸</span></h3>
           <div class="body" id="mistakeBoxCn"></div>
         </div>
-        <div class="card open" data-fold>
+        <div class="card subj-card open" data-fold>
           <h3>数学 <span class="date-tag" id="mistakeStatMa">累计 0 道 · 本周 0 道 · 重复出错知识点 0 个</span><span class="arrow">▸</span></h3>
           <div class="body" id="mistakeBoxMa"></div>
         </div>
@@ -527,11 +538,11 @@
       <!-- ===== 薄弱知识点 ===== -->
       <div class="view" id="view-weak">
         <div class="v-head"><h2>薄弱知识点</h2><span class="en">WEAK POINTS</span><span style="margin-left:auto;font-size:12px;color:var(--sub);">按科目分区 · 由错题记录自动统计升级</span></div>
-        <div class="card open" data-fold>
+        <div class="card subj-card open" data-fold>
           <h3>语文 <span class="date-tag" id="weakStatCn">关注 0 · 重点薄弱 0 · 已巩固 0</span><span class="arrow">▸</span></h3>
           <div class="body" id="weakBoxCn"></div>
         </div>
-        <div class="card open" data-fold>
+        <div class="card subj-card open" data-fold>
           <h3>数学 <span class="date-tag" id="weakStatMa">关注 0 · 重点薄弱 0 · 已巩固 0</span><span class="arrow">▸</span></h3>
           <div class="body" id="weakBoxMa"></div>
         </div>
@@ -1273,7 +1284,7 @@
           var bar = '<span class="sevbar">';
           for(var bi = 1; bi <= 3; bi++){ bar += '<span class="sevbar-cell' + (bi <= filled ? ' ' + cellCls : '') + '"></span>'; }
           bar += '</span><span class="sev-text">' + x.state + '</span>';
-          h += '<tr><td>' + x.point + '</td><td data-label="首次">' + x.first + '</td><td data-label="出错">' + x.n + ' 次</td><td>' + bar + '</td><td><span class="badge ' + (x.level === 'red' ? 'doing' : x.level === 'yellow' ? 'warn' : 'todo') + '">' + x.state + '</span></td></tr>';
+          h += '<tr><td data-label="知识点">' + x.point + '</td><td data-label="首次出现">' + x.first + '</td><td data-label="出错次数">' + x.n + ' 次</td><td data-label="严重程度">' + bar + '</td><td data-label="状态"><span class="badge ' + (x.level === 'red' ? 'doing' : x.level === 'yellow' ? 'warn' : 'todo') + '">' + x.state + '</span></td></tr>';
         });
       }
       box.innerHTML = h + '</table>';
