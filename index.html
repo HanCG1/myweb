@@ -274,6 +274,17 @@
     table.log-table th:nth-child(2),table.log-table td:nth-child(2){width:80px;}
     table.log-table th:nth-child(3),table.log-table td:nth-child(3){width:200px;}
     table.log-table th:nth-child(4),table.log-table td:nth-child(4){width:150px;}
+    /* 薄弱知识点：手机端卡片化 */
+    #weakBoxCn table,#weakBoxMa table{display:block;}
+    #weakBoxCn thead,#weakBoxMa thead{display:none;}
+    #weakBoxCn tbody,#weakBoxMa tbody{display:block;}
+    #weakBoxCn tr,#weakBoxMa tr{display:flex;flex-wrap:wrap;align-items:baseline;border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin-bottom:10px;background:var(--card-bg);}
+    #weakBoxCn td,#weakBoxMa td{display:inline-block;border:none;padding:0;font-size:13px;color:var(--sub);line-height:1.8;}
+    #weakBoxCn td:first-child,#weakBoxMa td:first-child{font-weight:700;font-size:15px;color:var(--ink);margin-right:8px;}
+    #weakBoxCn td[data-label]::before,#weakBoxMa td[data-label]::before{content:attr(data-label) ' ';color:var(--sub);}
+    #weakBoxCn td[data-label],#weakBoxMa td[data-label]{margin-right:8px;}
+    #weakBoxCn td:last-child,#weakBoxMa td:last-child{order:2;margin-left:auto;}
+    #weakBoxCn td:nth-child(4),#weakBoxMa td:nth-child(4){order:3;flex-basis:100%;margin-top:6px;}
   }
 </style>
 </head>
@@ -1241,7 +1252,7 @@
           var bar = '<span class="sevbar">';
           for(var bi = 1; bi <= 3; bi++){ bar += '<span class="sevbar-cell' + (bi <= filled ? ' ' + cellCls : '') + '"></span>'; }
           bar += '</span><span class="sev-text">' + x.state + '</span>';
-          h += '<tr><td>' + x.point + '</td><td>' + x.first + '</td><td>' + x.n + '</td><td>' + bar + '</td><td><span class="badge ' + (x.level === 'red' ? 'doing' : x.level === 'yellow' ? 'warn' : 'todo') + '">' + x.state + '</span></td></tr>';
+          h += '<tr><td>' + x.point + '</td><td data-label="首次">' + x.first + '</td><td data-label="出错">' + x.n + ' 次</td><td>' + bar + '</td><td><span class="badge ' + (x.level === 'red' ? 'doing' : x.level === 'yellow' ? 'warn' : 'todo') + '">' + x.state + '</span></td></tr>';
         });
       }
       box.innerHTML = h + '</table>';
