@@ -321,8 +321,13 @@
   #lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.82);z-index:9999;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;}
   #lightbox.show{display:flex;}
   #lightbox img{max-width:92vw;max-height:86vh;border-radius:8px;box-shadow:0 8px 40px rgba(0,0,0,0.5);}
-  #lightbox .lb-close{position:absolute;top:10px;right:18px;font-size:32px;color:#fff;cursor:pointer;line-height:1;user-select:none;}
-  #lightbox .lb-tip{position:absolute;bottom:10px;left:0;right:0;text-align:center;color:rgba(255,255,255,0.75);font-size:12px;}
+  #lightbox .lb-close{position:absolute;top:10px;right:18px;font-size:32px;color:#fff;cursor:pointer;line-height:1;user-select:none;z-index:2;}
+  #lightbox .lb-count{position:absolute;top:16px;left:20px;color:rgba(255,255,255,0.85);font-size:13px;z-index:2;}
+  #lightbox .lb-prev,#lightbox .lb-next{position:absolute;top:50%;transform:translateY(-50%);font-size:44px;line-height:1;color:#fff;cursor:pointer;padding:10px 16px;background:rgba(255,255,255,0.14);border-radius:10px;user-select:none;z-index:2;}
+  #lightbox .lb-prev{left:14px;}
+  #lightbox .lb-next{right:14px;}
+  #lightbox .lb-prev:hover,#lightbox .lb-next:hover{background:rgba(255,255,255,0.3);}
+  #lightbox .lb-tip{position:absolute;bottom:10px;left:0;right:0;text-align:center;color:rgba(255,255,255,0.75);font-size:12px;z-index:2;}
 </style>
 </head>
 <body data-theme="classic">
@@ -675,7 +680,7 @@
 
 <div class="toast" id="toast"></div>
 
-<div id="lightbox" title="点击关闭"><span class="lb-close">×</span><img src="" alt="图片预览"><div class="lb-tip">点击空白处关闭</div></div>
+<div id="lightbox" title="点击关闭"><span class="lb-close">×</span><span class="lb-count"></span><span class="lb-prev">‹</span><span class="lb-next">›</span><img src="" alt="图片预览"><div class="lb-tip">点击空白处关闭 · 左右箭头或键盘 ← → 切换上一张/下一张</div></div>
 
 <script>
 (function(){
@@ -1091,6 +1096,12 @@
     '2026-09-16': ['"目"字结构问题（太宽、横折太短不垂直、两横不等距）：未先观察占格，家里练字时已存在——明天书写/练字前先观察占格再动笔，重点纠正"目"字','睡眠连续三日超时（9/14 21:50、9/15 22:00、9/16 22:10），入睡越来越晚——建议作业提前到19:00开始（今天20:00才开始），20:30前结束学习，21:00-21:30入睡','今天效率其实不错（20:00-21:00完成全部作业），亲子阅读也恢复了，任务量本身可控——真正要解决的是启动时间（19:30才开始）和入睡边界；明天把静坐/控笔操提前到饭后立即做，19:00就动笔']
   };
   var readingLog = [
+    {date:'2026-09-29', book:'自主阅读（书目未记录）', note:'9/29 晚间完成：自主阅读20分钟', dur:'约20分钟', state:'自主'},
+    {date:'2026-09-28', book:'自主阅读（书目未记录）', note:'9/28 晚间完成：自主阅读约20分钟', dur:'约20分钟', state:'自主'},
+    {date:'2026-09-22', book:'亲子阅读（书目待补）', note:'9/22 任务全部完成（含亲子阅读）', dur:'—', state:'亲子'},
+    {date:'2026-09-21', book:'亲子阅读（书目待补）', note:'9/21 任务全部完成（含亲子阅读）', dur:'—', state:'亲子'},
+    {date:'2026-09-13', book:'自主阅读（书目未记录）', note:'周末不定时主动自主阅读（无亲子阅读）', dur:'不定', state:'自主'},
+    {date:'2026-09-11', book:'亲子阅读（书目待补）', note:'9/11 晚间阅读完成', dur:'—', state:'亲子'},
     {date:'2026-09-19', book:'自主阅读（书目待补）', note:'自主看书约30分钟（亲子共读未完成）', dur:'约30分钟', state:'自主'},
     {date:'2026-09-17', book:'成语故事（书名待补）', note:'亲子阅读完成', dur:'—', state:'完成'},
     {date:'2026-09-16', book:'成语故事《一诺千金》《天涯海角》', note:'亲子阅读完成', dur:'—', state:'完成'},
@@ -1827,20 +1838,56 @@
   }
   bindFold();
 
-  /* ===== 图片附件公共函数 ===== */
+  /* ===== 图片附件公共函数：多图一组，点击进 lightbox，箭头/键盘左右切换 ===== */
   function imgThumb(srcs){
     if(!srcs) return '';
     var arr = Array.isArray(srcs) ? srcs : [srcs];
+    var g = JSON.stringify(arr).replace(/"/g, '&quot;');
     var h = '';
-    arr.forEach(function(s){ h += '<span class="img-thumb" data-img="' + s + '" title="点击查看大图"><img src="' + s + '" alt="附件图"></span>'; });
+    arr.forEach(function(s, i){
+      h += '<span class="img-thumb" data-imgs="' + g + '" data-idx="' + i + '" title="点击查看大图"><img src="' + s + '" alt="附件图"></span>';
+    });
     return h;
   }
   var lb = document.getElementById('lightbox');
+  var lbImg = lb.querySelector('img');
+  var lbCount = lb.querySelector('.lb-count');
+  var lbPrev = lb.querySelector('.lb-prev');
+  var lbNext = lb.querySelector('.lb-next');
+  var lbImgs = [], lbIdx = 0;
+  function lbShow(arr, idx){
+    lbImgs = arr; lbIdx = idx;
+    lbImg.src = arr[idx];
+    var multi = arr.length > 1;
+    lbCount.style.display = multi ? '' : 'none';
+    lbPrev.style.display = lbNext.style.display = multi ? '' : 'none';
+    if(multi) lbCount.textContent = (lbIdx + 1) + ' / ' + arr.length;
+    lb.classList.add('show');
+  }
+  function lbStep(d){
+    if(!lbImgs.length) return;
+    lbIdx = (lbIdx + d + lbImgs.length) % lbImgs.length;
+    lbImg.src = lbImgs[lbIdx];
+    lbCount.textContent = (lbIdx + 1) + ' / ' + lbImgs.length;
+  }
   document.addEventListener('click', function(ev){
     var t = ev.target;
-    var th = t.closest ? t.closest('[data-img]') : null;
-    if(th){ lb.querySelector('img').src = th.getAttribute('data-img'); lb.classList.add('show'); return; }
+    var th = t.closest ? t.closest('[data-imgs]') : null;
+    if(th){
+      var arr = [];
+      try{ arr = JSON.parse(th.getAttribute('data-imgs')); }catch(e){}
+      if(arr && arr.length) lbShow(arr, parseInt(th.getAttribute('data-idx'), 10) || 0);
+      return;
+    }
+    if(t.closest && t.closest('.lb-prev')){ lbStep(-1); return; }
+    if(t.closest && t.closest('.lb-next')){ lbStep(1); return; }
     if(t.id === 'lightbox' || (t.closest && t.closest('.lb-close'))){ lb.classList.remove('show'); }
+  });
+  document.addEventListener('keydown', function(ev){
+    if(!lb.classList.contains('show')) return;
+    if(ev.key === 'ArrowLeft'){ lbStep(-1); }
+    else if(ev.key === 'ArrowRight'){ lbStep(1); }
+    else if(ev.key === 'Escape'){ lb.classList.remove('show'); }
   });
 
   var toast = document.getElementById('toast');
