@@ -1783,7 +1783,8 @@
       var tag = r.title.indexOf('月报') >= 0 ? '月报' : (m ? '第' + m[1] + '周' : '周报');
       var sum = (r.summary || '').replace(/\*\*/g, '');
       if(sum.length > 110) sum = sum.slice(0, 110) + '…';
-      h += '<a class="wk-card" href="weekly/周报-' + r.date + '.html">'
+      var href = 'weekly/' + (r.title.indexOf('月报') >= 0 ? 'monthly-' : 'weekly-') + r.date + '.html';
+      h += '<a class="wk-card" href="' + href + '">'
          + '<div class="wk-head"><b>' + esc(r.title) + '</b><span class="wk-tag">' + tag + '</span></div>'
          + '<div class="wk-date">' + r.date + '</div>'
          + '<p>' + esc(sum) + '</p>'
