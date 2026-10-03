@@ -64,11 +64,9 @@
   .sleep .dot{position:absolute;width:11px;height:11px;border-radius:50%;background:var(--err);border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,0.2);transform:translate(-50%,50%);cursor:pointer;z-index:2;}
   .sleep .dot.ok{background:var(--ok);}
   .sleep .dot .t{position:absolute;bottom:-24px;left:50%;transform:translateX(-50%);font-size:11px;color:var(--sub);white-space:nowrap;}
-  .sleep .dot .tip{display:none;position:absolute;bottom:18px;left:50%;transform:translateX(-50%);background:rgba(55,53,47,0.95);color:#fff;font-size:11px;font-weight:600;padding:3px 9px;border-radius:6px;white-space:nowrap;z-index:3;}
+  .sleep .dot .tip{display:none;position:absolute;left:auto;right:auto;top:auto;bottom:auto;transform:none;margin:0;background:rgba(55,53,47,0.95);color:#fff;font-size:11px;font-weight:600;padding:3px 9px;border-radius:6px;white-space:nowrap;z-index:3;}
   .sleep .dot.on .tip{display:block;}
   .sleep .dot .t{display:none;}
-  .sleep .dot.first .tip{left:0;transform:none;}
-  .sleep .dot.last .tip{left:auto;right:0;transform:none;}
   .sleep .goal{position:absolute;left:0;right:0;border-top:2px dashed var(--accent);z-index:1;}
   .sleep .goal-tag{position:absolute;bottom:-28px;left:0;font-size:10.5px;color:var(--accent);background:var(--bg);padding-right:6px;z-index:1;}
   .sleep .x{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);font-size:11px;color:var(--sub);}
@@ -140,7 +138,7 @@
 <div class="sec-title"><span class="no">2</span>每周任务节奏<small>按周聚合（周一起点）· 记录条数</small></div>
 <div class="card"><div class="chart"><div class="bar-col"><div class="bar warn" style="height:6.0px"></div><span class="bar-num">2</span><span class="bar-label">8/31</span></div><div class="bar-col"><div class="bar" style="height:108.0px"></div><span class="bar-num">34</span><span class="bar-label">9/7</span></div><div class="bar-col"><div class="bar" style="height:150.0px"></div><span class="bar-num">47</span><span class="bar-label">9/14</span></div><div class="bar-col"><div class="bar warn" style="height:45.0px"></div><span class="bar-num">14</span><span class="bar-label">9/21</span></div><div class="bar-col"><div class="bar warn" style="height:45.0px"></div><span class="bar-num">14</span><span class="bar-label">9/28</span></div></div><p style="font-size:12px;color:var(--sub);margin-top:20px;">第1周为入学适应期仅2条记录；9/7正式上课后记录量稳定。</p></div>
 <div class="sec-title"><span class="no">3</span>睡眠记录<small>目标 21:00 入睡 · 9月16晚有记录</small></div>
-<div class="card"><div class="sleep"><div class="yline" style="bottom:0%;"><span>21:00</span></div><div class="yline" style="bottom:33%;"><span>21:30</span></div><div class="yline" style="bottom:67%;"><span>22:00</span></div><div class="yline" style="bottom:100%;"><span>22:30</span></div><svg class="sleep-line" viewBox="0 0 100 100" preserveAspectRatio="none"><polyline fill="none" stroke="rgba(35,131,226,0.7)" stroke-width="1" stroke-linejoin="round" stroke-linecap="round" points="6.0,33.0 11.9,56.0 17.7,44.0 23.6,33.0 29.5,22.0 35.3,100.0 41.2,67.0 47.1,33.0 52.9,0.0 58.7,56.0 64.5,67.0 70.4,67.0 76.2,56.0 82.1,78.0 87.9,50.0 94.0,50.0"/></svg><div class="goal" style="bottom:0%;"></div><div class="goal-tag">目标 21:00</div><div class="dot first" style="left:6.0%;bottom:67%;"><span class="t">9/9</span><span class="tip">9/9 · 22:00</span></div><div class="dot" style="left:11.9%;bottom:44%;"><span class="t">9/10</span><span class="tip">9/10 · 21:40</span></div><div class="dot" style="left:17.7%;bottom:56%;"><span class="t">9/14</span><span class="tip">9/14 · 21:50</span></div><div class="dot" style="left:23.6%;bottom:67%;"><span class="t">9/15</span><span class="tip">9/15 · 22:00</span></div><div class="dot" style="left:29.5%;bottom:78%;"><span class="t">9/16</span><span class="tip">9/16 · 22:10</span></div><div class="dot ok" style="left:35.3%;bottom:0%;"><span class="t">9/17</span><span class="tip">9/17 · 21:00</span></div><div class="dot" style="left:41.2%;bottom:33%;"><span class="t">9/18</span><span class="tip">9/18 · 21:30</span></div><div class="dot" style="left:47.1%;bottom:67%;"><span class="t">9/19</span><span class="tip">9/19 · 22:00</span></div><div class="dot" style="left:52.9%;bottom:100%;"><span class="t">9/20</span><span class="tip">9/20 · 22:30</span></div><div class="dot" style="left:58.7%;bottom:44%;"><span class="t">9/21</span><span class="tip">9/21 · 21:40</span></div><div class="dot" style="left:64.5%;bottom:33%;"><span class="t">9/22</span><span class="tip">9/22 · 21:30</span></div><div class="dot" style="left:70.4%;bottom:33%;"><span class="t">9/23</span><span class="tip">9/23 · 21:30</span></div><div class="dot" style="left:76.2%;bottom:44%;"><span class="t">9/25</span><span class="tip">9/25 · 21:40</span></div><div class="dot" style="left:82.1%;bottom:22%;"><span class="t">9/26</span><span class="tip">9/26 · 21:20</span></div><div class="dot" style="left:87.9%;bottom:50%;"><span class="t">9/28</span><span class="tip">9/28 · 21:45</span></div><div class="dot last" style="left:94.0%;bottom:50%;"><span class="t">9/29</span><span class="tip">9/29 · 21:45</span></div></div><p style="font-size:12px;color:var(--sub);margin-top:44px;">16晚仅9/17一次准点；9月睡眠平均约21:44，与21:00目标差距稳定在40分钟级——入睡程序未建立的直接体现。</p></div>
+<div class="card"><div class="sleep"><div class="yline" style="bottom:0%;"><span>21:00</span></div><div class="yline" style="bottom:33%;"><span>21:30</span></div><div class="yline" style="bottom:67%;"><span>22:00</span></div><div class="yline" style="bottom:100%;"><span>22:30</span></div><svg class="sleep-line" viewBox="0 0 100 100" preserveAspectRatio="none"><polyline fill="none" stroke="rgba(35,131,226,0.7)" stroke-width="1" stroke-linejoin="round" stroke-linecap="round" points="6.0,33.0 11.9,56.0 17.7,44.0 23.6,33.0 29.5,22.0 35.3,100.0 41.2,67.0 47.1,33.0 52.9,0.0 58.7,56.0 64.5,67.0 70.4,67.0 76.2,56.0 82.1,78.0 87.9,50.0 94.0,50.0"/></svg><div class="goal" style="bottom:0%;"></div><div class="goal-tag">目标 21:00</div><div class="dot first" style="left:6.0%;bottom:67%;"><span class="t">9/9</span><span class="tip">9/9<br>22:00</span></div><div class="dot" style="left:11.9%;bottom:44%;"><span class="t">9/10</span><span class="tip">9/10<br>21:40</span></div><div class="dot" style="left:17.7%;bottom:56%;"><span class="t">9/14</span><span class="tip">9/14<br>21:50</span></div><div class="dot" style="left:23.6%;bottom:67%;"><span class="t">9/15</span><span class="tip">9/15<br>22:00</span></div><div class="dot" style="left:29.5%;bottom:78%;"><span class="t">9/16</span><span class="tip">9/16<br>22:10</span></div><div class="dot ok" style="left:35.3%;bottom:0%;"><span class="t">9/17</span><span class="tip">9/17<br>21:00</span></div><div class="dot" style="left:41.2%;bottom:33%;"><span class="t">9/18</span><span class="tip">9/18<br>21:30</span></div><div class="dot" style="left:47.1%;bottom:67%;"><span class="t">9/19</span><span class="tip">9/19<br>22:00</span></div><div class="dot" style="left:52.9%;bottom:100%;"><span class="t">9/20</span><span class="tip">9/20<br>22:30</span></div><div class="dot" style="left:58.7%;bottom:44%;"><span class="t">9/21</span><span class="tip">9/21<br>21:40</span></div><div class="dot" style="left:64.5%;bottom:33%;"><span class="t">9/22</span><span class="tip">9/22<br>21:30</span></div><div class="dot" style="left:70.4%;bottom:33%;"><span class="t">9/23</span><span class="tip">9/23<br>21:30</span></div><div class="dot" style="left:76.2%;bottom:44%;"><span class="t">9/25</span><span class="tip">9/25<br>21:40</span></div><div class="dot" style="left:82.1%;bottom:22%;"><span class="t">9/26</span><span class="tip">9/26<br>21:20</span></div><div class="dot" style="left:87.9%;bottom:50%;"><span class="t">9/28</span><span class="tip">9/28<br>21:45</span></div><div class="dot last" style="left:94.0%;bottom:50%;"><span class="t">9/29</span><span class="tip">9/29<br>21:45</span></div></div><p style="font-size:12px;color:var(--sub);margin-top:44px;">16晚仅9/17一次准点；9月睡眠平均约21:44，与21:00目标差距稳定在40分钟级——入睡程序未建立的直接体现。</p></div>
 <div class="sec-title"><span class="no">4</span>错题统计<small>9月共7条 · 按知识点×错误原因</small></div>
 <div class="weak"><div class="weak-card hot"><h4>字形结构（框形字）<span class="cnt">重点薄弱 ×4</span></h4><p>9/16：目、9/17：目、9/20：六、9/21：田</p><div class="why"><b>原因：</b>写前不观察占格、横折不垂直、两竖不等高、横画不扛肩</div></div><div class="weak-card hot"><h4>笔顺<span class="cnt">重点薄弱 ×3</span></h4><p>9/14：擦改、9/17：擦改、9/22：默写订正</p><div class="why"><b>原因：</b>按轮廓“画”字而非按笔顺“写”字（月末趋于稳定）</div></div><div class="weak-card ok"><h4>数的分成<span class="cnt">2次后清零</span></h4><p>9/15：4分成错1个、9/17：占格错</p><div class="why"><b>原因：</b>复习摆一摆后9/21起无错题</div></div><div class="weak-card plain"><h4>执笔姿势与力度<span class="cnt">1次</span></h4><p>9/19：歪头、竖画不直、控笔行笔不稳</p><div class="why"><b>原因：</b>控笔操持续盯</div></div><div class="weak-card plain"><h4>符号书写<span class="cnt">1次</span></h4><p>9/20：“=”两短横间隔大</p><div class="why"><b>原因：</b>已订正</div></div></div>
 <div class="sec-title"><span class="no">5</span>薄弱知识点变化<small>同一知识点连续多次出错标记为重点薄弱</small></div>
@@ -188,16 +186,55 @@
 (function(){
   var dots = document.querySelectorAll('.sleep .dot');
   function off(){ for(var i=0;i<dots.length;i++){ dots[i].classList.remove('on'); } }
+  function placeTip(d){
+    var tip = d.querySelector('.tip');
+    if(!tip) return;
+    var sr = d.parentNode.getBoundingClientRect();
+    var dr = d.getBoundingClientRect();
+    var t = tip.getBoundingClientRect();
+    var w = t.width || 56, h = t.height || 24;
+    var relLeft = dr.left - sr.left;          /* 红点框左缘（容器内） */
+    var relTop  = dr.top - sr.top;            /* 红点框顶（容器内） */
+    var canLeft = relLeft >= w + 8 + 45;      /* 左侧放得下（45=左侧刻度文字安全区） */
+    var canUp   = relTop >= h + 10;           /* 上方放得下 */
+    tip.style.transform = 'none';
+    tip.style.margin = '0';
+    if(canLeft){
+      /* 红点左上方 */
+      tip.style.left = (-(w + 8)) + 'px';
+      tip.style.right = 'auto';
+      tip.style.top = 'auto';
+      tip.style.bottom = '23px';
+    } else if(canUp){
+      /* 红点正上方、左对齐红点 */
+      tip.style.left = '0';
+      tip.style.right = 'auto';
+      tip.style.top = 'auto';
+      tip.style.bottom = '23px';
+    } else {
+      /* 红点正下方、左对齐红点 */
+      tip.style.left = '0';
+      tip.style.right = 'auto';
+      tip.style.top = '30px';
+      tip.style.bottom = 'auto';
+    }
+  }
   for(var i=0;i<dots.length;i++){
     (function(d){
       d.addEventListener('click', function(ev){
         ev.stopPropagation();
         if(d.classList.contains('on')){ d.classList.remove('on'); }
-        else { off(); d.classList.add('on'); }
+        else { off(); d.classList.add('on'); placeTip(d); }
       });
     })(dots[i]);
   }
+  window.addEventListener('resize', function(){
+    for(var i=0;i<dots.length;i++){
+      if(dots[i].classList.contains('on')){ placeTip(dots[i]); }
+    }
+  });
   document.addEventListener('click', function(){ off(); });
+  for(var i=0;i<dots.length;i++){ if(dots[i].classList.contains('on')){ placeTip(dots[i]); } }
 })();
 </script>
 </div></body></html>

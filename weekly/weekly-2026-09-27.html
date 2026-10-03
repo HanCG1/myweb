@@ -64,7 +64,7 @@
   .sleep .dot{position:absolute;width:11px;height:11px;border-radius:50%;background:var(--err);border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,0.2);transform:translate(-50%,50%);cursor:pointer;z-index:2;}
   .sleep .dot.ok{background:var(--ok);}
   .sleep .dot .t{position:absolute;bottom:-24px;left:50%;transform:translateX(-50%);font-size:11px;color:var(--sub);white-space:nowrap;}
-  .sleep .dot .tip{display:none;position:absolute;bottom:18px;left:50%;transform:translateX(-50%);background:rgba(55,53,47,0.95);color:#fff;font-size:11px;font-weight:600;padding:3px 9px;border-radius:6px;white-space:nowrap;z-index:3;}
+  .sleep .dot .tip{display:none;position:absolute;left:auto;right:auto;top:auto;bottom:auto;transform:none;margin:0;background:rgba(55,53,47,0.95);color:#fff;font-size:11px;font-weight:600;padding:3px 9px;border-radius:6px;white-space:nowrap;z-index:3;}
   .sleep .dot.on .tip{display:block;}
   .sleep .goal{position:absolute;left:0;right:0;border-top:2px dashed var(--accent);z-index:1;}
   .sleep .goal-tag{position:absolute;bottom:-28px;left:0;font-size:10.5px;color:var(--accent);background:var(--bg);padding-right:6px;z-index:1;}
@@ -184,16 +184,55 @@
 (function(){
   var dots = document.querySelectorAll('.sleep .dot');
   function off(){ for(var i=0;i<dots.length;i++){ dots[i].classList.remove('on'); } }
+  function placeTip(d){
+    var tip = d.querySelector('.tip');
+    if(!tip) return;
+    var sr = d.parentNode.getBoundingClientRect();
+    var dr = d.getBoundingClientRect();
+    var t = tip.getBoundingClientRect();
+    var w = t.width || 56, h = t.height || 24;
+    var relLeft = dr.left - sr.left;          /* 红点框左缘（容器内） */
+    var relTop  = dr.top - sr.top;            /* 红点框顶（容器内） */
+    var canLeft = relLeft >= w + 8 + 45;      /* 左侧放得下（45=左侧刻度文字安全区） */
+    var canUp   = relTop >= h + 10;           /* 上方放得下 */
+    tip.style.transform = 'none';
+    tip.style.margin = '0';
+    if(canLeft){
+      /* 红点左上方 */
+      tip.style.left = (-(w + 8)) + 'px';
+      tip.style.right = 'auto';
+      tip.style.top = 'auto';
+      tip.style.bottom = '23px';
+    } else if(canUp){
+      /* 红点正上方、左对齐红点 */
+      tip.style.left = '0';
+      tip.style.right = 'auto';
+      tip.style.top = 'auto';
+      tip.style.bottom = '23px';
+    } else {
+      /* 红点正下方、左对齐红点 */
+      tip.style.left = '0';
+      tip.style.right = 'auto';
+      tip.style.top = '30px';
+      tip.style.bottom = 'auto';
+    }
+  }
   for(var i=0;i<dots.length;i++){
     (function(d){
       d.addEventListener('click', function(ev){
         ev.stopPropagation();
         if(d.classList.contains('on')){ d.classList.remove('on'); }
-        else { off(); d.classList.add('on'); }
+        else { off(); d.classList.add('on'); placeTip(d); }
       });
     })(dots[i]);
   }
+  window.addEventListener('resize', function(){
+    for(var i=0;i<dots.length;i++){
+      if(dots[i].classList.contains('on')){ placeTip(dots[i]); }
+    }
+  });
   document.addEventListener('click', function(){ off(); });
+  for(var i=0;i<dots.length;i++){ if(dots[i].classList.contains('on')){ placeTip(dots[i]); } }
 })();
 </script>
 </div></body></html>
