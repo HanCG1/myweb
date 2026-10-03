@@ -332,6 +332,20 @@
   #lightbox .lb-next{right:14px;}
   #lightbox .lb-prev:hover,#lightbox .lb-next:hover{background:rgba(255,255,255,0.3);}
   #lightbox .lb-tip{position:absolute;bottom:10px;left:0;right:0;text-align:center;color:rgba(255,255,255,0.75);font-size:12px;z-index:2;}
+
+  
+  /* ===== 学习周报：简洁列表卡片（详情见 weekly/ 独立页） ===== */
+  .wk-next{display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:var(--accent-soft,#EBF3FB);border:1px solid #D6E7F8;border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:13px;color:var(--ink,#37352F);}
+  .wk-next-tag{font-size:11px;font-weight:700;padding:2px 8px;border-radius:10px;background:var(--accent,#2383E2);color:#fff;flex:none;}
+  .wk-grid{display:flex;flex-direction:column;gap:10px;}
+  .wk-card{display:block;background:var(--card,#fff);border:1px solid var(--line,#E9E9E7);border-radius:10px;box-shadow:0 1px 2px rgba(0,0,0,0.05);padding:12px 14px;text-decoration:none;color:var(--ink,#37352F);transition:border-color .15s;}
+  .wk-card:hover{border-color:#2383E2;}
+  .wk-head{display:flex;justify-content:space-between;align-items:center;gap:8px;}
+  .wk-head b{font-size:14.5px;font-weight:700;}
+  .wk-tag{flex:none;font-size:11px;font-weight:700;padding:1px 8px;border-radius:10px;background:var(--accent-soft,#EBF3FB);color:#2383E2;}
+  .wk-date{font-size:12px;color:var(--sub,#787774);margin:3px 0 6px;}
+  .wk-card p{font-size:13px;color:#555;line-height:1.7;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+  .wk-more{display:inline-block;margin-top:6px;font-size:12.5px;color:#2383E2;font-weight:600;}
 </style>
 </head>
 <body data-theme="classic">
@@ -1205,7 +1219,7 @@
 
   /* 学习周报：每周六生成后追加，最新在上 */
   var weeklyLog = [
-    {title:'2026年9月学习月报（9.1-9.30 开学第1个月 · 含中秋假期）', date:'2026-09-30', summary:'本月核心结论：入学第1个月完成"适应→闭环→自主"三级跃迁，主动性与书写态度是最确定的资产；但睡眠9晚仅1晚准点（9/17）、亲子阅读三段断档、框形字结构连续4次出错——三大问题均非能力问题，而是"程序未设+观察习惯未建+阅读无固定排位"。', items:[
+    {title:'2026年9月学习月报（9.1-9.30 开学第1个月 · 含中秋假期）', date:'2026-09-30', summary:'本月核心结论：入学第1个月完成"适应→闭环→自主"三级跃迁，主动性与书写态度是最确定的资产；但睡眠13晚仅1晚准点（9/17）、亲子阅读三段断档、框形字结构连续4次出错——三大问题均非能力问题，而是"程序未设+观察习惯未建+阅读无固定排位"。', items:[
       '一、本月任务完成概览（量化）：',
       '  · 语文：指读4次+生字笔顺书写8次+默写订正2次+背诵4篇+拼音3课（aoe/iuü/bpmf预习），完成率100%，质量A-（笔顺9/14、9/17擦改，9/22、9/28订正；"目""田"框形字连续4次）',
       '  · 数学：数字1-5书写8次+2-5分合6次+比大小12组+加法+减法含义与三句式+同样多，完成率100%，质量A（9/15 4的分成错1个；9/20"="间隔大已订正；9/21起分合无错题）',
@@ -1214,7 +1228,7 @@
       '  · 控笔：布置6次完成5次，完成率83%（9/15未完成）',
       '  · 阅读：亲子8次+自主4次，亲子断档2段（9/11-13、9/19-20、9/24-27假期），约75%（阅读时段不稳定是第二大缺口）',
       '  · 整理：有记录12次全部完成，完成率100%（9/11忘带数学本教训后未再重演）',
-      '  · 睡眠：有记录9晚仅1晚准点（9/17），完成率11%，平均约21:40',
+      '  · 睡眠：有记录13晚仅1晚准点（9/17），完成率8%，平均约21:48',
       '二、错题统计（9月共7条，按知识点×错误原因）：',
       '  · 字形结构（框形字）【重点薄弱·4次】：9/16目、9/17目、9/20六、9/21田 → 写前不观察占格、横折不垂直、两竖不等高、横画不扛肩',
       '  · 笔顺【重点薄弱·3次】：9/14、9/17擦改、9/22默写订正 → 按轮廓"画"字而非按笔顺"写"字（月末趋于稳定）',
@@ -1241,7 +1255,7 @@
       '  · 本质：一个月完成"任务是我的"内在动机三级跃迁，规则前置+放权共同作用，主动性已成完整闭环',
       '  · 建议：监督从"盯着写"转为"约定时间+结果确认"，只在卡壳时介入',
       '睡眠是本月唯一未改善的系统性问题：',
-      '  · 现象：9晚仅9/17一次准点，平均约21:40，超时40分钟级',
+      '  · 现象：13晚仅9/17一次准点，平均约21:48，超时40分钟级',
       '  · 本质：月末作业已不超时，但"洗漱-上床"没有固定开始时间，21:00锚点未变成程序',
       '  · 建议：20:40洗漱→20:50阅读→21:00关灯设为与作业同等重要的程序，10月每周至少3晚准点',
       '框形字连续4次，卡在"看"不在"写"：',
@@ -1746,32 +1760,37 @@
   function renderWeekly(){
     var box = document.getElementById('weeklyBox');
     if(!box) return;
+    function esc(t){ return String(t == null ? '' : t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
     var rows = weeklyLog.slice().sort(function(a,b){ return a.date < b.date ? 1 : -1; });
     if(!rows.length){
-      box.innerHTML = '<div class="empty"><b>首期周报将在 9/12（周六）自动生成</b><span>每周六 20:30 自动生成周报，每月最后一天 20:30 自动生成月报，均归档于此板块。内容包含：任务完成情况、错题统计、薄弱知识点变化与下周建议。</span></div>';
+      box.innerHTML = '<div class="empty"><b>暂无周报</b><span>每周日 21:00 自动生成学习周报</span></div>';
       return;
     }
-    var h = '';
+    function pad2(x){ return (x < 10 ? '0' : '') + x; }
+    var now = new Date();
+    var nxt = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 21, 0, 0);
+    var diff = (7 - nxt.getDay()) % 7;
+    nxt.setDate(nxt.getDate() + (diff === 0 ? 7 : diff));
+    var nextStr = nxt.getFullYear() + '-' + pad2(nxt.getMonth()+1) + '-' + pad2(nxt.getDate());
+    var h = '<div class="wk-next"><span class="wk-next-tag">下次周报</span><b>' + nextStr + '</b>（周日）21:00 自动生成，覆盖当周旧内容</div>';
+    h += '<div class="wk-grid">';
     rows.forEach(function(r){
-      h += '<div class="card open" data-fold><h3>' + r.title + ' <span class="date-tag">' + r.date + '</span><span class="arrow">▸</span></h3><div class="body">';
-      if(r.summary){ h += '<div class="rec-sum" style="margin:6px 0 12px;padding:8px 12px;background:rgba(0,0,0,0.035);border-left:3px solid var(--accent,#8BC8EA);border-radius:6px;"><b>' + r.summary + '</b></div>'; }
-      h += '<div class="rec">';
-      var inInsight = false;
-      r.items.forEach(function(it){
-        if(it.indexOf('5条深层观察：') === 0){ inInsight = true; h += '<li style="margin-top:8px;"><b>5条深层观察：</b></li>'; return; }
-        if(it.indexOf('下周重点：') === 0){ inInsight = false; h += '<li style="margin-top:8px;"><b>下周重点：</b>' + it.slice(5) + '</li>'; return; }
-        if(inInsight && /^ *· /.test(it)){ h += '<li style="padding-left:22px;margin-top:2px;">' + it.trim() + '</li>'; return; }
-        if(inInsight && /^[^：:]+：$/.test(it)){ h += '<li style="margin-top:6px;"><b>' + it + '</b></li>'; return; }
-        var m2 = it.match(/^([^：:]+)([：:])(.*)$/);
-        if(m2){ h += '<li><b>' + m2[1] + '</b>' + m2[2] + m2[3] + '</li>'; } else { h += '<li>' + it + '</li>'; }
-      });
-      h += '</div></div></div>';
+      var m = r.title.match(/第(\d+)周/);
+      var tag = r.title.indexOf('月报') >= 0 ? '月报' : (m ? '第' + m[1] + '周' : '周报');
+      var sum = (r.summary || '').replace(/\*\*/g, '');
+      if(sum.length > 110) sum = sum.slice(0, 110) + '…';
+      h += '<a class="wk-card" href="weekly/周报-' + r.date + '.html">'
+         + '<div class="wk-head"><b>' + esc(r.title) + '</b><span class="wk-tag">' + tag + '</span></div>'
+         + '<div class="wk-date">' + r.date + '</div>'
+         + '<p>' + esc(sum) + '</p>'
+         + '<span class="wk-more">查看周报全文 →</span></a>';
     });
+    h += '</div>';
     box.innerHTML = h;
-    bindFold();
   }
 
-  /* ===== 国际象棋学习记录 ===== */
+
+    /* ===== 国际象棋学习记录 ===== */
   /* ===== 成长记录：事件流水按主题聚合 ===== */
   function renderGrowth(){
     var sb = document.getElementById('growthStatBox');

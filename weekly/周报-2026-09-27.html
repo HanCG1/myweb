@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第4周学习周报</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%232383E2%27/%3E%3Ctext x=%2732%27 y=%2744%27 font-size=%2734%27 text-anchor=%27middle%27 fill=%27white%27%3E周%3C/text%3E%3C/svg%3E">
+<style>
+
+  :root{
+    --bg:#FFFFFF; --bg-sub:#F7F7F5; --ink:#37352F; --sub:#787774;
+    --line:#E9E9E7; --accent:#2383E2; --accent-soft:#EBF3FB;
+    --card-bg:#FFFFFF; --radius:10px; --shadow:0 1px 2px rgba(0,0,0,0.05);
+    --ok:#52C41A; --warn:#FAAD14; --err:#EA6668;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'PingFang SC','Microsoft YaHei',-apple-system,sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;font-size:14px;padding:28px 16px 60px;}
+  .wrap{max-width:880px;margin:0 auto;}
+
+  .head{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:18px;}
+  .head h1{font-size:26px;font-weight:700;letter-spacing:0.5px;}
+  .head h1 small{font-size:13px;color:var(--sub);font-weight:400;margin-left:8px;}
+  .head .meta{font-size:12.5px;color:var(--sub);text-align:right;}
+  .pill{display:inline-block;font-size:11.5px;padding:2px 10px;border-radius:20px;background:var(--accent-soft);color:var(--accent);font-weight:600;margin-left:8px;vertical-align:2px;}
+
+  .summary{background:linear-gradient(135deg,#EBF3FB,#F7FBFF);border:1px solid #D6E7F8;border-radius:var(--radius);padding:16px 18px;margin-bottom:20px;}
+  .summary .tag{font-size:12px;color:var(--accent);font-weight:700;letter-spacing:2px;margin-bottom:4px;}
+  .summary p{font-size:14.5px;color:var(--ink);}
+  .summary b{color:var(--accent);}
+
+  .sec-title{display:flex;align-items:center;gap:8px;font-size:16px;font-weight:700;margin:28px 0 12px;}
+  .sec-title .no{width:22px;height:22px;border-radius:6px;background:var(--accent);color:#fff;font-size:12.5px;display:flex;align-items:center;justify-content:center;flex:none;}
+  .sec-title small{color:var(--sub);font-weight:400;font-size:12.5px;}
+
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .card{background:var(--card-bg);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px 16px;}
+  @media(max-width:640px){ .grid-2{grid-template-columns:1fr;} }
+
+  .ov-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+  .ov-row:last-child{margin-bottom:0;}
+  .ov-name{flex:none;width:52px;font-size:13px;font-weight:600;color:var(--ink);}
+  .ov-bar{flex:1;height:10px;background:#EEEEEC;border-radius:6px;overflow:hidden;position:relative;}
+  .ov-fill{height:100%;border-radius:6px;background:linear-gradient(90deg,#2383E2,#5AA6F5);}
+  .ov-fill.warn{background:linear-gradient(90deg,#F0A92E,#FAC863);}
+  .ov-fill.err{background:linear-gradient(90deg,#E05C60,#F0868A);}
+  .ov-num{flex:none;width:120px;font-size:12.5px;color:var(--sub);text-align:right;font-variant-numeric:tabular-nums;}
+  .ov-num b{color:var(--ink);font-size:13.5px;}
+  .q{display:inline-block;font-size:10.5px;padding:1px 6px;border-radius:4px;background:var(--accent-soft);color:var(--accent);margin-left:4px;font-weight:600;}
+  .ov-sub{font-size:12px;color:var(--sub);margin:-4px 0 10px 62px;}
+
+  .chart{display:flex;align-items:flex-end;gap:14px;height:150px;padding:6px 4px 0;border-bottom:1px solid var(--line);margin-top:14px;}
+  .bar-col{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:6px;height:100%;}
+  .bar{width:100%;max-width:44px;border-radius:5px 5px 0 0;background:linear-gradient(180deg,#5AA6F5,#2383E2);min-height:4px;}
+  .bar.err{background:linear-gradient(180deg,#F0868A,#E05C60);}
+  .bar.warn{background:linear-gradient(180deg,#FAC863,#F0A92E);}
+  .bar-label{font-size:11px;color:var(--sub);}
+  .bar-num{font-size:11px;color:var(--sub);font-variant-numeric:tabular-nums;}
+
+  .sleep{position:relative;height:120px;margin-top:16px;border-bottom:1px solid var(--line);}
+  .sleep .yline{position:absolute;left:0;right:0;font-size:10.5px;color:var(--sub);}
+  .sleep .yline span{background:var(--bg);padding-right:6px;}
+  .sleep .dot{position:absolute;width:11px;height:11px;border-radius:50%;background:var(--err);border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,0.2);transform:translate(-50%,50%);}
+  .sleep .dot.ok{background:var(--ok);}
+  .sleep .dot .t{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);font-size:11px;color:var(--ink);white-space:nowrap;font-weight:600;}
+  .sleep .goal{position:absolute;left:0;right:0;border-top:2px dashed var(--accent);}
+  .sleep .goal span{position:absolute;right:0;top:-16px;font-size:10.5px;color:var(--accent);background:var(--bg);padding-left:6px;}
+  .sleep .x{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);font-size:11px;color:var(--sub);}
+
+  .hab{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  @media(max-width:640px){ .hab{grid-template-columns:1fr;} }
+  .hab .card h4{font-size:14px;font-weight:700;margin-bottom:8px;}
+  .hab .keep h4{color:var(--ok);} .hab .fix h4{color:var(--err);}
+  .hab li{list-style:none;font-size:13px;padding:5px 0 5px 20px;position:relative;border-bottom:1px dashed var(--line);}
+  .hab li:last-child{border-bottom:none;}
+  .hab .keep li::before{content:'✓';position:absolute;left:2px;color:var(--ok);font-weight:700;}
+  .hab .fix li::before{content:'!';position:absolute;left:2px;color:var(--err);font-weight:700;}
+
+  .weak{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  @media(max-width:640px){ .weak{grid-template-columns:1fr;} }
+  .weak-card{border-radius:var(--radius);padding:14px 16px;border:1px solid;}
+  .weak-card.hot{background:#FDF1F1;border-color:#F3C2C4;}
+  .weak-card.ok{background:#F2FAEE;border-color:#CDE8BE;}
+  .weak-card.plain{background:#F7F7F5;border-color:#E2E2DF;}
+  .weak-card h4{font-size:14px;font-weight:700;display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap;}
+  .weak-card.hot h4{color:#C93C40;}
+  .weak-card.ok h4{color:#389E0D;}
+  .cnt{font-size:11px;font-weight:700;padding:1px 8px;border-radius:10px;flex:none;}
+  .weak-card.hot .cnt{background:#C93C40;color:#fff;}
+  .weak-card.ok .cnt{background:#389E0D;color:#fff;}
+  .weak-card.plain .cnt{background:#D9D9D6;color:#333;}
+  .weak-card p{font-size:12.8px;color:var(--ink);}
+  .weak-card .why{margin-top:6px;font-size:12px;color:var(--sub);}
+  .weak-card .why b{color:var(--ink);}
+
+  .plain-list{list-style:none;}
+  .plain-list li{font-size:13px;padding:6px 0 6px 22px;position:relative;border-bottom:1px dashed var(--line);}
+  .plain-list li:last-child{border-bottom:none;}
+  .plain-list li::before{content:'★';position:absolute;left:2px;color:var(--warn);font-weight:700;}
+
+  .ins{background:var(--card-bg);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;margin-bottom:12px;box-shadow:var(--shadow);}
+  .ins .i-head{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+  .ins .i-no{flex:none;width:26px;height:26px;border-radius:8px;background:var(--accent);color:#fff;font-size:12.5px;font-weight:700;display:flex;align-items:center;justify-content:center;}
+  .ins h4{font-size:14.5px;font-weight:700;}
+  .ins .row{font-size:13px;padding:3px 0;}
+  .ins .row .k{display:inline-block;flex:none;font-size:11px;font-weight:700;padding:1px 7px;border-radius:4px;margin-right:8px;}
+  .ins .k.pheno{background:var(--accent-soft);color:var(--accent);}
+  .ins .k.ess{background:#F6F2E9;color:#B5892E;}
+  .ins .k.adv{background:#F2FAEE;color:#389E0D;}
+  .ins .row .v{color:var(--ink);}
+
+  .todo li{list-style:none;display:flex;gap:10px;align-items:flex-start;padding:8px 12px;border-bottom:1px dashed var(--line);font-size:13.5px;}
+  .todo li:last-child{border-bottom:none;}
+  .p{flex:none;width:34px;text-align:center;font-size:10.5px;font-weight:700;border-radius:4px;padding:1px 0;margin-top:2px;}
+  .p1{background:#C93C40;color:#fff;} .p2{background:#F0A92E;color:#fff;} .p3{background:var(--accent-soft);color:var(--accent);}
+
+  .advice{background:linear-gradient(135deg,#F7FBF5,#EFF8EC);border:1px solid #D5E8CC;border-radius:var(--radius);padding:16px 18px;margin-top:28px;}
+  .advice .tag{font-size:12px;color:#389E0D;font-weight:700;letter-spacing:2px;margin-bottom:6px;}
+  .advice p{font-size:13.8px;margin-top:6px;}
+  .advice b{color:#2E7D32;}
+
+  .foot{margin-top:34px;text-align:center;color:#B5B5B0;font-size:12px;}
+  .foot b{color:var(--sub);}
+  .foot a{color:var(--accent);text-decoration:none;font-weight:600;}
+
+</style>
+</head>
+<body><div class="wrap">
+<div class="head"><h1>学习周报 <span class="pill">第4周</span><small>韩长歌 · 一年级</small></h1>
+<div class="meta">9.21 — 9.27（正式上课第3周 · 含中秋假期）<br>周报自动生成</div></div>
+<div class="summary"><div class="tag">核心结论</div><p>任务完成率连续3周 <b>100%</b>，自主性从“点状”走向“面状”（假期3天自主完成全部作业＋主动收尾）；但<b>睡眠0次准点</b>、<b>亲子阅读仅1次</b>——作业已不挤占晚间，问题转移到入睡程序与阅读排位。</p></div>
+<div class="sec-title"><span class="no">1</span>任务完成概览<small>按学科 · 完成率与质量</small></div>
+<div class="card"><div class="ov-row"><span class="ov-name">语文</span><div class="ov-bar"><div class="ov-fill" style="width:100%"></div></div><span class="ov-num"><b>100%</b> · 完成率 <span class="q">B+</span></span></div><div class="ov-sub">笔顺2次＋拼音aoe 2次＋背诵2次＋默写订正1次；田字结构待加强、笔顺默写需订正</div><div class="ov-row"><span class="ov-name">数学</span><div class="ov-bar"><div class="ov-fill" style="width:100%"></div></div><span class="ov-num"><b>100%</b> · 完成率 <span class="q">A-</span></span></div><div class="ov-sub">加法分合2次＋三句式1次＋数字1-5＋比大小12组＋加法算式12题；本周无错题反馈</div><div class="ov-row"><span class="ov-name">练字</span><div class="ov-bar"><div class="ov-fill" style="width:100%"></div></div><span class="ov-num"><b>100%</b> · 完成率</span></div><div class="ov-sub">9/22＋假期巩固所学字</div><div class="ov-row"><span class="ov-name">静坐</span><div class="ov-bar"><div class="ov-fill" style="width:100%"></div></div><span class="ov-num"><b>5/5</b> 全勤</span></div><div class="ov-sub">9/21、9/22、9/25-9/27</div><div class="ov-row"><span class="ov-name">控笔</span><div class="ov-bar"><div class="ov-fill" style="width:100%"></div></div><span class="ov-num"><b>2/2</b> 全完成</span></div><div class="ov-sub">9/21、9/22</div><div class="ov-row"><span class="ov-name">阅读</span><div class="ov-bar"><div class="ov-fill err" style="width:20%"></div></div><span class="ov-num"><b>1/5</b> 仅1次 <span class="q" style="background:#FDECEC;color:#C93C40;">本周最大缺口</span></span></div><div class="ov-sub">亲子仅9/22完成1次，假期3天无阅读</div><div class="ov-row"><span class="ov-name">整理</span><div class="ov-bar"><div class="ov-fill" style="width:100%"></div></div><span class="ov-num"><b>4/4</b> 全完成</span></div><div class="ov-sub">9/21、9/22、9/23、9/27开学前（假期按老师要求不整理）</div><div class="ov-row"><span class="ov-name">睡眠</span><div class="ov-bar"><div class="ov-fill err" style="width:3%"></div></div><span class="ov-num"><b>0/2</b> 准点 <span class="q" style="background:#FDECEC;color:#C93C40;">0次</span></span></div><div class="ov-sub">有记录2晚（9/21 21:40、9/23 21:30），0次准点；9/22、9/25、9/26未报</div></div>
+<div class="sec-title"><span class="no">2</span>一周任务节奏<small>每天完成的任务数（作业类）</small></div>
+<div class="card"><div class="chart"><div class="bar-col"><div class="bar" style="height:100%"></div><span class="bar-num">6</span><span class="bar-label">9/21</span></div><div class="bar-col"><div class="bar warn" style="height:17%"></div><span class="bar-num">1</span><span class="bar-label">9/22</span></div><div class="bar-col"><div class="bar warn" style="height:17%"></div><span class="bar-num">1</span><span class="bar-label">9/23</span></div><div class="bar-col"><div class="bar warn" style="height:17%"></div><span class="bar-num">1</span><span class="bar-label">9/25</span></div><div class="bar-col"><div class="bar warn" style="height:17%"></div><span class="bar-num">1</span><span class="bar-label">9/26</span></div><div class="bar-col"><div class="bar" style="height:67%"></div><span class="bar-num">4</span><span class="bar-label">9/27</span></div></div><p style="font-size:12px;color:var(--sub);margin-top:20px;">9/24中秋假期；9/22-9/26假期日每天1-4条记录，9/27开学前主动整理书包（自主收尾）。</p></div>
+<div class="sec-title"><span class="no">3</span>睡眠记录<small>目标 21:00 入睡 · 本周2晚有记录</small></div>
+<div class="card"><div class="sleep"><div class="yline" style="bottom:0%;"><span>21:00</span></div><div class="yline" style="bottom:33%;"><span>21:30</span></div><div class="yline" style="bottom:67%;"><span>22:00</span></div><div class="yline" style="bottom:100%;"><span>22:30</span></div><div class="goal" style="bottom:0%;"><span>目标 21:00</span></div><div class="dot" style="left:0%;bottom:44%;"><span class="t">9/21 · 21:40</span></div><div class="dot" style="left:100%;bottom:33%;"><span class="t">9/23 · 21:30</span></div></div><p style="font-size:12px;color:var(--sub);margin-top:26px;">有记录2晚，0次准点；9/22、9/25、9/26未报。较上周周末（22:00-22:30）整体前移约30分钟，但离21:00仍有差距。</p></div>
+<div class="sec-title"><span class="no">4</span>习惯与状态<small>保持项 vs 待改进项</small></div>
+<div class="hab"><div class="card keep"><h4>保持项</h4><ul><li>作业类5天全完成，质量稳定</li><li>假期3天自主完成全部作业＋自主练字巩固</li><li>9/27主动整理书包准备开学（自主收尾）</li><li>静坐5次全勤</li></ul></div><div class="card fix"><h4>待改进项</h4><ul><li>睡眠0次准点（21:40 / 21:30）</li><li>亲子阅读仅1次（9/22），假期3天无阅读</li><li>笔顺默写仍需订正</li></ul></div></div>
+<div class="sec-title"><span class="no">5</span>知识薄弱点<small>本周数学无错题（进步）</small></div>
+<div class="weak"><div class="weak-card hot"><h4>字形结构（框形字）<span class="cnt">重点薄弱 ×4</span></h4><p>目（9/16、9/17）→六（9/20）→田（9/21），连续4次</p><div class="why"><b>原因：</b>写前不观察占格、横画不扛肩，框形字横折不垂直、两竖不等高</div></div><div class="weak-card hot"><h4>笔顺<span class="cnt">重点薄弱 ×3</span></h4><p>9/14、9/17擦改＋9/22默写订正</p><div class="why"><b>原因：</b>按轮廓“画”字而非按笔顺“写”字</div></div><div class="weak-card ok"><h4>本周数学<span class="cnt">无错题</span></h4><p>5以内加法分合12题全对、比大小12组完成、背诵4篇、拼音aoe书写两遍</p><div class="why"><b>原因：</b>较上周分合/占格错题明显进步</div></div></div>
+<div class="sec-title"><span class="no">6</span>本周亮点与进步<small>正向强化 · 保护学习动力</small></div>
+<div class="card"><ul class="plain-list"><li>假期3天作业自主完成、第一天就动手（对比9/12-13周末拖到下午/晚上的老问题，明显改善）</li><li>9/27主动整理书包准备开学、假期把所学字都练了一遍（自主收尾）</li><li>9/21复习巩固“日月田禾”进步很大</li><li>睡眠整体前移：本周最好21:30 vs 上周周末22:00-22:30</li></ul></div>
+<div class="sec-title"><span class="no">7</span>5条深层观察<small>现象 → 本质 → 建议</small></div>
+<div class="ins"><div class="i-head"><span class="i-no">01</span><h4>睡眠问题从“作业拖延”转为“程序未设”</h4></div><div class="row"><span class="k pheno">现象</span><span class="v">本周作业全部按时完成，但入睡仍21:40/21:30，无作业日（9/23）也21:30</span></div><div class="row"><span class="k ess">本质</span><span class="v">上周是“作业写完才能睡”的被动型超时；本周作业不再超时，根源已变为“洗漱-上床”环节没有固定开始时间——21:00锚点尚未变成程序</span></div><div class="row"><span class="k adv">建议</span><span class="v">把入睡程序化：20:40洗漱→20:50亲子阅读→21:00关灯，程序启动后不接受“再等一下”</span></div></div><div class="ins"><div class="i-head"><span class="i-no">02</span><h4>自主性从“点状”走向“面状”</h4></div><div class="row"><span class="k pheno">现象</span><span class="v">假期3天自主完成全部作业、自主练字巩固、9/27主动整理书包准备开学</span></div><div class="row"><span class="k ess">本质</span><span class="v">第2周是“点状自主”（某一次主动），本周假期出现了“自我管理的完整闭环”（计划-执行-收尾），规则前置（9/13验证）的长期效果开始显现</span></div><div class="row"><span class="k adv">建议</span><span class="v">上学日也给自主空间：18:30动笔由孩子自己确认“先做什么”，大人只确认结果，不全程盯写</span></div></div><div class="ins"><div class="i-head"><span class="i-no">03</span><h4>框形字连续4次未破，卡在“看”不在“写”</h4></div><div class="row"><span class="k pheno">现象</span><span class="v">目（9/16、9/17）→六（9/20）→田（9/21），假期练字“田”仍待加强</span></div><div class="row"><span class="k ess">本质</span><span class="v">孩子能力足够（家长纠正后能写好），缺的是“写前观察”这个自动步骤——观察-书写链条仍未建立</span></div><div class="row"><span class="k adv">建议</span><span class="v">练字把观察变成口头步骤：先说“这字几笔、哪笔在横中线、哪里要留白”，再动笔；写完对照范写自查1处差距</span></div></div><div class="ins"><div class="i-head"><span class="i-no">04</span><h4>笔顺意识进入“默写层”仍需加固</h4></div><div class="row"><span class="k pheno">现象</span><span class="v">9/22默写笔顺需订正（错的改两遍）；历史9/14、9/17均有擦改</span></div><div class="row"><span class="k ess">本质</span><span class="v">孩子写字仍偏向“画形状”而非“按顺序运笔”——笔顺已能口头说对，但未内化到书写动作层</span></div><div class="row"><span class="k adv">建议</span><span class="v">写字前先口头说一遍笔顺再动笔；订正时不擦整字，只重写错的那一笔</span></div></div><div class="ins"><div class="i-head"><span class="i-no">05</span><h4>亲子阅读从“习惯”滑向“被淘汰项”</h4></div><div class="row"><span class="k pheno">现象</span><span class="v">本周亲子阅读仅9/22完成1次，假期3天无阅读；上周也断档</span></div><div class="row"><span class="k ess">本质</span><span class="v">阅读总是排在任务链末端，作业一有波动就被挤掉——它在晚间时间结构里没有固定位置</span></div><div class="row"><span class="k adv">建议</span><span class="v">阅读脱离作业链：固定在20:00-20:30（入睡程序前），或晚饭后第一项15分钟，防止再次被挤占</span></div></div>
+<div class="sec-title"><span class="no">8</span>下周重点<small>9/28开学第4周 · 按优先级</small></div>
+<div class="card"><ul class="todo"><li><span class="p p1">P1</span><span><b>睡眠程序化：</b>20:40洗漱→20:50阅读→21:00关灯，目标至少3晚准点（本周0次）</span></li><li><span class="p p1">P1</span><span><b>亲子阅读复位：</b>20:00-20:30固定时段、与作业脱钩，先恢复5天3次</span></li><li><span class="p p2">P2</span><span><b>框形字专项：</b>田/目类字“写前三看”口头化，练字自查1处差距</span></li><li><span class="p p2">P2</span><span><b>笔顺固化：</b>写字前口头说笔顺；错笔顺只重写错的那一笔，不整字重写</span></li><li><span class="p p3">P3</span><span><b>拼音跟进：</b>aoe已预习两遍，开学正式学拼音，每天带声调朗读2分钟</span></li><li><span class="p p3">P3</span><span><b>数学保持：</b>分合、比大小、加法的正确书写节奏继续保持（本周无错题）</span></li></ul></div>
+<div class="advice"><div class="tag">给家长的一条建议</div><p>假期证明自主性已能规模化，本周最值得投入的是<b>入睡程序</b>：把20:40洗漱、21:00关灯当成与作业同样重要的事，和孩子一起执行、每晚只记录不唠叨。</p><p>监督方式从“盯着写”改为<b>约定时间＋结果确认</b>，给孩子的自主闭环留出空间——她的主动性是本周最大的资产，别用催促把它消耗掉。</p></div>
+<div class="foot">数据来源：任务日志 · 错题记录 · 成长记录 · 每日复盘<br>本页为 第4周周报（9.21-9.27）<br><a href="../index.html">← 返回学习档案</a></div>
+</div></body></html>
