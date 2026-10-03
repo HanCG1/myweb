@@ -135,6 +135,10 @@
   .card.open h3 .arrow{transform:rotate(90deg);}
   .card .body{margin-top:12px;}
   .card.closed .body{display:none;}
+  .card.month{background:transparent;border:none;box-shadow:none;padding:0;margin-bottom:12px;}
+  .card.month h3{font-size:14px;padding-bottom:6px;border-bottom:1px solid var(--line-soft);}
+  .card.month .body{margin-top:8px;}
+  .card.month table{font-size:13px;}
   .date-tag{font-size:12px;color:var(--sub);font-weight:400;}
 
   table{width:100%;border-collapse:collapse;font-size:13.5px;}
@@ -1164,11 +1168,11 @@
     {date:'9月19日', good:['语文"日田火禾"书写整体规范、虽有情绪仍坚持完成','数学完成良好、书写不费劲','静坐完成良好','自主看书约30分钟'], watch:['语文书写歪头、横画左高右低、竖画力度不一致写不直（坐姿头正、执笔姿势、力度控制待加强）','控笔操不太熟练、行笔不稳（重点：执笔姿势和力度）','家长要求过高致孩子有些情绪（注意沟通方式，先肯定再纠正）','10点左右入睡超时1小时（连续两晚晚睡21:30/22:00，明天上课日恢复21:00硬边界）','亲子共读未完成；这两天未额外练字（周末作业含书写汉字）']}
   ];
   var tomorrowTasks = [
-    {name:'假期第3天', desc:'10/3（周六）：朗读bpmf音节+拼音天天练2；《日月山川》生字书写；书写1-7每个数字两行'},
-    {name:'练字', desc:'假期练字内容改为书写"我爱我的祖国"——假期后要参加书法比赛，每天练字以此为主题，认真观察占格与结构'},
+    {name:'假期第4天', desc:'10/4（周日）：熟练拼读 bpmf 音节（课本24-25页+拼音天天练2）；《语文园地一》生字书写（六、七、八、十）；用学具摆一摆7以内数的分解与组成'},
+    {name:'练字', desc:'书写"我爱我的祖国"（假期练字内容，为假期后书法比赛做准备）'},
     {name:'阅读', desc:'亲子阅读半小时（假期每日固定，与作业脱钩）'},
     {name:'睡眠', desc:'假期同样执行20:40洗漱→21:00关灯'},
-    {name:'常规', desc:'静坐/练字/控笔操/跳绳每日坚持'},
+    {name:'常规', desc:'静坐/控笔操每日坚持'},
     {name:'数学主任务', desc:'2、3、4、5分成+每组分成的两道加法两道减法算式，贯穿假期、需熟练掌握'}
   ];
 
@@ -1478,9 +1482,6 @@
     var key = ymdKey(now);
     var hasData = taskDB[key] && taskDB[key].length > 0;
     var tasks = hasData ? taskDB[key].slice() : [];
-    if(now.getDay() === 0 || now.getDay() === 6){
-      tasks.forEach(function(t){ if(t.name === '练字'){ t.desc = '周末自愿：可休息或继续练字'; t.status = 'todo'; t.statusText = '自愿'; } });
-    }
     var h;
     if(hasData){
       h = '<table class="today-tb"><tr><th style="width:50px;">序号</th><th style="width:88px;">任务</th><th>说明</th><th style="width:90px;">状态</th></tr>';
@@ -1543,18 +1544,33 @@
     var rows = readingLog.slice().sort(function(a,b){ return a.date < b.date ? 1 : -1; });
     var cnt = document.getElementById('readingCount');
     if(cnt) cnt.textContent = rows.length;
-    var h = '<table class="wide"><tr><th style="width:72px;">日期</th><th style="width:300px;">书目</th><th style="width:90px;">阅读时长</th><th style="width:110px;">孩子状态</th></tr>';
     if(!rows.length){
-      h += '<tr><td colspan="4" style="color:var(--sub);text-align:center;padding:26px 10px;">暂无阅读记录 · 每晚亲子阅读后告诉我书目与状态，我会录入</td></tr>';
-    } else {
-      rows.forEach(function(r){
+      box.innerHTML = '<div class="empty" style="padding:20px 10px;"><b>暂无阅读记录</b><span>每晚亲子阅读后告诉我书目与状态，我会录入</span></div>';
+      return;
+    }
+    /* 按月份分组，最新月在上，默认折叠 */
+    var months = {};
+    rows.forEach(function(r){
+      var mk = r.date.slice(0, 7);
+      if(!months[mk]) months[mk] = [];
+      months[mk].push(r);
+    });
+    var mkeys = Object.keys(months).sort().reverse();
+    var h = '';
+    mkeys.forEach(function(mk){
+      var arr = months[mk];
+      h += '<div class="card month closed" data-fold>';
+      h += '<h3>' + (+mk.slice(0,4)) + '年' + (+mk.slice(5,7)) + '月 <span class="date-tag">' + arr.length + ' 条</span><span class="arrow">▸</span></h3>';
+      h += '<div class="body"><table class="wide"><tr><th style="width:72px;">日期</th><th style="width:300px;">书目</th><th style="width:90px;">阅读时长</th><th style="width:110px;">孩子状态</th></tr>';
+      arr.forEach(function(r){
         var md = r.date.slice(5).split('-');
         h += '<tr><td>' + (+md[0]) + '/' + (+md[1]) + '</td><td>' + r.book;
         if(r.note){ h += '<br><span style="color:var(--sub);font-size:12px;">' + r.note + '</span>'; }
         h += '</td><td>' + r.dur + '</td><td>' + r.state + '</td></tr>';
       });
-    }
-    box.innerHTML = h + '</table>';
+      h += '</table></div></div>';
+    });
+    box.innerHTML = h;
   }
 
   function renderRecent(){
@@ -1833,17 +1849,31 @@
       });
       sb.innerHTML = h + '</table>';
     }
-    /* 流水：最新在上 */
-    var h2 = '<table class="wide"><tr><th style="width:72px;">日期</th><th style="width:90px;">习惯点</th><th style="width:64px;">类型</th><th>记录</th></tr>';
+    /* 流水：按月份分组，最新月在上，默认折叠 */
     if(!rows.length){
-      h2 += '<tr><td colspan="4" style="color:var(--sub);text-align:center;padding:22px 10px;">暂无成长事件</td></tr>';
-    } else {
-      rows.forEach(function(r){
+      lb.innerHTML = '<div class="empty"><b>暂无成长事件</b></div>';
+      return;
+    }
+    var months = {};
+    rows.forEach(function(r){
+      var mk = r.date.slice(0, 7);
+      if(!months[mk]) months[mk] = [];
+      months[mk].push(r);
+    });
+    var mkeys = Object.keys(months).sort().reverse();
+    var h2 = '';
+    mkeys.forEach(function(mk){
+      var arr = months[mk];
+      h2 += '<div class="card month closed" data-fold>';
+      h2 += '<h3>' + (+mk.slice(0,4)) + '年' + (+mk.slice(5,7)) + '月 <span class="date-tag">' + arr.length + ' 条</span><span class="arrow">▸</span></h3>';
+      h2 += '<div class="body"><table class="wide"><tr><th style="width:72px;">日期</th><th style="width:90px;">习惯点</th><th style="width:64px;">类型</th><th>记录</th></tr>';
+      arr.forEach(function(r){
         var md = r.date.slice(5).split('-');
         h2 += '<tr><td>' + (+md[0]) + '/' + (+md[1]) + '</td><td>' + r.name + '</td><td><span class="badge ' + (r.type === 'good' ? 'ok' : 'warn') + '">' + (r.type === 'good' ? '进步' : '注意') + '</span></td><td>' + r.note + imgThumb(r.img) + '</td></tr>';
       });
-    }
-    lb.innerHTML = h2 + '</table>';
+      h2 += '</table></div></div>';
+    });
+    lb.innerHTML = h2;
   }
 
   function renderChess(){
