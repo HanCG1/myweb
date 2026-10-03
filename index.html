@@ -319,8 +319,11 @@
     #view-errors .subj-card .arrow{display:none;}
   }
   /* ===== 图片附件：缩略图 + 点击放大 ===== */
-  .img-thumb{display:inline-flex;vertical-align:middle;margin:4px 4px 0 0;}
+  .img-thumb{display:inline-flex;vertical-align:middle;margin:4px 4px 0 0;position:relative;}
   .img-thumb img{height:52px;width:auto;max-width:150px;border-radius:6px;border:1px solid var(--line);cursor:zoom-in;object-fit:cover;background:#fff;}
+  .img-thumb .img-badge{position:absolute;left:0;top:0;font-style:normal;font-size:10px;line-height:1.2;padding:2px 5px;border-radius:6px 0 6px 0;color:#fff;pointer-events:none;z-index:1;}
+  .img-badge.ref{background:#3a8a5c;}
+  .img-badge.done{background:#3b6fb0;}
   .img-thumb:hover img{opacity:0.85;}
   #lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.82);z-index:9999;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;}
   #lightbox.show{display:flex;}
@@ -975,7 +978,7 @@
     ],
     '2026-09-28': [
       {time:'—', name:'语文', desc:'拼音iuü：读字母参考范读（可打乱顺序试着读）；订正周末写的田字格笔顺有错的（书写任务在校已完成）', status:'ok', statusText:'已完成（书面在校完成，回家读拼音）'},
-      {time:'—', name:'数学', desc:'《同样多》知识（课本18-20页已批改：再做一个/再添用加法3+1=4；20页第8题先算再比较1+2<5）+ 书写任务：写2、3、4、5的分成及对应加法算式（写在1号作业本，参考图片，需熟练背诵）', img:['images/homework/2026-09-28-数学-5的分成范写.jpg','images/homework/2026-09-28-数学-432分成练习.jpg'], status:'ok', statusText:'已完成（放学在幼儿园完成，书写规范认真）'},
+      {time:'—', name:'数学', desc:'《同样多》知识（课本18-20页已批改：再做一个/再添用加法3+1=4；20页第8题先算再比较1+2<5）+ 书写任务：写2、3、4、5的分成及对应加法算式（写在1号作业本，参考图片，需熟练背诵）', img:[{src:'images/reference/2026-09-28-数学-5的分成范写.jpg',label:'参考'},{src:'images/homework/2026-09-28-数学-432分成练习.jpg',label:'完成'}], status:'ok', statusText:'已完成（放学在幼儿园完成，书写规范认真）'},
       {time:'—', name:'思维', desc:'思维训练', status:'ok', statusText:'已完成（在幼儿园完成）'},
       {time:'—', name:'常规', desc:'静坐（动笔前，头正、肩平、足安）', status:'ok', statusText:'已完成（19:00开始，5分钟）'},
       {time:'—', name:'控笔', desc:'控笔操（老师布置）', status:'ok', statusText:'已完成（5分钟）'},
@@ -986,7 +989,7 @@
     ],
     '2026-09-29': [
       {time:'—', name:'语文', desc:'预习bpmf：跟着视频读一读', status:'ok', statusText:'已完成（读一读）'},
-      {time:'—', name:'数学', desc:'《认识减法的含义》（课本p21：从总数去掉一部分求剩下用减法，如4-2=2；三句式：原来有4个→拿走了2个→还剩几个？列式4-2=2）+ 说一说：三句式说课本22页第2题；写一写：根据图片写算式（参考练习纸5-2=3）', img:'images/homework/2026-09-29-数学-减法练习纸.jpg', status:'ok', statusText:'已完成（从总数剪掉、看图列式计算，书写规范认真）'},
+      {time:'—', name:'数学', desc:'《认识减法的含义》（课本p21：从总数去掉一部分求剩下用减法，如4-2=2；三句式：原来有4个→拿走了2个→还剩几个？列式4-2=2）+ 说一说：三句式说课本22页第2题；写一写：根据图片写算式（参考练习纸5-2=3）', img:{src:'images/homework/2026-09-29-数学-减法练习纸.jpg',label:'完成'}, status:'ok', statusText:'已完成（从总数剪掉、看图列式计算，书写规范认真）'},
       {time:'—', name:'思维', desc:'思维训练', status:'ok', statusText:'已完成'},
       {time:'—', name:'练字', desc:'练字（框形字"田/目"写前三看：范写/占格/结构）', status:'ok', statusText:'已完成（所学生字一个写三遍，约16个生字，书写认真）'},
       {time:'—', name:'阅读', desc:'阅读（亲子/自主）', status:'ok', statusText:'已完成（自主阅读20分钟）'},
@@ -994,9 +997,9 @@
       {time:'21:00', name:'睡觉', desc:'规定21:00入睡（昨日21:45，继续程序化20:40洗漱）', status:'no', statusText:'21:45左右入睡（超时45分钟，连续两晚）'}
     ],
     '2026-10-01': [
-      {time:'—', name:'语文·朗读', desc:'熟练拼读 a o e i u ü 音节（课本20-23页 + 拼音天天练1）', img:'images/homework/2026-10-01-国庆假期作业安排表.jpg', status:'ok', statusText:'已完成（拼音练习第一页 + 课本20-24页）'},
-      {time:'—', name:'语文·书写', desc:'《金木水火土》生字书写（一、二、三、上，参考范写：一字一天一人/二字二人二月/三字三个三人/上字上下天上）', img:'images/homework/2026-10-01-语文-生字范写-10.1-10.3.jpg', status:'ok', statusText:'已完成（一二三上各3遍、组两个词，书写规范）'},
-      {time:'—', name:'数学', desc:'背7以内数的分成（假期主任务：写2、3、4、5的分成，根据每组分成写两道加法、两道减法算式，参照单页图片，需熟练掌握）', status:'doing', statusText:'部分完成（2-4分合加算式完成；7的分合背诵不熟练）'},
+      {time:'—', name:'语文·朗读', desc:'熟练拼读 a o e i u ü 音节（课本20-23页 + 拼音天天练1）', img:{src:'images/reference/2026-10-01-国庆假期作业安排表.jpg',label:'参考'}, status:'ok', statusText:'已完成（拼音练习第一页 + 课本20-24页）'},
+      {time:'—', name:'语文·书写', desc:'《金木水火土》生字书写（一、二、三、上，参考范写：一字一天一人/二字二人二月/三字三个三人/上字上下天上）', img:[{src:'images/reference/2026-10-01-语文-生字范写-10.1-10.3.jpg',label:'参考'},{src:'images/homework/2026-10-01-语文-一二三上口耳目手书写.jpg',label:'完成'}], status:'ok', statusText:'已完成（一二三上各3遍、组两个词，书写规范）'},
+      {time:'—', name:'数学', desc:'背7以内数的分成（假期主任务：写2、3、4、5的分成，根据每组分成写两道加法、两道减法算式，参照单页图片，需熟练掌握）', img:[{src:'images/homework/2026-10-01-数学-2-3分合加算式.jpg',label:'完成'},{src:'images/homework/2026-10-01-数学-4分合加算式.jpg',label:'完成'}], status:'doing', statusText:'部分完成（2-4分合加算式完成；7的分合背诵不熟练）'},
       {time:'—', name:'阅读', desc:'亲子阅读半小时（假期每日）', status:'ok', statusText:'自主阅读累计1.5小时以上（亲子阅读未单独进行，书目未记录）'},
       {time:'—', name:'常规', desc:'静坐（动笔前5分钟）', status:'ok', statusText:'已完成'},
       {time:'—', name:'练字', desc:'练字：书写"我爱我的祖国"（假期练字内容，为假期后书法比赛做准备）', status:'ok', statusText:'已完成（写字比赛专用纸，今天练"我"字，写的不错）'},
@@ -1004,9 +1007,10 @@
       {time:'21:00', name:'睡觉', desc:'规定21:00入睡（假期同样执行20:40洗漱程序）', status:'ok', statusText:'22:00入睡（超时1小时）'}
     ],
     '2026-10-02': [
+      {time:'—', name:'实践·绘画', desc:'国庆主题绘画实践作业（中华民族一家亲，同心共筑中国梦：天安门、五星红旗、气球"10·1"、和平鸽、欢度国庆横幅）', img:{src:'images/works/2026-10-01-国庆主题绘画.jpg',label:'完成'}, status:'ok', statusText:'已完成（独立绘画，参考模板融入自己的理解与想象）'},
       {time:'—', name:'语文·朗读', desc:'熟练拼读 a o e i u ü 音节（课本20-23页 + 拼音天天练1）', status:'ok', statusText:'已完成（拼音练习第一页 + 课本20-24页）'},
-      {time:'—', name:'语文·书写', desc:'《口耳目手足》生字书写（口、耳、目、手，参考范写：门口大口/木耳双耳/耳目目光/大手小手）', img:'images/homework/2026-10-01-语文-生字范写-10.1-10.3.jpg', status:'ok', statusText:'已完成（口耳目手各3遍、组两个词，书写规范）'},
-      {time:'—', name:'数学', desc:'寻找生活中的数学并记录下来（可拍照片/画下来）', status:'doing', statusText:'部分完成（5的分合及算式完成；7的分合背诵仍不熟练，连续2日）'},
+      {time:'—', name:'语文·书写', desc:'《口耳目手足》生字书写（口、耳、目、手，参考范写：门口大口/木耳双耳/耳目目光/大手小手）', img:[{src:'images/reference/2026-10-01-语文-生字范写-10.1-10.3.jpg',label:'参考'},{src:'images/homework/2026-10-01-语文-生字书写-10.1-10.3完整.jpg',label:'完成'}], status:'ok', statusText:'已完成（口耳目手各3遍、组两个词，书写规范）'},
+      {time:'—', name:'数学', desc:'5的分合及加减算式（参照作业单：每组分成写两道加法、两道减法算式，熟读成诵；背7以内数的分成）', img:[{src:'images/homework/2026-10-02-数学-5分合加算式-1.jpg',label:'完成'},{src:'images/homework/2026-10-02-数学-5分合加算式-2.jpg',label:'完成'}], status:'doing', statusText:'部分完成（5的分合及算式完成；7的分合背诵仍不熟练，连续2日）'},
       {time:'—', name:'阅读', desc:'亲子阅读半小时（假期每日）', status:'no', statusText:'未完成（自主阅读也未完成，只听了会儿喜马拉雅故事）'},
       {time:'—', name:'常规', desc:'静坐（动笔前5分钟）', status:'no', statusText:'未完成'},
       {time:'—', name:'练字', desc:'练字：书写"我爱我的祖国"（假期练字内容，为假期后书法比赛做准备）', status:'ok', statusText:'已完成（写字比赛专用纸，今天练"我""爱"字，写的不错）'},
@@ -1015,7 +1019,7 @@
     ],
     '2026-10-03': [
       {time:'—', name:'语文·朗读', desc:'熟练拼读 bpmf 音节（课本24-25页 + 拼音天天练2）', status:'todo', statusText:'待确认'},
-      {time:'—', name:'语文·书写', desc:'《日月山川》生字书写（日、火、田、禾，参考范写：日月一日/大火小火/水田田地/禾苗禾苗）', img:'images/homework/2026-10-01-语文-生字范写-10.1-10.3.jpg', status:'todo', statusText:'待确认'},
+      {time:'—', name:'语文·书写', desc:'《日月山川》生字书写（日、火、田、禾，参考范写：日月一日/大火小火/水田田地/禾苗禾苗）', img:{src:'images/reference/2026-10-01-语文-生字范写-10.1-10.3.jpg',label:'参考'}, status:'todo', statusText:'待确认'},
       {time:'—', name:'数学', desc:'书写1-7，每个数字写两行', status:'todo', statusText:'待确认'},
       {time:'—', name:'阅读', desc:'亲子阅读半小时（假期每日）', status:'todo', statusText:'待确认'},
       {time:'—', name:'常规', desc:'静坐（动笔前5分钟）', status:'todo', statusText:'待确认'},
@@ -1025,7 +1029,7 @@
     ],
     '2026-10-04': [
       {time:'—', name:'语文·朗读', desc:'熟练拼读 bpmf 音节（课本24-25页 + 拼音天天练2）', status:'todo', statusText:'待确认'},
-      {time:'—', name:'语文·书写', desc:'《语文园地一》生字书写（六、七、八、十，参考范写：六个六人/七十七个/八天八十/十一十月）', img:'images/homework/2026-10-04-语文-生字范写-六七八十.jpg', status:'todo', statusText:'待确认'},
+      {time:'—', name:'语文·书写', desc:'《语文园地一》生字书写（六、七、八、十，参考范写：六个六人/七十七个/八天八十/十一十月）', img:{src:'images/reference/2026-10-04-语文-生字范写-六七八十.jpg',label:'参考'}, status:'todo', statusText:'待确认'},
       {time:'—', name:'数学', desc:'用学具摆一摆7以内数的分解与组成（按顺序不重复不遗漏）', status:'todo', statusText:'待确认'},
       {time:'—', name:'阅读', desc:'亲子阅读半小时（假期每日）', status:'todo', statusText:'待确认'},
       {time:'—', name:'常规', desc:'静坐（动笔前5分钟）', status:'todo', statusText:'待确认'},
@@ -1035,7 +1039,7 @@
     ],
     '2026-10-05': [
       {time:'—', name:'语文·朗读', desc:'国学经典背诵《咏雪》', status:'todo', statusText:'待确认'},
-      {time:'—', name:'语文·书写', desc:'《a o e》拼音书写（单韵母+四声，参考范写）', img:'images/homework/2026-10-05-语文-拼音范写-aoe.jpg', status:'todo', statusText:'待确认'},
+      {time:'—', name:'语文·书写', desc:'《a o e》拼音书写（单韵母+四声，参考范写）', img:{src:'images/reference/2026-10-05-语文-拼音范写-aoe.jpg',label:'参考'}, status:'todo', statusText:'待确认'},
       {time:'—', name:'数学', desc:'书写1-7，每个数字写两行', status:'todo', statusText:'待确认'},
       {time:'—', name:'阅读', desc:'亲子阅读半小时（假期每日）', status:'todo', statusText:'待确认'},
       {time:'—', name:'常规', desc:'静坐（动笔前5分钟）', status:'todo', statusText:'待确认'},
@@ -1045,7 +1049,7 @@
     ],
     '2026-10-06': [
       {time:'—', name:'语文·朗读', desc:'国学经典背诵《遗爱寺》', status:'todo', statusText:'待确认'},
-      {time:'—', name:'语文·书写', desc:'《i u ü》拼音书写（单韵母+四声，参考范写）', img:'images/homework/2026-10-06-语文-拼音范写-iuu.jpg', status:'todo', statusText:'待确认'},
+      {time:'—', name:'语文·书写', desc:'《i u ü》拼音书写（单韵母+四声，参考范写）', img:{src:'images/reference/2026-10-06-语文-拼音范写-iuu.jpg',label:'参考'}, status:'todo', statusText:'待确认'},
       {time:'—', name:'数学', desc:'背7以内数的分成（假期主任务巩固）', status:'todo', statusText:'待确认'},
       {time:'—', name:'阅读', desc:'亲子阅读半小时（假期每日）', status:'todo', statusText:'待确认'},
       {time:'—', name:'常规', desc:'静坐（动笔前5分钟）', status:'todo', statusText:'待确认'},
@@ -1055,7 +1059,7 @@
     ],
     '2026-10-07': [
       {time:'—', name:'语文·朗读', desc:'国学经典背诵《桃花溪》', status:'todo', statusText:'待确认'},
-      {time:'—', name:'语文·书写', desc:'《bpmf》拼音书写（声母+两拼音节 bā bō bí bū 等，参考范写）', img:'images/homework/2026-10-07-语文-拼音范写-bpmf.jpg', status:'todo', statusText:'待确认'},
+      {time:'—', name:'语文·书写', desc:'《bpmf》拼音书写（声母+两拼音节 bā bō bí bū 等，参考范写）', img:{src:'images/reference/2026-10-07-语文-拼音范写-bpmf.jpg',label:'参考'}, status:'todo', statusText:'待确认'},
       {time:'—', name:'语文·实践', desc:'A4横向识字小报：抄写学过的生字词语/剪贴包装袋汉字/绘画装饰，自主完成家长适度协助（参考识字小报样式）', status:'todo', statusText:'待确认'},
       {time:'—', name:'数学', desc:'用A4纸画一幅寻找到的生活中的数学', status:'todo', statusText:'待确认'},
       {time:'—', name:'阅读', desc:'亲子阅读半小时（假期每日）', status:'todo', statusText:'待确认'},
@@ -1882,10 +1886,15 @@
   function imgThumb(srcs){
     if(!srcs) return '';
     var arr = Array.isArray(srcs) ? srcs : [srcs];
-    var g = JSON.stringify(arr).replace(/"/g, '&quot;');
+    var g = JSON.stringify(arr.map(function(x){ return typeof x === 'object' && x.src ? x.src : x; })).replace(/"/g, '&quot;');
     var h = '';
     arr.forEach(function(s, i){
-      h += '<span class="img-thumb" data-imgs="' + g + '" data-idx="' + i + '" title="点击查看大图"><img src="' + s + '" alt="附件图"></span>';
+      var src = typeof s === 'object' && s.src ? s.src : s;
+      var label = typeof s === 'object' && s.label ? s.label : '';
+      var cls = label === '参考' ? 'ref' : (label === '完成' ? 'done' : '');
+      h += '<span class="img-thumb" data-imgs="' + g + '" data-idx="' + i + '" title="点击查看大图">'
+         + (label ? '<i class="img-badge ' + cls + '">' + label + '</i>' : '')
+         + '<img src="' + src + '" alt="附件图"></span>';
     });
     return h;
   }
