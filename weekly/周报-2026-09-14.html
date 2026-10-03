@@ -154,15 +154,15 @@
       var poly = chart.querySelector('.sleep-line polyline');
       var n = dots.length;
       if(n < 2) continue;
-      var pad = window.innerWidth <= 640 ? 16 : 4;
+      var pad = window.innerWidth <= 640 ? 16 : 6;
       var span = 100 - 2 * pad;
       var pts = [];
       for(var i=0;i<n;i++){
+        var st = dots[i].getAttribute('style');
+        var m = st.match(/bottom:\s*([0-9.]+)%/);
+        var b = m ? parseFloat(m[1]) : 0;
         var left = pad + i * span / (n - 1);
         dots[i].style.left = left.toFixed(1) + '%';
-        var st = dots[i].getAttribute('style');
-        var m = st.match(/bottom:([0-9.]+)%/);
-        var b = m ? parseFloat(m[1]) : 0;
         pts.push(left.toFixed(1) + ',' + (100 - b).toFixed(1));
       }
       if(poly){ poly.setAttribute('points', pts.join(' ')); }
