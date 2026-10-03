@@ -36,17 +36,18 @@
   .card{background:var(--card-bg);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px 16px;}
   @media(max-width:640px){ .grid-2{grid-template-columns:1fr;} }
 
-  .ov-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+  .ov-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:6px;}
   .ov-row:last-child{margin-bottom:0;}
-  .ov-name{flex:none;width:52px;font-size:13px;font-weight:600;color:var(--ink);}
-  .ov-bar{flex:1;height:10px;background:#EEEEEC;border-radius:6px;overflow:hidden;position:relative;}
+  .ov-name{flex:none;width:52px;font-size:13px;font-weight:600;color:var(--ink);padding-top:1px;}
+  .ov-main{flex:1;min-width:0;}
+  .ov-bar{height:10px;background:#EEEEEC;border-radius:6px;overflow:hidden;position:relative;}
   .ov-fill{height:100%;border-radius:6px;background:linear-gradient(90deg,#2383E2,#5AA6F5);}
   .ov-fill.warn{background:linear-gradient(90deg,#F0A92E,#FAC863);}
   .ov-fill.err{background:linear-gradient(90deg,#E05C60,#F0868A);}
-  .ov-num{flex:none;width:120px;font-size:12.5px;color:var(--sub);text-align:right;font-variant-numeric:tabular-nums;}
+  .ov-num{font-size:12.5px;color:var(--sub);margin-top:2px;font-variant-numeric:tabular-nums;}
   .ov-num b{color:var(--ink);font-size:13.5px;}
   .q{display:inline-block;font-size:10.5px;padding:1px 6px;border-radius:4px;background:var(--accent-soft);color:var(--accent);margin-left:4px;font-weight:600;}
-  .ov-sub{font-size:12px;color:var(--sub);margin:-4px 0 10px 62px;}
+  .ov-sub{font-size:12px;color:var(--sub);margin:-2px 0 10px 62px;}
 
   .chart{display:flex;align-items:flex-end;gap:14px;height:150px;padding:6px 4px 0;border-bottom:1px solid var(--line);margin-top:14px;}
   .bar-col{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:6px;height:100%;}
@@ -56,13 +57,16 @@
   .bar-label{font-size:11px;color:var(--sub);}
   .bar-num{font-size:11px;color:var(--sub);font-variant-numeric:tabular-nums;}
 
-  .sleep{position:relative;height:120px;margin-top:16px;border-bottom:1px solid var(--line);}
-  .sleep .yline{position:absolute;left:0;right:0;font-size:10.5px;color:var(--sub);}
+  .sleep{position:relative;height:120px;margin-top:16px;padding-bottom:26px;border-bottom:1px solid var(--line);}
+  .sleep .yline{position:absolute;left:0;right:0;font-size:10.5px;color:var(--sub);z-index:1;}
   .sleep .yline span{background:var(--bg);padding-right:6px;}
-  .sleep .dot{position:absolute;width:11px;height:11px;border-radius:50%;background:var(--err);border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,0.2);transform:translate(-50%,50%);}
+  .sleep .sleep-line{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:visible;}
+  .sleep .dot{position:absolute;width:11px;height:11px;border-radius:50%;background:var(--err);border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,0.2);transform:translate(-50%,50%);cursor:pointer;z-index:2;}
   .sleep .dot.ok{background:var(--ok);}
-  .sleep .dot .t{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);font-size:11px;color:var(--ink);white-space:nowrap;font-weight:600;}
-  .sleep .goal{position:absolute;left:0;right:0;border-top:2px dashed var(--accent);}
+  .sleep .dot .t{position:absolute;bottom:-24px;left:50%;transform:translateX(-50%);font-size:11px;color:var(--sub);white-space:nowrap;}
+  .sleep .dot .tip{display:none;position:absolute;bottom:18px;left:50%;transform:translateX(-50%);background:rgba(55,53,47,0.95);color:#fff;font-size:11px;font-weight:600;padding:3px 9px;border-radius:6px;white-space:nowrap;z-index:3;}
+  .sleep .dot.on .tip{display:block;}
+  .sleep .goal{position:absolute;left:0;right:0;border-top:2px dashed var(--accent);z-index:1;}
   .sleep .goal span{position:absolute;right:0;top:-16px;font-size:10.5px;color:var(--accent);background:var(--bg);padding-left:6px;}
   .sleep .x{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);font-size:11px;color:var(--sub);}
 
@@ -101,7 +105,7 @@
   .ins .i-head{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
   .ins .i-no{flex:none;width:26px;height:26px;border-radius:8px;background:var(--accent);color:#fff;font-size:12.5px;font-weight:700;display:flex;align-items:center;justify-content:center;}
   .ins h4{font-size:14.5px;font-weight:700;}
-  .ins .row{font-size:13px;padding:3px 0;}
+  .ins .row{font-size:13px;padding:3px 0;padding-left:44px;text-indent:-44px;}
   .ins .row .k{display:inline-block;flex:none;font-size:11px;font-weight:700;padding:1px 7px;border-radius:4px;margin-right:8px;}
   .ins .k.pheno{background:var(--accent-soft);color:var(--accent);}
   .ins .k.ess{background:#F6F2E9;color:#B5892E;}
@@ -129,11 +133,11 @@
 <div class="meta">9.21 — 9.27（正式上课第3周 · 含中秋假期）<br>周报自动生成</div></div>
 <div class="summary"><div class="tag">核心结论</div><p>任务完成率连续3周 <b>100%</b>，自主性从“点状”走向“面状”（假期3天自主完成全部作业＋主动收尾）；但<b>睡眠0次准点</b>、<b>亲子阅读仅1次</b>——作业已不挤占晚间，问题转移到入睡程序与阅读排位。</p></div>
 <div class="sec-title"><span class="no">1</span>任务完成概览<small>按学科 · 完成率与质量</small></div>
-<div class="card"><div class="ov-row"><span class="ov-name">语文</span><div class="ov-bar"><div class="ov-fill" style="width:100%"></div></div><span class="ov-num"><b>100%</b> · 完成率 <span class="q">B+</span></span></div><div class="ov-sub">笔顺2次＋拼音aoe 2次＋背诵2次＋默写订正1次；田字结构待加强、笔顺默写需订正</div><div class="ov-row"><span class="ov-name">数学</span><div class="ov-bar"><div class="ov-fill" style="width:100%"></div></div><span class="ov-num"><b>100%</b> · 完成率 <span class="q">A-</span></span></div><div class="ov-sub">加法分合2次＋三句式1次＋数字1-5＋比大小12组＋加法算式12题；本周无错题反馈</div><div class="ov-row"><span class="ov-name">练字</span><div class="ov-bar"><div class="ov-fill" style="width:100%"></div></div><span class="ov-num"><b>100%</b> · 完成率</span></div><div class="ov-sub">9/22＋假期巩固所学字</div><div class="ov-row"><span class="ov-name">静坐</span><div class="ov-bar"><div class="ov-fill" style="width:100%"></div></div><span class="ov-num"><b>5/5</b> 全勤</span></div><div class="ov-sub">9/21、9/22、9/25-9/27</div><div class="ov-row"><span class="ov-name">控笔</span><div class="ov-bar"><div class="ov-fill" style="width:100%"></div></div><span class="ov-num"><b>2/2</b> 全完成</span></div><div class="ov-sub">9/21、9/22</div><div class="ov-row"><span class="ov-name">阅读</span><div class="ov-bar"><div class="ov-fill err" style="width:20%"></div></div><span class="ov-num"><b>1/5</b> 仅1次 <span class="q" style="background:#FDECEC;color:#C93C40;">本周最大缺口</span></span></div><div class="ov-sub">亲子仅9/22完成1次，假期3天无阅读</div><div class="ov-row"><span class="ov-name">整理</span><div class="ov-bar"><div class="ov-fill" style="width:100%"></div></div><span class="ov-num"><b>4/4</b> 全完成</span></div><div class="ov-sub">9/21、9/22、9/23、9/27开学前（假期按老师要求不整理）</div><div class="ov-row"><span class="ov-name">睡眠</span><div class="ov-bar"><div class="ov-fill err" style="width:3%"></div></div><span class="ov-num"><b>0/2</b> 准点 <span class="q" style="background:#FDECEC;color:#C93C40;">0次</span></span></div><div class="ov-sub">有记录2晚（9/21 21:40、9/23 21:30），0次准点；9/22、9/25、9/26未报</div></div>
+<div class="card"><div class="ov-row"><span class="ov-name">语文</span><div class="ov-main"><div class="ov-bar"><div class="ov-fill" style="width:100%"></div></div><div class="ov-num"><b>100%</b> · 完成率 <span class="q">B+</span></div></div></div><div class="ov-sub">笔顺2次＋拼音aoe 2次＋背诵2次＋默写订正1次；田字结构待加强、笔顺默写需订正</div><div class="ov-row"><span class="ov-name">数学</span><div class="ov-main"><div class="ov-bar"><div class="ov-fill" style="width:100%"></div></div><div class="ov-num"><b>100%</b> · 完成率 <span class="q">A-</span></div></div></div><div class="ov-sub">加法分合2次＋三句式1次＋数字1-5＋比大小12组＋加法算式12题；本周无错题反馈</div><div class="ov-row"><span class="ov-name">练字</span><div class="ov-main"><div class="ov-bar"><div class="ov-fill" style="width:100%"></div></div><div class="ov-num"><b>100%</b> · 完成率</div></div></div><div class="ov-sub">9/22＋假期巩固所学字</div><div class="ov-row"><span class="ov-name">静坐</span><div class="ov-main"><div class="ov-bar"><div class="ov-fill" style="width:100%"></div></div><div class="ov-num"><b>5/5</b> 全勤</div></div></div><div class="ov-sub">9/21、9/22、9/25-9/27</div><div class="ov-row"><span class="ov-name">控笔</span><div class="ov-main"><div class="ov-bar"><div class="ov-fill" style="width:100%"></div></div><div class="ov-num"><b>2/2</b> 全完成</div></div></div><div class="ov-sub">9/21、9/22</div><div class="ov-row"><span class="ov-name">阅读</span><div class="ov-main"><div class="ov-bar"><div class="ov-fill err" style="width:20%"></div></div><div class="ov-num"><b>1/5</b> 仅1次 <span class="q" style="background:#FDECEC;color:#C93C40;">本周最大缺口</span></div></div></div><div class="ov-sub">亲子仅9/22完成1次，假期3天无阅读</div><div class="ov-row"><span class="ov-name">整理</span><div class="ov-main"><div class="ov-bar"><div class="ov-fill" style="width:100%"></div></div><div class="ov-num"><b>4/4</b> 全完成</div></div></div><div class="ov-sub">9/21、9/22、9/23、9/27开学前（假期按老师要求不整理）</div><div class="ov-row"><span class="ov-name">睡眠</span><div class="ov-main"><div class="ov-bar"><div class="ov-fill err" style="width:3%"></div></div><div class="ov-num"><b>0/2</b> 准点 <span class="q" style="background:#FDECEC;color:#C93C40;">0次</span></div></div></div><div class="ov-sub">有记录2晚（9/21 21:40、9/23 21:30），0次准点；9/22、9/25、9/26未报</div></div>
 <div class="sec-title"><span class="no">2</span>一周任务节奏<small>每天完成的任务数（作业类）</small></div>
 <div class="card"><div class="chart"><div class="bar-col"><div class="bar" style="height:100%"></div><span class="bar-num">6</span><span class="bar-label">9/21</span></div><div class="bar-col"><div class="bar warn" style="height:17%"></div><span class="bar-num">1</span><span class="bar-label">9/22</span></div><div class="bar-col"><div class="bar warn" style="height:17%"></div><span class="bar-num">1</span><span class="bar-label">9/23</span></div><div class="bar-col"><div class="bar warn" style="height:17%"></div><span class="bar-num">1</span><span class="bar-label">9/25</span></div><div class="bar-col"><div class="bar warn" style="height:17%"></div><span class="bar-num">1</span><span class="bar-label">9/26</span></div><div class="bar-col"><div class="bar" style="height:67%"></div><span class="bar-num">4</span><span class="bar-label">9/27</span></div></div><p style="font-size:12px;color:var(--sub);margin-top:20px;">9/24中秋假期；9/22-9/26假期日每天1-4条记录，9/27开学前主动整理书包（自主收尾）。</p></div>
 <div class="sec-title"><span class="no">3</span>睡眠记录<small>目标 21:00 入睡 · 本周2晚有记录</small></div>
-<div class="card"><div class="sleep"><div class="yline" style="bottom:0%;"><span>21:00</span></div><div class="yline" style="bottom:33%;"><span>21:30</span></div><div class="yline" style="bottom:67%;"><span>22:00</span></div><div class="yline" style="bottom:100%;"><span>22:30</span></div><div class="goal" style="bottom:0%;"><span>目标 21:00</span></div><div class="dot" style="left:0%;bottom:44%;"><span class="t">9/21 · 21:40</span></div><div class="dot" style="left:100%;bottom:33%;"><span class="t">9/23 · 21:30</span></div></div><p style="font-size:12px;color:var(--sub);margin-top:26px;">有记录2晚，0次准点；9/22、9/25、9/26未报。较上周周末（22:00-22:30）整体前移约30分钟，但离21:00仍有差距。</p></div>
+<div class="card"><div class="sleep"><div class="yline" style="bottom:0%;"><span>21:00</span></div><div class="yline" style="bottom:33%;"><span>21:30</span></div><div class="yline" style="bottom:67%;"><span>22:00</span></div><div class="yline" style="bottom:100%;"><span>22:30</span></div><svg class="sleep-line" viewBox="0 0 100 100" preserveAspectRatio="none"><polyline fill="none" stroke="rgba(35,131,226,0.7)" stroke-width="1" stroke-linejoin="round" stroke-linecap="round" points="0.0,56.0 100.0,67.0"/></svg><div class="goal" style="bottom:0%;"><span>目标 21:00</span></div><div class="dot" style="left:0%;bottom:44%;"><span class="t">9/21</span><span class="tip">21:40</span></div><div class="dot" style="left:100%;bottom:33%;"><span class="t">9/23</span><span class="tip">21:30</span></div></div><p style="font-size:12px;color:var(--sub);margin-top:26px;">有记录2晚，0次准点；9/22、9/25、9/26未报。较上周周末（22:00-22:30）整体前移约30分钟，但离21:00仍有差距。</p></div>
 <div class="sec-title"><span class="no">4</span>习惯与状态<small>保持项 vs 待改进项</small></div>
 <div class="hab"><div class="card keep"><h4>保持项</h4><ul><li>作业类5天全完成，质量稳定</li><li>假期3天自主完成全部作业＋自主练字巩固</li><li>9/27主动整理书包准备开学（自主收尾）</li><li>静坐5次全勤</li></ul></div><div class="card fix"><h4>待改进项</h4><ul><li>睡眠0次准点（21:40 / 21:30）</li><li>亲子阅读仅1次（9/22），假期3天无阅读</li><li>笔顺默写仍需订正</li></ul></div></div>
 <div class="sec-title"><span class="no">5</span>知识薄弱点<small>本周数学无错题（进步）</small></div>
@@ -146,4 +150,21 @@
 <div class="card"><ul class="todo"><li><span class="p p1">P1</span><span><b>睡眠程序化：</b>20:40洗漱→20:50阅读→21:00关灯，目标至少3晚准点（本周0次）</span></li><li><span class="p p1">P1</span><span><b>亲子阅读复位：</b>20:00-20:30固定时段、与作业脱钩，先恢复5天3次</span></li><li><span class="p p2">P2</span><span><b>框形字专项：</b>田/目类字“写前三看”口头化，练字自查1处差距</span></li><li><span class="p p2">P2</span><span><b>笔顺固化：</b>写字前口头说笔顺；错笔顺只重写错的那一笔，不整字重写</span></li><li><span class="p p3">P3</span><span><b>拼音跟进：</b>aoe已预习两遍，开学正式学拼音，每天带声调朗读2分钟</span></li><li><span class="p p3">P3</span><span><b>数学保持：</b>分合、比大小、加法的正确书写节奏继续保持（本周无错题）</span></li></ul></div>
 <div class="advice"><div class="tag">给家长的一条建议</div><p>假期证明自主性已能规模化，本周最值得投入的是<b>入睡程序</b>：把20:40洗漱、21:00关灯当成与作业同样重要的事，和孩子一起执行、每晚只记录不唠叨。</p><p>监督方式从“盯着写”改为<b>约定时间＋结果确认</b>，给孩子的自主闭环留出空间——她的主动性是本周最大的资产，别用催促把它消耗掉。</p></div>
 <div class="foot">数据来源：任务日志 · 错题记录 · 成长记录 · 每日复盘<br>本页为 第4周周报（9.21-9.27）<br><a href="../index.html">← 返回学习档案</a></div>
+
+<script>
+(function(){
+  var dots = document.querySelectorAll('.sleep .dot');
+  function off(){ for(var i=0;i<dots.length;i++){ dots[i].classList.remove('on'); } }
+  for(var i=0;i<dots.length;i++){
+    (function(d){
+      d.addEventListener('click', function(ev){
+        ev.stopPropagation();
+        if(d.classList.contains('on')){ d.classList.remove('on'); }
+        else { off(); d.classList.add('on'); }
+      });
+    })(dots[i]);
+  }
+  document.addEventListener('click', function(){ off(); });
+})();
+</script>
 </div></body></html>

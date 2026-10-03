@@ -36,17 +36,18 @@
   .card{background:var(--card-bg);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px 16px;}
   @media(max-width:640px){ .grid-2{grid-template-columns:1fr;} }
 
-  .ov-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+  .ov-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:6px;}
   .ov-row:last-child{margin-bottom:0;}
-  .ov-name{flex:none;width:52px;font-size:13px;font-weight:600;color:var(--ink);}
-  .ov-bar{flex:1;height:10px;background:#EEEEEC;border-radius:6px;overflow:hidden;position:relative;}
+  .ov-name{flex:none;width:52px;font-size:13px;font-weight:600;color:var(--ink);padding-top:1px;}
+  .ov-main{flex:1;min-width:0;}
+  .ov-bar{height:10px;background:#EEEEEC;border-radius:6px;overflow:hidden;position:relative;}
   .ov-fill{height:100%;border-radius:6px;background:linear-gradient(90deg,#2383E2,#5AA6F5);}
   .ov-fill.warn{background:linear-gradient(90deg,#F0A92E,#FAC863);}
   .ov-fill.err{background:linear-gradient(90deg,#E05C60,#F0868A);}
-  .ov-num{flex:none;width:120px;font-size:12.5px;color:var(--sub);text-align:right;font-variant-numeric:tabular-nums;}
+  .ov-num{font-size:12.5px;color:var(--sub);margin-top:2px;font-variant-numeric:tabular-nums;}
   .ov-num b{color:var(--ink);font-size:13.5px;}
   .q{display:inline-block;font-size:10.5px;padding:1px 6px;border-radius:4px;background:var(--accent-soft);color:var(--accent);margin-left:4px;font-weight:600;}
-  .ov-sub{font-size:12px;color:var(--sub);margin:-4px 0 10px 62px;}
+  .ov-sub{font-size:12px;color:var(--sub);margin:-2px 0 10px 62px;}
 
   .chart{display:flex;align-items:flex-end;gap:14px;height:150px;padding:6px 4px 0;border-bottom:1px solid var(--line);margin-top:14px;}
   .bar-col{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:6px;height:100%;}
@@ -56,13 +57,16 @@
   .bar-label{font-size:11px;color:var(--sub);}
   .bar-num{font-size:11px;color:var(--sub);font-variant-numeric:tabular-nums;}
 
-  .sleep{position:relative;height:120px;margin-top:16px;border-bottom:1px solid var(--line);}
-  .sleep .yline{position:absolute;left:0;right:0;font-size:10.5px;color:var(--sub);}
+  .sleep{position:relative;height:120px;margin-top:16px;padding-bottom:26px;border-bottom:1px solid var(--line);}
+  .sleep .yline{position:absolute;left:0;right:0;font-size:10.5px;color:var(--sub);z-index:1;}
   .sleep .yline span{background:var(--bg);padding-right:6px;}
-  .sleep .dot{position:absolute;width:11px;height:11px;border-radius:50%;background:var(--err);border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,0.2);transform:translate(-50%,50%);}
+  .sleep .sleep-line{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:visible;}
+  .sleep .dot{position:absolute;width:11px;height:11px;border-radius:50%;background:var(--err);border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,0.2);transform:translate(-50%,50%);cursor:pointer;z-index:2;}
   .sleep .dot.ok{background:var(--ok);}
-  .sleep .dot .t{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);font-size:11px;color:var(--ink);white-space:nowrap;font-weight:600;}
-  .sleep .goal{position:absolute;left:0;right:0;border-top:2px dashed var(--accent);}
+  .sleep .dot .t{position:absolute;bottom:-24px;left:50%;transform:translateX(-50%);font-size:11px;color:var(--sub);white-space:nowrap;}
+  .sleep .dot .tip{display:none;position:absolute;bottom:18px;left:50%;transform:translateX(-50%);background:rgba(55,53,47,0.95);color:#fff;font-size:11px;font-weight:600;padding:3px 9px;border-radius:6px;white-space:nowrap;z-index:3;}
+  .sleep .dot.on .tip{display:block;}
+  .sleep .goal{position:absolute;left:0;right:0;border-top:2px dashed var(--accent);z-index:1;}
   .sleep .goal span{position:absolute;right:0;top:-16px;font-size:10.5px;color:var(--accent);background:var(--bg);padding-left:6px;}
   .sleep .x{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);font-size:11px;color:var(--sub);}
 
@@ -101,7 +105,7 @@
   .ins .i-head{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
   .ins .i-no{flex:none;width:26px;height:26px;border-radius:8px;background:var(--accent);color:#fff;font-size:12.5px;font-weight:700;display:flex;align-items:center;justify-content:center;}
   .ins h4{font-size:14.5px;font-weight:700;}
-  .ins .row{font-size:13px;padding:3px 0;}
+  .ins .row{font-size:13px;padding:3px 0;padding-left:44px;text-indent:-44px;}
   .ins .row .k{display:inline-block;flex:none;font-size:11px;font-weight:700;padding:1px 7px;border-radius:4px;margin-right:8px;}
   .ins .k.pheno{background:var(--accent-soft);color:var(--accent);}
   .ins .k.ess{background:#F6F2E9;color:#B5892E;}
@@ -129,11 +133,11 @@
 <div class="meta">2026年9月 · 9.1 — 9.30（开学第1个月 · 含中秋假期）<br>周报自动生成</div></div>
 <div class="summary"><div class="tag">核心结论</div><p>入学第1个月完成<b>“适应→闭环→自主”三级跃迁</b>，主动性与书写态度是最确定的资产；但<b>睡眠13晚仅1晚准点（9/17）</b>、<b>亲子阅读三段断档</b>、<b>框形字结构连续4次出错</b>——三大问题均非能力问题，而是“程序未设＋观察习惯未建＋阅读无固定排位”。</p></div>
 <div class="sec-title"><span class="no">1</span>本月任务完成概览<small>按学科 · 完成率与质量</small></div>
-<div class="card"><div class="ov-row"><span class="ov-name">语文</span><div class="ov-bar"><div class="ov-fill" style="width:100%"></div></div><span class="ov-num"><b>100%</b> · 完成率 <span class="q">A-</span></span></div><div class="ov-sub">指读4次＋生字笔顺书写8次＋默写订正2次＋背诵4篇＋拼音3课（aoe/iuü/bpmf预习）；笔顺9/14、9/17擦改，9/22、9/28订正；“目”“田”框形字连续4次</div><div class="ov-row"><span class="ov-name">数学</span><div class="ov-bar"><div class="ov-fill" style="width:100%"></div></div><span class="ov-num"><b>100%</b> · 完成率 <span class="q">A</span></span></div><div class="ov-sub">数字1-5书写8次＋2-5分合6次＋比大小12组＋加法＋减法含义与三句式＋同样多；9/15 4的分成错1个；9/20“=”间隔大已订正；9/21起分合无错题</div><div class="ov-row"><span class="ov-name">练字</span><div class="ov-bar"><div class="ov-fill" style="width:100%"></div></div><span class="ov-num"><b>100%</b> · 完成率 <span class="q">B→B+</span></span></div><div class="ov-sub">控笔训练2天＋笔画阶段10+次（悬针竖十干/横折口中/捺人天/目/田）；9/12走神、9/17目未过关；9/13规则前置后进步大</div><div class="ov-row"><span class="ov-name">静坐</span><div class="ov-bar"><div class="ov-fill warn" style="width:94%"></div></div><span class="ov-num"><b>94%</b> · 15/16次</span></div><div class="ov-sub">有记录16次完成15次；9/12周六缺席1次</div><div class="ov-row"><span class="ov-name">控笔</span><div class="ov-bar"><div class="ov-fill warn" style="width:83%"></div></div><span class="ov-num"><b>83%</b> · 5/6次</span></div><div class="ov-sub">布置6次完成5次；9/15未完成</div><div class="ov-row"><span class="ov-name">阅读</span><div class="ov-bar"><div class="ov-fill warn" style="width:75%"></div></div><span class="ov-num"><b>75%</b> · 亲子8+自主4</span></div><div class="ov-sub">亲子断档三段（9/11-13、9/19-20、9/24-27假期）；阅读时段不稳定是第二大缺口</div><div class="ov-row"><span class="ov-name">整理</span><div class="ov-bar"><div class="ov-fill" style="width:100%"></div></div><span class="ov-num"><b>100%</b> · 12/12次</span></div><div class="ov-sub">有记录12次全部完成；9/11忘带数学本教训后未再重演</div><div class="ov-row"><span class="ov-name">睡眠</span><div class="ov-bar"><div class="ov-fill err" style="width:8%"></div></div><span class="ov-num"><b>8%</b> · 1/13晚准点</span></div><div class="ov-sub">有记录13晚仅1晚准点（9/17），平均约21:48，超时40分钟级</div></div>
+<div class="card"><div class="ov-row"><span class="ov-name">语文</span><div class="ov-main"><div class="ov-bar"><div class="ov-fill" style="width:100%"></div></div><div class="ov-num"><b>100%</b> · 完成率 <span class="q">A-</span></div></div></div><div class="ov-sub">指读4次＋生字笔顺书写8次＋默写订正2次＋背诵4篇＋拼音3课（aoe/iuü/bpmf预习）；笔顺9/14、9/17擦改，9/22、9/28订正；“目”“田”框形字连续4次</div><div class="ov-row"><span class="ov-name">数学</span><div class="ov-main"><div class="ov-bar"><div class="ov-fill" style="width:100%"></div></div><div class="ov-num"><b>100%</b> · 完成率 <span class="q">A</span></div></div></div><div class="ov-sub">数字1-5书写8次＋2-5分合6次＋比大小12组＋加法＋减法含义与三句式＋同样多；9/15 4的分成错1个；9/20“=”间隔大已订正；9/21起分合无错题</div><div class="ov-row"><span class="ov-name">练字</span><div class="ov-main"><div class="ov-bar"><div class="ov-fill" style="width:100%"></div></div><div class="ov-num"><b>100%</b> · 完成率 <span class="q">B→B+</span></div></div></div><div class="ov-sub">控笔训练2天＋笔画阶段10+次（悬针竖十干/横折口中/捺人天/目/田）；9/12走神、9/17目未过关；9/13规则前置后进步大</div><div class="ov-row"><span class="ov-name">静坐</span><div class="ov-main"><div class="ov-bar"><div class="ov-fill warn" style="width:94%"></div></div><div class="ov-num"><b>94%</b> · 15/16次</div></div></div><div class="ov-sub">有记录16次完成15次；9/12周六缺席1次</div><div class="ov-row"><span class="ov-name">控笔</span><div class="ov-main"><div class="ov-bar"><div class="ov-fill warn" style="width:83%"></div></div><div class="ov-num"><b>83%</b> · 5/6次</div></div></div><div class="ov-sub">布置6次完成5次；9/15未完成</div><div class="ov-row"><span class="ov-name">阅读</span><div class="ov-main"><div class="ov-bar"><div class="ov-fill warn" style="width:75%"></div></div><div class="ov-num"><b>75%</b> · 亲子8+自主4</div></div></div><div class="ov-sub">亲子断档三段（9/11-13、9/19-20、9/24-27假期）；阅读时段不稳定是第二大缺口</div><div class="ov-row"><span class="ov-name">整理</span><div class="ov-main"><div class="ov-bar"><div class="ov-fill" style="width:100%"></div></div><div class="ov-num"><b>100%</b> · 12/12次</div></div></div><div class="ov-sub">有记录12次全部完成；9/11忘带数学本教训后未再重演</div><div class="ov-row"><span class="ov-name">睡眠</span><div class="ov-main"><div class="ov-bar"><div class="ov-fill err" style="width:8%"></div></div><div class="ov-num"><b>8%</b> · 1/13晚准点</div></div></div><div class="ov-sub">有记录13晚仅1晚准点（9/17），平均约21:48，超时40分钟级</div></div>
 <div class="sec-title"><span class="no">2</span>每周任务节奏<small>按周聚合（周一起点）· 记录条数</small></div>
 <div class="card"><div class="chart"><div class="bar-col"><div class="bar warn" style="height:4%"></div><span class="bar-num">2</span><span class="bar-label">8/31</span></div><div class="bar-col"><div class="bar" style="height:72%"></div><span class="bar-num">34</span><span class="bar-label">9/7</span></div><div class="bar-col"><div class="bar" style="height:100%"></div><span class="bar-num">47</span><span class="bar-label">9/14</span></div><div class="bar-col"><div class="bar warn" style="height:30%"></div><span class="bar-num">14</span><span class="bar-label">9/21</span></div><div class="bar-col"><div class="bar warn" style="height:30%"></div><span class="bar-num">14</span><span class="bar-label">9/28</span></div></div><p style="font-size:12px;color:var(--sub);margin-top:20px;">第1周为入学适应期仅2条记录；9/7正式上课后记录量稳定。</p></div>
 <div class="sec-title"><span class="no">3</span>睡眠记录<small>目标 21:00 入睡 · 9月13晚有记录</small></div>
-<div class="card"><div class="sleep"><div class="yline" style="bottom:0%;"><span>21:00</span></div><div class="yline" style="bottom:33%;"><span>21:30</span></div><div class="yline" style="bottom:67%;"><span>22:00</span></div><div class="yline" style="bottom:100%;"><span>22:30</span></div><div class="goal" style="bottom:0%;"><span>目标 21:00</span></div><div class="dot" style="left:0%;bottom:67%;"><span class="t">9/9 · 22:00</span></div><div class="dot" style="left:8%;bottom:44%;"><span class="t">9/10 · 21:40</span></div><div class="dot" style="left:17%;bottom:56%;"><span class="t">9/14 · 21:50</span></div><div class="dot" style="left:25%;bottom:67%;"><span class="t">9/15 · 22:00</span></div><div class="dot" style="left:33%;bottom:78%;"><span class="t">9/16 · 22:10</span></div><div class="dot ok" style="left:42%;bottom:0%;"><span class="t">9/17 · 21:00</span></div><div class="dot" style="left:50%;bottom:33%;"><span class="t">9/18 · 21:30</span></div><div class="dot" style="left:58%;bottom:67%;"><span class="t">9/19 · 22:00</span></div><div class="dot" style="left:67%;bottom:100%;"><span class="t">9/20 · 22:30</span></div><div class="dot" style="left:75%;bottom:44%;"><span class="t">9/21 · 21:40</span></div><div class="dot" style="left:83%;bottom:33%;"><span class="t">9/23 · 21:30</span></div><div class="dot" style="left:92%;bottom:50%;"><span class="t">9/28 · 21:45</span></div><div class="dot" style="left:100%;bottom:50%;"><span class="t">9/29 · 21:45</span></div></div><p style="font-size:12px;color:var(--sub);margin-top:26px;">13晚仅9/17一次准点；9月睡眠平均约21:48，与21:00目标差距稳定在40分钟级——入睡程序未建立的直接体现。</p></div>
+<div class="card"><div class="sleep"><div class="yline" style="bottom:0%;"><span>21:00</span></div><div class="yline" style="bottom:33%;"><span>21:30</span></div><div class="yline" style="bottom:67%;"><span>22:00</span></div><div class="yline" style="bottom:100%;"><span>22:30</span></div><svg class="sleep-line" viewBox="0 0 100 100" preserveAspectRatio="none"><polyline fill="none" stroke="rgba(35,131,226,0.7)" stroke-width="1" stroke-linejoin="round" stroke-linecap="round" points="0.0,33.0 8.0,56.0 17.0,44.0 25.0,33.0 33.0,22.0 42.0,100.0 50.0,67.0 58.0,33.0 67.0,0.0 75.0,56.0 83.0,67.0 92.0,50.0 100.0,50.0"/></svg><div class="goal" style="bottom:0%;"><span>目标 21:00</span></div><div class="dot" style="left:0%;bottom:67%;"><span class="t">9/9</span><span class="tip">22:00</span></div><div class="dot" style="left:8%;bottom:44%;"><span class="t">9/10</span><span class="tip">21:40</span></div><div class="dot" style="left:17%;bottom:56%;"><span class="t">9/14</span><span class="tip">21:50</span></div><div class="dot" style="left:25%;bottom:67%;"><span class="t">9/15</span><span class="tip">22:00</span></div><div class="dot" style="left:33%;bottom:78%;"><span class="t">9/16</span><span class="tip">22:10</span></div><div class="dot ok" style="left:42%;bottom:0%;"><span class="t">9/17</span><span class="tip">21:00</span></div><div class="dot" style="left:50%;bottom:33%;"><span class="t">9/18</span><span class="tip">21:30</span></div><div class="dot" style="left:58%;bottom:67%;"><span class="t">9/19</span><span class="tip">22:00</span></div><div class="dot" style="left:67%;bottom:100%;"><span class="t">9/20</span><span class="tip">22:30</span></div><div class="dot" style="left:75%;bottom:44%;"><span class="t">9/21</span><span class="tip">21:40</span></div><div class="dot" style="left:83%;bottom:33%;"><span class="t">9/23</span><span class="tip">21:30</span></div><div class="dot" style="left:92%;bottom:50%;"><span class="t">9/28</span><span class="tip">21:45</span></div><div class="dot" style="left:100%;bottom:50%;"><span class="t">9/29</span><span class="tip">21:45</span></div></div><p style="font-size:12px;color:var(--sub);margin-top:26px;">13晚仅9/17一次准点；9月睡眠平均约21:48，与21:00目标差距稳定在40分钟级——入睡程序未建立的直接体现。</p></div>
 <div class="sec-title"><span class="no">4</span>错题统计<small>9月共7条 · 按知识点×错误原因</small></div>
 <div class="weak"><div class="weak-card hot"><h4>字形结构（框形字）<span class="cnt">重点薄弱 ×4</span></h4><p>9/16目、9/17目、9/20六、9/21田</p><div class="why"><b>原因：</b>写前不观察占格、横折不垂直、两竖不等高、横画不扛肩</div></div><div class="weak-card hot"><h4>笔顺<span class="cnt">重点薄弱 ×3</span></h4><p>9/14、9/17擦改、9/22默写订正</p><div class="why"><b>原因：</b>按轮廓“画”字而非按笔顺“写”字（月末趋于稳定）</div></div><div class="weak-card ok"><h4>数的分成<span class="cnt">2次后清零</span></h4><p>9/15 4分成错1个、9/17占格错</p><div class="why"><b>原因：</b>复习摆一摆后9/21起无错题</div></div><div class="weak-card plain"><h4>执笔姿势与力度<span class="cnt">1次</span></h4><p>9/19歪头、竖画不直、控笔行笔不稳</p><div class="why"><b>原因：</b>控笔操持续盯</div></div><div class="weak-card plain"><h4>符号书写<span class="cnt">1次</span></h4><p>9/20“=”两短横间隔大</p><div class="why"><b>原因：</b>已订正</div></div></div>
 <div class="sec-title"><span class="no">5</span>薄弱知识点变化<small>同一知识点连续多次出错标记为重点薄弱</small></div>
@@ -147,4 +151,21 @@
 <div class="sec-title"><span class="no">9</span>下月重点<small>10月 · 按优先级</small></div>
 <div class="card"><ul class="todo"><li><span class="p p1">P1</span><span><b>睡眠程序化：</b>20:40洗漱→20:50阅读→21:00关灯，每周至少3晚准点，假期不例外</span></li><li><span class="p p1">P1</span><span><b>国庆假期作业管理（10/1-10/7）：</b>沿用先写作业再玩，每天上午先完成再安排活动</span></li><li><span class="p p2">P2</span><span><b>框形字专项：</b>目/田/回/日“写前三看”口头化，目标连续3次达标</span></li><li><span class="p p2">P2</span><span><b>拼音跟进：</b>bpmf及后续声母，每天带声调朗读2分钟</span></li><li><span class="p p2">P2</span><span><b>笔顺固化：</b>写字前先口述笔顺；错笔顺只重写错的那一笔</span></li><li><span class="p p3">P3</span><span><b>数学保持＋减法巩固：</b>三句式每天1题，分合熟练度保持</span></li><li><span class="p p3">P3</span><span><b>亲子阅读复位：</b>固定20:00-20:30，先恢复每周5天3次</span></li><li><span class="p p3">P3</span><span><b>国际象棋启动：</b>10月第1个周日第1课（认识棋盘，40分钟）</span></li></ul></div>
 <div class="foot">数据来源：任务日志 · 错题记录 · 成长记录 · 每日复盘<br>本页为 2026年9月学习月报 · 数据截至 9/30<br><a href="../index.html">← 返回学习档案</a></div>
+
+<script>
+(function(){
+  var dots = document.querySelectorAll('.sleep .dot');
+  function off(){ for(var i=0;i<dots.length;i++){ dots[i].classList.remove('on'); } }
+  for(var i=0;i<dots.length;i++){
+    (function(d){
+      d.addEventListener('click', function(ev){
+        ev.stopPropagation();
+        if(d.classList.contains('on')){ d.classList.remove('on'); }
+        else { off(); d.classList.add('on'); }
+      });
+    })(dots[i]);
+  }
+  document.addEventListener('click', function(){ off(); });
+})();
+</script>
 </div></body></html>
