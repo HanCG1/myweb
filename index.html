@@ -1776,7 +1776,7 @@
     var diff = (7 - nxt.getDay()) % 7;
     nxt.setDate(nxt.getDate() + (diff === 0 ? 7 : diff));
     var nextStr = nxt.getFullYear() + '-' + pad2(nxt.getMonth()+1) + '-' + pad2(nxt.getDate());
-    var h = '<div class="wk-next"><span class="wk-next-tag">下次周报</span><b>' + nextStr + '</b>（周日）21:00 自动生成，覆盖当周旧内容</div>';
+    var h = '<div class="wk-next"><span class="wk-next-tag">下次周报</span><b>' + nextStr + '</b>（周日）21:00 自动生成并更新当周周报，历史周报保留</div>';
     h += '<div class="wk-grid">';
     rows.forEach(function(r){
       var m = r.title.match(/第(\d+)周/);
