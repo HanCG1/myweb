@@ -49,13 +49,13 @@
   .q{display:inline-block;font-size:10.5px;padding:1px 6px;border-radius:4px;background:var(--accent-soft);color:var(--accent);margin-left:4px;font-weight:600;}
   .ov-sub{font-size:12px;color:var(--sub);margin:-2px 0 10px 62px;}
 
-  .chart{display:flex;align-items:flex-end;gap:14px;height:150px;padding:6px 4px 0;border-bottom:1px solid var(--line);margin-top:14px;}
-  .bar-col{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:6px;height:100%;}
-  .bar{width:100%;max-width:44px;border-radius:5px 5px 0 0;background:linear-gradient(180deg,#5AA6F5,#2383E2);min-height:4px;}
+  .chart{position:relative;display:flex;align-items:flex-end;gap:14px;height:198px;padding:6px 4px 0;border-bottom:1px solid var(--line);margin-top:14px;}
+  .bar-col{flex:1;position:relative;height:100%;}
+  .bar{position:absolute;left:50%;transform:translateX(-50%);bottom:42px;width:44px;border-radius:5px 5px 0 0;background:linear-gradient(180deg,#5AA6F5,#2383E2);}
   .bar.err{background:linear-gradient(180deg,#F0868A,#E05C60);}
   .bar.warn{background:linear-gradient(180deg,#FAC863,#F0A92E);}
-  .bar-label{font-size:11px;color:var(--sub);}
-  .bar-num{font-size:11px;color:var(--sub);font-variant-numeric:tabular-nums;}
+  .bar-label{position:absolute;left:50%;transform:translateX(-50%);bottom:0;font-size:11px;color:var(--sub);white-space:nowrap;}
+  .bar-num{position:absolute;left:50%;transform:translateX(-50%);bottom:22px;font-size:11px;color:var(--sub);font-variant-numeric:tabular-nums;}
 
   .sleep{position:relative;height:120px;margin-top:16px;padding-bottom:26px;border-bottom:1px solid var(--line);}
   .sleep .yline{position:absolute;left:0;right:0;font-size:10.5px;color:var(--sub);z-index:1;}
@@ -135,7 +135,7 @@
 <div class="sec-title"><span class="no">1</span>本周概况<small>完成 / 错题 / 习惯</small></div>
 <div class="card"><ul class="plain-list"><li><b>完成：</b>25项任务周末补齐后全部闭环（语文范写“横、一、二、三、竖、上”、数学1-4；创编故事排队中；含9/12-9/13周末）</li><li><b>错题：</b>0道；薄弱知识点：暂无</li><li><b>习惯：</b>已养成——主动学习（5次）、静坐规范（4次）、书写态度（3次）；养成中——整理检查；需加强——按时睡觉</li></ul></div>
 <div class="sec-title"><span class="no">2</span>一周任务节奏<small>每天完成的任务数（作业类）</small></div>
-<div class="card"><div class="chart"><div class="bar-col"><div class="bar warn" style="height:25%"></div><span class="bar-num">2</span><span class="bar-label">9/8</span></div><div class="bar-col"><div class="bar" style="height:88%"></div><span class="bar-num">7</span><span class="bar-label">9/9</span></div><div class="bar-col"><div class="bar" style="height:88%"></div><span class="bar-num">7</span><span class="bar-label">9/10</span></div><div class="bar-col"><div class="bar" style="height:100%"></div><span class="bar-num">8</span><span class="bar-label">9/11</span></div><div class="bar-col"><div class="bar" style="height:38%"></div><span class="bar-num">3</span><span class="bar-label">9/12</span></div><div class="bar-col"><div class="bar" style="height:88%"></div><span class="bar-num">7</span><span class="bar-label">9/13</span></div></div><p style="font-size:12px;color:var(--sub);margin-top:20px;">9/8开学首日正式上课；9/11周五记录最多；周末（9/12-13）补齐语文范写与数学。</p></div>
+<div class="card"><div class="chart"><div class="bar-col"><div class="bar warn" style="height:37.5px"></div><span class="bar-num">2</span><span class="bar-label">9/8</span></div><div class="bar-col"><div class="bar" style="height:132.0px"></div><span class="bar-num">7</span><span class="bar-label">9/9</span></div><div class="bar-col"><div class="bar" style="height:132.0px"></div><span class="bar-num">7</span><span class="bar-label">9/10</span></div><div class="bar-col"><div class="bar" style="height:150.0px"></div><span class="bar-num">8</span><span class="bar-label">9/11</span></div><div class="bar-col"><div class="bar" style="height:57.0px"></div><span class="bar-num">3</span><span class="bar-label">9/12</span></div><div class="bar-col"><div class="bar" style="height:132.0px"></div><span class="bar-num">7</span><span class="bar-label">9/13</span></div></div><p style="font-size:12px;color:var(--sub);margin-top:20px;">9/8开学首日正式上课；9/11周五记录最多；周末（9/12-13）补齐语文范写与数学。</p></div>
 <div class="sec-title"><span class="no">3</span>睡眠记录<small>目标 21:00 入睡 · 本周2晚有记录</small></div>
 <div class="card"><div class="sleep"><div class="yline" style="bottom:0%;"><span>21:00</span></div><div class="yline" style="bottom:33%;"><span>21:30</span></div><div class="yline" style="bottom:67%;"><span>22:00</span></div><div class="yline" style="bottom:100%;"><span>22:30</span></div><svg class="sleep-line" viewBox="0 0 100 100" preserveAspectRatio="none"><polyline fill="none" stroke="rgba(35,131,226,0.7)" stroke-width="1" stroke-linejoin="round" stroke-linecap="round" points="4.0,33.0 96.0,56.0"/></svg><div class="goal" style="bottom:0%;"><span>目标 21:00</span></div><div class="dot" style="left:4.0%;bottom:67%;"><span class="t">9/9</span><span class="tip">22:00</span></div><div class="dot" style="left:96.0%;bottom:44%;"><span class="t">9/10</span><span class="tip">21:40</span></div></div><p style="font-size:12px;color:var(--sub);margin-top:26px;">有记录2晚：9/9 22:00（超时1小时）、9/10 21:40（超时40分钟，比昨日进步）。</p></div>
 <div class="sec-title"><span class="no">4</span>5条深层观察<small>现象 → 本质 → 建议</small></div>
