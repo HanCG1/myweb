@@ -3,9 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>学习周报 · 第5周</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232383E2'/%3E%3Ctext x='32' y='44' font-size='34' text-anchor='middle' fill='white'%3E周%3C/text%3E%3C/svg%3E">
+<title>第5周学习周报</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%232383E2%27/%3E%3Ctext x=%2732%27 y=%2744%27 font-size=%2734%27 text-anchor=%27middle%27 fill=%27white%27%3E周%3C/text%3E%3C/svg%3E">
 <style>
+
   :root{
     --bg:#FFFFFF; --bg-sub:#F7F7F5; --ink:#37352F; --sub:#787774;
     --line:#E9E9E7; --accent:#2383E2; --accent-soft:#EBF3FB;
@@ -16,60 +17,59 @@
   body{font-family:'PingFang SC','Microsoft YaHei',-apple-system,sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;font-size:14px;padding:28px 16px 60px;}
   .wrap{max-width:880px;margin:0 auto;}
 
-  /* 页头 */
-  .head{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:18px;}
+  .head{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:18px;}
   .head h1{font-size:26px;font-weight:700;letter-spacing:0.5px;}
   .head h1 small{font-size:13px;color:var(--sub);font-weight:400;margin-left:8px;}
   .head .meta{font-size:12.5px;color:var(--sub);text-align:right;}
   .pill{display:inline-block;font-size:11.5px;padding:2px 10px;border-radius:20px;background:var(--accent-soft);color:var(--accent);font-weight:600;margin-left:8px;vertical-align:2px;}
 
-  /* 核心结论 */
   .summary{background:linear-gradient(135deg,#EBF3FB,#F7FBFF);border:1px solid #D6E7F8;border-radius:var(--radius);padding:16px 18px;margin-bottom:20px;}
   .summary .tag{font-size:12px;color:var(--accent);font-weight:700;letter-spacing:2px;margin-bottom:4px;}
   .summary p{font-size:14.5px;color:var(--ink);}
   .summary b{color:var(--accent);}
 
-  /* 区块标题 */
   .sec-title{display:flex;align-items:center;gap:8px;font-size:16px;font-weight:700;margin:28px 0 12px;}
   .sec-title .no{width:22px;height:22px;border-radius:6px;background:var(--accent);color:#fff;font-size:12.5px;display:flex;align-items:center;justify-content:center;flex:none;}
   .sec-title small{color:var(--sub);font-weight:400;font-size:12.5px;}
 
-  /* 概览 */
   .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
   .card{background:var(--card-bg);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px 16px;}
   @media(max-width:640px){ .grid-2{grid-template-columns:1fr;} }
 
-  .ov-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+  .ov-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:6px;}
   .ov-row:last-child{margin-bottom:0;}
-  .ov-name{flex:none;width:52px;font-size:13px;font-weight:600;color:var(--ink);}
-  .ov-bar{flex:1;height:10px;background:#EEEEEC;border-radius:6px;overflow:hidden;position:relative;}
+  .ov-name{flex:none;width:52px;font-size:13px;font-weight:600;color:var(--ink);padding-top:1px;}
+  .ov-main{flex:1;min-width:0;}
+  .ov-bar{height:10px;background:#EEEEEC;border-radius:6px;overflow:hidden;position:relative;}
   .ov-fill{height:100%;border-radius:6px;background:linear-gradient(90deg,#2383E2,#5AA6F5);}
   .ov-fill.warn{background:linear-gradient(90deg,#F0A92E,#FAC863);}
   .ov-fill.err{background:linear-gradient(90deg,#E05C60,#F0868A);}
-  .ov-num{flex:none;width:110px;font-size:12.5px;color:var(--sub);text-align:right;font-variant-numeric:tabular-nums;}
+  .ov-num{font-size:12.5px;color:var(--sub);margin-top:2px;font-variant-numeric:tabular-nums;}
   .ov-num b{color:var(--ink);font-size:13.5px;}
   .q{display:inline-block;font-size:10.5px;padding:1px 6px;border-radius:4px;background:var(--accent-soft);color:var(--accent);margin-left:4px;font-weight:600;}
+  .ov-sub{font-size:12px;color:var(--sub);margin:-2px 0 10px 62px;}
 
-  /* 柱状图（周任务完成次数） */
-  .chart{display:flex;align-items:flex-end;gap:14px;height:150px;padding:6px 4px 0;border-bottom:1px solid var(--line);margin-top:14px;}
-  .bar-col{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:6px;height:100%;}
-  .bar{width:100%;max-width:44px;border-radius:5px 5px 0 0;background:linear-gradient(180deg,#5AA6F5,#2383E2);min-height:4px;}
+  .chart{position:relative;display:flex;align-items:flex-end;gap:14px;height:198px;padding:6px 4px 0;border-bottom:1px solid var(--line);margin-top:14px;}
+  .bar-col{flex:1;position:relative;height:100%;}
+  .bar{position:absolute;left:50%;transform:translateX(-50%);bottom:42px;width:44px;border-radius:5px 5px 0 0;background:linear-gradient(180deg,#5AA6F5,#2383E2);}
   .bar.err{background:linear-gradient(180deg,#F0868A,#E05C60);}
   .bar.warn{background:linear-gradient(180deg,#FAC863,#F0A92E);}
-  .bar-label{font-size:11px;color:var(--sub);}
-  .bar-num{font-size:11px;color:var(--sub);font-variant-numeric:tabular-nums;}
+  .bar-label{position:absolute;left:50%;transform:translateX(-50%);bottom:0;font-size:11px;color:var(--sub);white-space:nowrap;}
+  .bar-num{position:absolute;left:50%;transform:translateX(-50%);bottom:22px;font-size:11px;color:var(--sub);font-variant-numeric:tabular-nums;}
 
-  /* 睡眠时间轴 */
-  .sleep{position:relative;height:120px;margin-top:16px;border-bottom:1px solid var(--line);}
-  .sleep .yline{position:absolute;left:0;right:0;font-size:10.5px;color:var(--sub);}
+  .sleep{position:relative;height:120px;margin-top:16px;padding-bottom:26px;border-bottom:1px solid var(--line);}
+  .sleep .yline{position:absolute;left:0;right:0;font-size:10.5px;color:var(--sub);z-index:1;}
   .sleep .yline span{background:var(--bg);padding-right:6px;}
-  .sleep .dot{position:absolute;width:11px;height:11px;border-radius:50%;background:var(--err);border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,0.2);transform:translate(-50%,50%);}
-  .sleep .dot .t{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);font-size:11px;color:var(--ink);white-space:nowrap;font-weight:600;}
-  .sleep .goal{position:absolute;left:0;right:0;border-top:2px dashed var(--accent);}
-  .sleep .goal span{position:absolute;right:0;top:-16px;font-size:10.5px;color:var(--accent);background:var(--bg);padding-left:6px;}
+  .sleep .sleep-line{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:visible;}
+  .sleep .dot{position:absolute;width:11px;height:11px;border-radius:50%;background:var(--err);border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,0.2);transform:translate(-50%,50%);cursor:pointer;z-index:2;}
+  .sleep .dot.ok{background:var(--ok);}
+  .sleep .dot .t{position:absolute;bottom:-24px;left:50%;transform:translateX(-50%);font-size:11px;color:var(--sub);white-space:nowrap;}
+  .sleep .dot .tip{display:none;position:absolute;left:auto;right:auto;top:auto;bottom:auto;transform:none;margin:0;background:rgba(55,53,47,0.95);color:#fff;font-size:11px;font-weight:600;padding:3px 9px;border-radius:6px;white-space:nowrap;z-index:3;}
+  .sleep .dot.on .tip{display:block;}
+  .sleep .goal{position:absolute;left:0;right:0;border-top:2px dashed var(--accent);z-index:1;}
+  .sleep .goal-tag{position:absolute;bottom:-28px;left:0;font-size:10.5px;color:var(--accent);background:var(--bg);padding-right:6px;z-index:1;}
   .sleep .x{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);font-size:11px;color:var(--sub);}
 
-  /* 习惯双卡 */
   .hab{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
   @media(max-width:640px){ .hab{grid-template-columns:1fr;} }
   .hab .card h4{font-size:14px;font-weight:700;margin-bottom:8px;}
@@ -79,41 +79,44 @@
   .hab .keep li::before{content:'✓';position:absolute;left:2px;color:var(--ok);font-weight:700;}
   .hab .fix li::before{content:'!';position:absolute;left:2px;color:var(--err);font-weight:700;}
 
-  /* 薄弱点 */
   .weak{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
   @media(max-width:640px){ .weak{grid-template-columns:1fr;} }
   .weak-card{border-radius:var(--radius);padding:14px 16px;border:1px solid;}
   .weak-card.hot{background:#FDF1F1;border-color:#F3C2C4;}
   .weak-card.ok{background:#F2FAEE;border-color:#CDE8BE;}
-  .weak-card h4{font-size:14px;font-weight:700;display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+  .weak-card.plain{background:#F7F7F5;border-color:#E2E2DF;}
+  .weak-card h4{font-size:14px;font-weight:700;display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap;}
   .weak-card.hot h4{color:#C93C40;}
   .weak-card.ok h4{color:#389E0D;}
-  .cnt{font-size:11px;font-weight:700;padding:1px 8px;border-radius:10px;}
+  .cnt{font-size:11px;font-weight:700;padding:1px 8px;border-radius:10px;flex:none;}
   .weak-card.hot .cnt{background:#C93C40;color:#fff;}
   .weak-card.ok .cnt{background:#389E0D;color:#fff;}
+  .weak-card.plain .cnt{background:#D9D9D6;color:#333;}
   .weak-card p{font-size:12.8px;color:var(--ink);}
   .weak-card .why{margin-top:6px;font-size:12px;color:var(--sub);}
   .weak-card .why b{color:var(--ink);}
 
-  /* 深层观察 */
+  .plain-list{list-style:none;}
+  .plain-list li{font-size:13px;padding:6px 0 6px 22px;position:relative;border-bottom:1px dashed var(--line);}
+  .plain-list li:last-child{border-bottom:none;}
+  .plain-list li::before{content:'★';position:absolute;left:2px;color:var(--warn);font-weight:700;}
+
   .ins{background:var(--card-bg);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;margin-bottom:12px;box-shadow:var(--shadow);}
   .ins .i-head{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
   .ins .i-no{flex:none;width:26px;height:26px;border-radius:8px;background:var(--accent);color:#fff;font-size:12.5px;font-weight:700;display:flex;align-items:center;justify-content:center;}
   .ins h4{font-size:14.5px;font-weight:700;}
-  .ins .row{font-size:13px;padding:3px 0 3px 0;}
-  .ins .row .k{display:inline-block;flex:none;font-size:11px;font-weight:700;padding:1px 7px;border-radius:4px;margin-right:8px;}
+  .ins .row{display:flex;align-items:flex-start;gap:8px;font-size:13px;padding:3px 0;}
+  .ins .row .k{flex:none;font-size:11px;font-weight:700;padding:1px 7px;border-radius:4px;}
+  .ins .row .v{flex:1;min-width:0;color:var(--ink);}
   .ins .k.pheno{background:var(--accent-soft);color:var(--accent);}
   .ins .k.ess{background:#F6F2E9;color:#B5892E;}
   .ins .k.adv{background:#F2FAEE;color:#389E0D;}
-  .ins .row .v{color:var(--ink);}
 
-  /* 下周重点 */
   .todo li{list-style:none;display:flex;gap:10px;align-items:flex-start;padding:8px 12px;border-bottom:1px dashed var(--line);font-size:13.5px;}
   .todo li:last-child{border-bottom:none;}
   .p{flex:none;width:34px;text-align:center;font-size:10.5px;font-weight:700;border-radius:4px;padding:1px 0;margin-top:2px;}
   .p1{background:#C93C40;color:#fff;} .p2{background:#F0A92E;color:#fff;} .p3{background:var(--accent-soft);color:var(--accent);}
 
-  /* 给家长 */
   .advice{background:linear-gradient(135deg,#F7FBF5,#EFF8EC);border:1px solid #D5E8CC;border-radius:var(--radius);padding:16px 18px;margin-top:28px;}
   .advice .tag{font-size:12px;color:#389E0D;font-weight:700;letter-spacing:2px;margin-bottom:6px;}
   .advice p{font-size:13.8px;margin-top:6px;}
@@ -121,194 +124,115 @@
 
   .foot{margin-top:34px;text-align:center;color:#B5B5B0;font-size:12px;}
   .foot b{color:var(--sub);}
+  .foot a{color:var(--accent);text-decoration:none;font-weight:600;}
+
 </style>
 </head>
-<body>
-<div class="wrap">
+<body><div class="wrap">
+<div class="head"><h1>学习周报 <span class="pill">第5周</span><small>韩长歌 · 一年级</small></h1>
+<div class="meta">9.28 — 10.4（开学第5周 · 含国庆假期前4天）</div></div>
+<div class="summary"><div class="tag">核心结论</div><p>“先写作业再玩”规则在假期<b>延续生效</b>（4天假期3天任务全闭环）；练字以书法比赛为主题<b>连续4天全勤</b>，阅读转向自主（5/6天）。但<b>睡眠0次准点</b>且假期两晚反而更晚（22:00）、<b>7以内分合背诵连续2日不熟练</b>——假期最大的缺口不在作业，而在入睡程序与分合记忆。</p></div>
+<div class="sec-title"><span class="no">1</span>任务完成概览<small>按学科 · 有任务6天（9/30无作业日）</small></div>
+<div class="card"><div class="ov-row"><span class="ov-name">语文</span><div class="ov-main"><div class="ov-bar"><div class="ov-fill" style="width:100%"></div></div><div class="ov-num"><b>6/6</b> 天全完成 <span class="q">B+</span></div></div></div><div class="ov-sub">iuü读+笔顺订正（9/28）、bpmf预习（9/29）、假期拼音读背3次+生字书写4次（一二三上/口耳目手/日月山川/六七八十）；周末笔顺订正完成情况未反馈</div><div class="ov-row"><span class="ov-name">数学</span><div class="ov-main"><div class="ov-bar"><div class="ov-fill warn" style="width:67%"></div></div><div class="ov-num"><b>4/6</b> · 2天部分 <span class="q" style="background:#FDF3E3;color:#B5892E;">7分成不熟</span></div></div></div><div class="ov-sub">同样多+2-5分成加法（9/28）、减法含义三句式（9/29）、2-5分合加算式（10/1、10/2）、1-7书写（10/3）、摆一摆7以内分解（10/4）；7以内分合背诵连续2日不熟练</div><div class="ov-row"><span class="ov-name">练字</span><div class="ov-main"><div class="ov-bar"><div class="ov-fill" style="width:100%"></div></div><div class="ov-num"><b>6/6</b> 全勤 · 备赛4天</div></div></div><div class="ov-sub">书法备赛“我爱我的祖国”：10/1“我”→10/2“我爱”→10/3、10/4全句</div><div class="ov-row"><span class="ov-name">静坐</span><div class="ov-main"><div class="ov-bar"><div class="ov-fill warn" style="width:83%"></div></div><div class="ov-num"><b>5/6</b> · 10/2断档</div></div></div><div class="ov-sub">9/28、9/29、10/1、10/3、10/4</div><div class="ov-row"><span class="ov-name">控笔</span><div class="ov-main"><div class="ov-bar"><div class="ov-fill warn" style="width:83%"></div></div><div class="ov-num"><b>5/6</b> · 10/2断档</div></div></div><div class="ov-sub">9/28、9/29、10/1、10/3、10/4</div><div class="ov-row"><span class="ov-name">阅读</span><div class="ov-main"><div class="ov-bar"><div class="ov-fill warn" style="width:83%"></div></div><div class="ov-num"><b>5/6</b> · 自主为主</div></div></div><div class="ov-sub">9/28、9/29自主20分钟、10/1自主累计1.5h+、10/3、10/4完成（书目待补）；10/2断档只听喜马拉雅</div><div class="ov-row"><span class="ov-name">整理</span><div class="ov-main"><div class="ov-bar"><div class="ov-fill" style="width:100%"></div></div><div class="ov-num"><b>2/2</b> 上课日全完成</div></div></div><div class="ov-sub">9/28、9/29（假期按老师要求暂停）</div><div class="ov-row"><span class="ov-name">睡眠</span><div class="ov-main"><div class="ov-bar"><div class="ov-fill err" style="width:0%"></div></div><div class="ov-num"><b>0/5</b> 准点 <span class="q" style="background:#FDECEC;color:#C93C40;">本周最大缺口</span></div></div></div><div class="ov-sub">有记录5晚（9/28 21:45、9/29 21:45、10/1 22:00、10/2 22:00、10/3 21:30），0次准点；10/4未报</div></div>
+<div class="sec-title"><span class="no">2</span>一周任务节奏<small>每天完成的任务数（9/30无作业）</small></div>
+<div class="card"><div class="chart"><div class="bar-col"><div class="bar" style="height:150.0px"></div><span class="bar-num">8</span><span class="bar-label">9/28</span></div><div class="bar-col"><div class="bar" style="height:131.3px"></div><span class="bar-num">7</span><span class="bar-label">9/29</span></div><div class="bar-col"><div class="bar warn" style="height:4px"></div><span class="bar-num">0</span><span class="bar-label">9/30</span></div><div class="bar-col"><div class="bar warn" style="height:131.3px"></div><span class="bar-num">7</span><span class="bar-label">10/1</span></div><div class="bar-col"><div class="bar warn" style="height:112.5px"></div><span class="bar-num">6</span><span class="bar-label">10/2</span></div><div class="bar-col"><div class="bar" style="height:150.0px"></div><span class="bar-num">8</span><span class="bar-label">10/3</span></div><div class="bar-col"><div class="bar" style="height:150.0px"></div><span class="bar-num">8</span><span class="bar-label">10/4</span></div></div><p style="font-size:12px;color:var(--sub);margin-top:20px;">9/30老师未布置作业；10/1、10/2数学为部分完成（7以内分合背诵不熟练）；10/2静坐/控笔/阅读断档，其余假期任务全闭环。</p></div>
+<div class="sec-title"><span class="no">3</span>睡眠记录<small>目标 21:00 入睡 · 本周5晚有记录</small></div>
+<div class="card"><div class="sleep"><div class="yline" style="bottom:0%;"><span>21:00</span></div><div class="yline" style="bottom:33%;"><span>21:30</span></div><div class="yline" style="bottom:67%;"><span>22:00</span></div><div class="yline" style="bottom:100%;"><span>22:30</span></div><svg class="sleep-line" viewBox="0 0 100 100" preserveAspectRatio="none"><polyline fill="none" stroke="rgba(35,131,226,0.7)" stroke-width="1" stroke-linejoin="round" stroke-linecap="round" points="6,50 28,50 50,33 72,33 94,67"/></svg><div class="goal" style="bottom:0%;"></div><div class="goal-tag">目标 21:00</div><div class="dot" style="left:6.0%;bottom:50%;"><span class="t">9/28</span><span class="tip">21:45</span></div><div class="dot" style="left:28.0%;bottom:50%;"><span class="t">9/29</span><span class="tip">21:45</span></div><div class="dot" style="left:50.0%;bottom:67%;"><span class="t">10/1</span><span class="tip">22:00</span></div><div class="dot" style="left:72.0%;bottom:67%;"><span class="t">10/2</span><span class="tip">22:00</span></div><div class="dot" style="left:94.0%;bottom:33%;"><span class="t">10/3</span><span class="tip">21:30</span></div></div><p style="font-size:12px;color:var(--sub);margin-top:44px;">有记录5晚，0次准点，平均约21:50。假期两晚（10/1、10/2）反而比上学日晚（22:00），10/3回到21:30有进步——入睡程序在假期明显更易失守。</p></div>
+<div class="sec-title"><span class="no">4</span>习惯与状态<small>保持项 vs 待改进项</small></div>
+<div class="hab"><div class="card keep"><h4>保持项</h4><ul><li>“先写作业再玩”规则假期延续：4天假期3天全闭环</li><li>练字6天全勤，书法备赛“我爱我的祖国”连续4天</li><li>阅读转向自主：5/6天（9/28、9/29、10/1自主，10/3、10/4完成）</li><li>整理书包上课日2/2完成，假期按老师要求暂停</li></ul></div><div class="card fix"><h4>待改进项</h4><ul><li>睡眠0次准点（21:45 / 22:00 / 21:30），假期两晚反而更晚</li><li>7以内分合背诵连续2日不熟练（10/1、10/2）</li><li>10/2常规断档一天（静坐、控笔、阅读未完成）</li></ul></div></div>
+<div class="sec-title"><span class="no">5</span>知识薄弱点<small>本周错题统计与原因</small></div>
+<div class="weak"><div class="weak-card hot"><h4>7以内数的分成与加减算式<span class="cnt">重点薄弱 ×2</span></h4><p>10/1：背诵不熟练、10/2：仍不熟练（2-5分合及算式已完成）</p><div class="why"><b>原因：</b>分合与加减算式对应关系未成诵——假期首日接触7以内，从“背”到“写”缺操作支撑；10/3书写1-7、10/4摆一摆7以内分解完成，已转入操作补救</div></div><div class="weak-card ok"><h4>本周语文书写<span class="cnt">整体稳定</span></h4><p>生字16字（一二三上/口耳目手/日月山川/六七八十）假期4天书写完成、拼音读背3天完成</p><div class="why"><b>原因：</b>9/28布置的周末笔顺订正完成情况未反馈，下周留意</div></div></div>
+<div class="sec-title"><span class="no">6</span>本周亮点与进步<small>正向强化 · 保护学习动力</small></div>
+<div class="card"><ul class="plain-list"><li>假期4天3天任务全闭环（10/1、10/3、10/4），“先写作业再玩”规则假期延续生效</li><li>书法备赛“我爱我的祖国”连续4天（10/1“我”→10/2“我爱”→10/3、10/4全句），6天练字全勤</li><li>阅读转向自主：10/1自主累计1.5小时以上，本周5/6天有阅读</li><li>7以内分合补救路径正确：10/3书写1-7、10/4摆一摆7以内分解完成</li></ul></div>
+<div class="sec-title"><span class="no">7</span>5条深层观察<small>现象 → 本质 → 建议</small></div>
+<div class="ins"><div class="i-head"><span class="i-no">01</span><h4>“先写作业再玩”在假期延续生效，但依赖家长在场</h4></div><div class="row"><span class="k pheno">现象</span><span class="v">假期4天3天任务全闭环（10/1、10/3、10/4），仅10/2断档（静坐/控笔/阅读未完成）</span></div><div class="row"><span class="k ess">本质</span><span class="v">规则前置对假期同样有效——闭环不是靠催，而是靠“先做作业再玩”的约定；10/2断档说明执行仍依赖家长在场提醒，规则尚未变成孩子自己的内部时钟</span></div><div class="row"><span class="k adv">建议</span><span class="v">假期每天固定上午作业时段、家长到点提醒一次后放权；断档不批评，次日自然恢复即可，重点是把规则坚持到底</span></div></div><div class="ins"><div class="i-head"><span class="i-no">02</span><h4>睡眠跨周未解，假期反而更晚——根子在“程序未设”</h4></div><div class="row"><span class="k pheno">现象</span><span class="v">9/28、9/29 21:45 → 10/1、10/2 22:00 → 10/3 21:30，5晚记录0次准点；假期两晚比上学日还晚</span></div><div class="row"><span class="k ess">本质</span><span class="v">作业早已不超时，晚睡不是“写不完”而是“洗漱-上床”没有固定开始时间——假期没有上学压力，21:00锚点更容易被“再玩一会儿”吞掉</span></div><div class="row"><span class="k adv">建议</span><span class="v">把入睡程序（20:40洗漱→21:00关灯）当成与写作业同等重要的事，假期不例外；10/8开学前3天提前调回上课作息</span></div></div><div class="ins"><div class="i-head"><span class="i-no">03</span><h4>7以内分合：从“背”到“摆”的补救路径走对了</h4></div><div class="row"><span class="k pheno">现象</span><span class="v">10/1、10/2背诵7分合不熟练（连续2日错题记录）；10/3写1-7、10/4摆一摆7以内分解均完成</span></div><div class="row"><span class="k ess">本质</span><span class="v">孩子对抽象算式记忆弱、对“摆一摆”这类操作吸收快——低年级“具体操作先行、抽象记忆后置”是正确路径，问题不在能力而在方法</span></div><div class="row"><span class="k adv">建议</span><span class="v">假期剩余3天每天摆一摆+读背结合，熟读成诵，为“一图四式”打基础；背不下来就回到摆，不硬背</span></div></div><div class="ins"><div class="i-head"><span class="i-no">04</span><h4>阅读从亲子转向自主，但缺固定时段仍会整段被跳</h4></div><div class="row"><span class="k pheno">现象</span><span class="v">9/28、9/29自主20分钟、10/1自主累计1.5小时以上、10/2断档（只听喜马拉雅）、10/3、10/4恢复</span></div><div class="row"><span class="k ess">本质</span><span class="v">自主阅读能力在明显增长（10/1能自己读1.5小时以上），但阅读没有固定时段，仍会整段被跳过——能力有了，排位还没定</span></div><div class="row"><span class="k adv">建议</span><span class="v">假期固定“上午/下午各20分钟”阅读时段、书目自选；开学后恢复20:00-20:30亲子阅读时段，与作业链脱钩</span></div></div><div class="ins"><div class="i-head"><span class="i-no">05</span><h4>书法备赛让练字第一次有了“持续主题”</h4></div><div class="row"><span class="k pheno">现象</span><span class="v">10/1“我”→10/2“我爱”→10/3、10/4全句，连续4天围绕“我爱我的祖国”练字，6天练字全勤</span></div><div class="row"><span class="k ess">本质</span><span class="v">目标前置（假期后书法比赛）给了练字明确主题和重复对象，比泛泛“今天练什么”更有积累感——孩子知道自己在“备赛”，而非“完成任务”</span></div><div class="row"><span class="k adv">建议</span><span class="v">备赛期每天20分钟、先观察占格再动笔，比赛结束后回归田英章正楷一本通进度，把“目标-主题-练习”的方法保持下去</span></div></div>
+<div class="sec-title"><span class="no">8</span>下周重点<small>10/5-10/11 · 按优先级</small></div>
+<div class="card"><ul class="todo"><li><span class="p p1">P1</span><span><b>睡眠程序化：</b>假期剩余3天（10/5-10/7）同样20:40洗漱→21:00关灯；10/8开学恢复18:30动笔＋21:00硬边界，目标至少3晚准点</span></li><li><span class="p p1">P1</span><span><b>7以内分成熟读成诵：</b>10/5-10/7每天摆一摆＋读背分合与加减算式，为“一图四式”打基础</span></li><li><span class="p p2">P2</span><span><b>假期收尾：</b>10/7完成识字小报（A4横向）＋生活数学A4画＋整理书包（假期最后一天）</span></li><li><span class="p p2">P2</span><span><b>阅读固定时段：</b>假期剩余每天自主阅读20-30分钟（固定时段），开学恢复亲子阅读</span></li><li><span class="p p3">P3</span><span><b>书法备赛：</b>每天20分钟“我爱我的祖国”，先观察占格再动笔；比赛后回归田英章正楷</span></li><li><span class="p p3">P3</span><span><b>常规保持：</b>静坐、控笔操假期每日保留（10/2断档提醒），保持5分钟程序</span></li></ul></div>
+<div class="advice"><div class="tag">给家长的一条建议</div><p>本周唯一未改善的是<b>睡眠</b>，且假期两晚反而更晚——请把20:40洗漱、21:00关灯当成与写作业<b>同等重要</b>的程序，假期也不例外；10/8开学前3天提前调回上课作息。</p><p>10/2的断档不必焦虑：规则已连续生效3天，说明它有效，只是还需要家长“到点提醒一次”。坚持“约定时间＋到点提醒＋其余放权”，孩子的假期闭环会越来越稳。</p></div>
+<div class="foot">数据来源：任务日志 · 错题记录 · 成长记录 · 阅读/练字记录 · 每日复盘<br>本页为 第5周周报（9.28-10.4）<br><a href="../index.html">← 返回学习档案</a></div>
 
-  <div class="head">
-    <h1>学习周报 <span class="pill">第5周</span><small>韩长歌 · 一年级</small></h1>
-    <div class="meta">2026.9.28 — 10.4（开学第5周 · 含国庆假期前4天）<br>每周日 21:00 自动生成</div>
-  </div>
-
-  <div class="summary">
-    <div class="tag">本周核心结论</div>
-    <p>"先写作业再玩"规则在假期<b>延续生效</b>（4 天假期 3 天任务全闭环）；练字以书法比赛为主题<b>连续 4 天全勤</b>，阅读转向自主（5/6 天）。但<b>睡眠 0 次准点</b>且假期两晚反而更晚（22:00）、<b>7 以内分合背诵连续 2 日不熟练</b>——假期最大的缺口不在作业，而在入睡程序与分合记忆。</p>
-  </div>
-
-  <!-- 一、任务完成概览 -->
-  <div class="sec-title"><span class="no">1</span>任务完成概览<small>按学科 · 有任务 6 天（9/30 无作业日）</small></div>
-  <div class="card">
-    <div class="ov-row">
-      <span class="ov-name">语文</span>
-      <div class="ov-bar"><div class="ov-fill" style="width:100%"></div></div>
-      <span class="ov-num"><b>6/6</b> 天全完成 <span class="q">B+</span></span>
-    </div>
-    <div class="ov-row">
-      <span class="ov-name">数学</span>
-      <div class="ov-bar"><div class="ov-fill warn" style="width:67%"></div></div>
-      <span class="ov-num"><b>4/6</b> · 2 天部分 <span class="q" style="background:#FDF3E3;color:#B5892E;">7分成不熟</span></span>
-    </div>
-    <div class="ov-row">
-      <span class="ov-name">练字</span>
-      <div class="ov-bar"><div class="ov-fill" style="width:100%"></div></div>
-      <span class="ov-num"><b>6/6</b> 全勤 · 备赛4天</span>
-    </div>
-    <div class="ov-row">
-      <span class="ov-name">静坐</span>
-      <div class="ov-bar"><div class="ov-fill warn" style="width:83%"></div></div>
-      <span class="ov-num"><b>5/6</b> · 10/2断档</span>
-    </div>
-    <div class="ov-row">
-      <span class="ov-name">控笔</span>
-      <div class="ov-bar"><div class="ov-fill warn" style="width:83%"></div></div>
-      <span class="ov-num"><b>5/6</b> · 10/2断档</span>
-    </div>
-    <div class="ov-row">
-      <span class="ov-name">整理</span>
-      <div class="ov-bar"><div class="ov-fill" style="width:100%"></div></div>
-      <span class="ov-num"><b>2/2</b> 上课日全完成</span>
-    </div>
-    <div class="ov-row">
-      <span class="ov-name">阅读</span>
-      <div class="ov-bar"><div class="ov-fill warn" style="width:83%"></div></div>
-      <span class="ov-num"><b>5/6</b> · 自主为主</span>
-    </div>
-    <div class="ov-row">
-      <span class="ov-name">睡眠</span>
-      <div class="ov-bar"><div class="ov-fill err" style="width:0%"></div></div>
-      <span class="ov-num"><b>0/5</b> 准点 <span class="q" style="background:#FDECEC;color:#C93C40;">本周最大缺口</span></span>
-    </div>
-  </div>
-
-  <!-- 二、一周任务节奏 -->
-  <div class="sec-title"><span class="no">2</span>一周任务节奏<small>每天完成的任务数（9/30 无作业）</small></div>
-  <div class="card">
-    <div class="chart">
-      <div class="bar-col"><div class="bar" style="height:100%"></div><span class="bar-num">8</span><span class="bar-label">9/28</span></div>
-      <div class="bar-col"><div class="bar" style="height:88%"></div><span class="bar-num">7</span><span class="bar-label">9/29</span></div>
-      <div class="bar-col"><div class="bar warn" style="height:4px"></div><span class="bar-num">0</span><span class="bar-label">9/30</span></div>
-      <div class="bar-col"><div class="bar warn" style="height:88%"></div><span class="bar-num">7</span><span class="bar-label">10/1</span></div>
-      <div class="bar-col"><div class="bar warn" style="height:75%"></div><span class="bar-num">6</span><span class="bar-label">10/2</span></div>
-      <div class="bar-col"><div class="bar" style="height:100%"></div><span class="bar-num">8</span><span class="bar-label">10/3</span></div>
-      <div class="bar-col"><div class="bar" style="height:100%"></div><span class="bar-num">8</span><span class="bar-label">10/4</span></div>
-    </div>
-    <p style="font-size:12px;color:var(--sub);margin-top:20px;">9/30 老师未布置作业；10/1、10/2 数学为部分完成（7以内分合背诵不熟练）；10/2 静坐/控笔/阅读断档，其余假期任务全闭环。</p>
-  </div>
-
-  <!-- 三、睡眠时间轴 -->
-  <div class="sec-title"><span class="no">3</span>睡眠记录<small>目标 21:00 入睡 · 本周有记录 5 晚</small></div>
-  <div class="card">
-    <div class="sleep">
-      <div class="yline" style="bottom:0%;"><span>21:00</span></div>
-      <div class="yline" style="bottom:50%;"><span>21:30</span></div>
-      <div class="yline" style="bottom:100%;"><span>22:00</span></div>
-      <div class="goal" style="bottom:0%;"><span>目标 21:00</span></div>
-      <div class="dot" style="left:10%;bottom:75%;"><span class="t">9/28 · 21:45</span></div>
-      <div class="dot" style="left:30%;bottom:75%;"><span class="t">9/29 · 21:45</span></div>
-      <div class="dot" style="left:50%;bottom:100%;"><span class="t">10/1 · 22:00</span></div>
-      <div class="dot" style="left:70%;bottom:100%;"><span class="t">10/2 · 22:00</span></div>
-      <div class="dot" style="left:90%;bottom:50%;"><span class="t">10/3 · 21:30</span></div>
-    </div>
-    <p style="font-size:12px;color:var(--sub);margin-top:26px;">本周 0 次准点，平均约 21:50；9/30 无记录、10/4 未报。假期两晚（10/1、10/2）反而比上学日晚（22:00），10/3 回到 21:30 有进步——入睡程序在假期明显更易失守。</p>
-  </div>
-
-  <!-- 四、习惯与状态 -->
-  <div class="sec-title"><span class="no">4</span>习惯与状态<small>保持项 vs 待改进项</small></div>
-  <div class="hab">
-    <div class="card keep">
-      <h4>保持项</h4>
-      <ul>
-        <li>"先写作业再玩"规则假期延续：4 天假期 3 天全闭环</li>
-        <li>练字 6 天全勤，书法备赛"我爱我的祖国"连续 4 天</li>
-        <li>阅读转向自主：5/6 天（9/28、9/29、10/1 自主，10/3、10/4 完成）</li>
-        <li>整理书包上课日 2/2 完成，假期按老师要求暂停</li>
-      </ul>
-    </div>
-    <div class="card fix">
-      <h4>待改进项</h4>
-      <ul>
-        <li>睡眠 0 次准点（21:45 / 22:00 / 21:30），假期两晚反而更晚</li>
-        <li>7 以内分合背诵连续 2 日不熟练（10/1、10/2）</li>
-        <li>10/2 常规断档一天（静坐、控笔、阅读未完成）</li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- 五、知识薄弱点 -->
-  <div class="sec-title"><span class="no">5</span>知识薄弱点<small>本周错题统计与原因</small></div>
-  <div class="weak">
-    <div class="weak-card hot">
-      <h4>7以内数的分成与加减算式<span class="cnt">重点薄弱 ×2</span></h4>
-      <p>10/1、10/2 连续两日背诵不熟练（2-5分合及算式已完成）</p>
-      <div class="why"><b>原因：</b>分合与加减算式对应关系未成诵——假期首日接触 7 以内，从"背"到"写"缺操作支撑；10/3 书写 1-7、10/4 摆一摆 7 以内分解，已转入操作补救</div>
-    </div>
-    <div class="weak-card ok">
-      <h4>本周语文书写 <span class="cnt">整体稳定</span></h4>
-      <p>生字 16 字（一二三上/口耳目手/日月山川/六七八十）假期 4 天书写完成、拼音读背完成；9/28 布置的周末笔顺订正完成情况未反馈，下周留意</p>
-    </div>
-  </div>
-
-  <!-- 六、深层观察 -->
-  <div class="sec-title"><span class="no">6</span>5 条深层观察<small>现象 → 本质 → 建议</small></div>
-
-  <div class="ins">
-    <div class="i-head"><span class="i-no">01</span><h4>"先写作业再玩"在假期延续生效，但依赖家长在场</h4></div>
-    <div class="row"><span class="k pheno">现象</span><span class="v">9/28 新规则确立后，假期 4 天中 10/1、10/3、10/4 任务全闭环；仅 10/2 断档（静坐/控笔/阅读未完成）</span></div>
-    <div class="row"><span class="k ess">本质</span><span class="v">规则前置对假期同样有效——闭环不是靠催，而是靠"先做作业再玩"的约定；10/2 断档说明执行仍依赖家长在场提醒，规则尚未变成孩子自己的内部时钟</span></div>
-    <div class="row"><span class="k adv">建议</span><span class="v">假期每天固定上午作业时段、家长到点提醒一次后放权；10/2 这类断档不必批评，次日自然恢复即可，重点是把规则坚持到底</span></div>
-  </div>
-
-  <div class="ins">
-    <div class="i-head"><span class="i-no">02</span><h4>睡眠跨周未解，假期反而更晚——根子在"程序未设"</h4></div>
-    <div class="row"><span class="k pheno">现象</span><span class="v">9/28、9/29 21:45 → 10/1、10/2 22:00 → 10/3 21:30，5 晚记录 0 次准点；假期两晚比上学日还晚</span></div>
-    <div class="row"><span class="k ess">本质</span><span class="v">作业早已不超时，晚睡不是"写不完"，而是"洗漱-上床"没有固定开始时间——假期没有上学压力，21:00 锚点更容易被"再玩一会儿"吞掉</span></div>
-    <div class="row"><span class="k adv">建议</span><span class="v">把入睡程序（20:40 洗漱 → 21:00 关灯）当成与写作业同等重要的事，假期不例外；10/8 开学前 3 天提前调回上课作息</span></div>
-  </div>
-
-  <div class="ins">
-    <div class="i-head"><span class="i-no">03</span><h4>7 以内分合：从"背"到"摆"的补救路径走对了</h4></div>
-    <div class="row"><span class="k pheno">现象</span><span class="v">10/1、10/2 背诵 7 分合不熟练（连续 2 日错题记录）；10/3 写 1-7、10/4 摆一摆 7 以内分解均完成</span></div>
-    <div class="row"><span class="k ess">本质</span><span class="v">孩子对抽象算式记忆弱，对"摆一摆"这类操作吸收快——低年级"具体操作先行、抽象记忆后置"是正确路径，问题不在能力而在方法</span></div>
-    <div class="row"><span class="k adv">建议</span><span class="v">假期剩余 3 天每天摆一摆+读背结合，熟读成诵，为"一图四式"打基础；背不下来就回到摆，不硬背</span></div>
-  </div>
-
-  <div class="ins">
-    <div class="i-head"><span class="i-no">04</span><h4>阅读从亲子转向自主，但缺固定时段仍会整段被跳</h4></div>
-    <div class="row"><span class="k pheno">现象</span><span class="v">9/28、9/29 自主 20 分钟、10/1 自主累计 1.5 小时以上、10/2 断档（只听喜马拉雅）、10/3、10/4 恢复</span></div>
-    <div class="row"><span class="k ess">本质</span><span class="v">自主阅读能力在明显增长（10/1 能自己读 1.5 小时以上），但阅读没有固定时段，仍会整段被跳过——能力有了，排位还没定</span></div>
-    <div class="row"><span class="k adv">建议</span><span class="v">假期固定"上午/下午各 20 分钟"阅读时段、书目自选；开学后恢复 20:00-20:30 亲子阅读时段，与作业链脱钩</span></div>
-  </div>
-
-  <div class="ins">
-    <div class="i-head"><span class="i-no">05</span><h4>书法备赛让练字第一次有了"持续主题"</h4></div>
-    <div class="row"><span class="k pheno">现象</span><span class="v">10/1"我"→ 10/2"我爱"→ 10/3、10/4 全句，连续 4 天围绕"我爱我的祖国"练字，6 天练字全勤</span></div>
-    <div class="row"><span class="k ess">本质</span><span class="v">目标前置（假期后书法比赛）给了练字明确主题和重复对象，比泛泛"今天练什么"更有积累感——孩子知道自己在"备赛"，而非"完成任务"</span></div>
-    <div class="row"><span class="k adv">建议</span><span class="v">备赛期每天 20 分钟、先观察占格再动笔，比赛结束后回归田英章正楷一本通进度，把"目标-主题-练习"的方法保持下去</span></div>
-  </div>
-
-  <!-- 七、下周重点 -->
-  <div class="sec-title"><span class="no">7</span>下周重点<small>10/5-10/11 · 按优先级</small></div>
-  <div class="card">
-    <ul class="todo">
-      <li><span class="p p1">P1</span><span><b>睡眠程序化：</b>假期剩余 3 天（10/5-10/7）同样 20:40 洗漱 → 21:00 关灯；10/8 开学恢复 18:30 动笔 + 21:00 硬边界，目标本周至少 3 晚准点</span></li>
-      <li><span class="p p1">P1</span><span><b>7 以内分成熟读成诵：</b>10/5-10/7 每天摆一摆+读背分合与加减算式，为"一图四式"打基础</span></li>
-      <li><span class="p p2">P2</span><span><b>假期收尾：</b>10/7 完成识字小报（A4 横向）+ 生活数学 A4 画 + 整理书包（假期最后一天）</span></li>
-      <li><span class="p p2">P2</span><span><b>阅读固定时段：</b>假期剩余每天自主阅读 20-30 分钟（固定时段），开学恢复亲子阅读</span></li>
-      <li><span class="p p3">P3</span><span><b>书法备赛：</b>每天 20 分钟"我爱我的祖国"，先观察占格再动笔；比赛后回归田英章正楷</span></li>
-      <li><span class="p p3">P3</span><span><b>常规保持：</b>静坐、控笔操假期每日保留（10/2 断档提醒），保持 5 分钟程序</span></li>
-    </ul>
-  </div>
-
-  <!-- 八、给家长 -->
-  <div class="advice">
-    <div class="tag">给家长的一条建议</div>
-    <p>本周唯一未改善的是<b>睡眠</b>，且假期两晚反而更晚——请把 20:40 洗漱、21:00 关灯当成与写作业<b>同等重要</b>的程序，假期也不例外；10/8 开学前 3 天提前调回上课作息。</p>
-    <p>10/2 的断档不必焦虑：规则已连续生效 3 天，说明它有效，只是还需要家长"到点提醒一次"。坚持"约定时间 + 到点提醒 + 其余放权"，孩子的假期闭环会越来越稳。</p>
-  </div>
-
-  <div class="foot">数据来源：任务日志 · 错题记录 · 成长记录 · 阅读/练字记录 · 每日复盘<br>本页由<b>每周日学习周报</b>定时任务自动生成</div>
-
-</div>
-</body>
-</html>
+<script>
+(function(){
+  function layoutSleep(){
+    var charts = document.querySelectorAll('.sleep');
+    for(var c=0;c<charts.length;c++){
+      var chart = charts[c];
+      var dots = chart.querySelectorAll('.dot');
+      var poly = chart.querySelector('.sleep-line polyline');
+      var n = dots.length;
+      if(n < 2) continue;
+      var padL = window.innerWidth <= 640 ? 14 : 6;
+      var padR = window.innerWidth <= 640 ? 4 : 6;
+      var span = 100 - padL - padR;
+      var pts = [];
+      for(var i=0;i<n;i++){
+        var st = dots[i].getAttribute('style');
+        var m = st.match(/bottom:\s*([0-9.]+)%/);
+        var b = m ? parseFloat(m[1]) : 0;
+        var left = padL + i * span / (n - 1);
+        dots[i].style.left = left.toFixed(1) + '%';
+        pts.push(left.toFixed(1) + ',' + (100 - b).toFixed(1));
+      }
+      if(poly){ poly.setAttribute('points', pts.join(' ')); }
+    }
+  }
+  layoutSleep();
+  window.addEventListener('resize', function(){ layoutSleep(); });
+})();
+</script>
+<script>
+(function(){
+  var dots = document.querySelectorAll('.sleep .dot');
+  function off(){ for(var i=0;i<dots.length;i++){ dots[i].classList.remove('on'); } }
+  function placeTip(d){
+    var tip = d.querySelector('.tip');
+    if(!tip) return;
+    var sr = d.parentNode.getBoundingClientRect();
+    var dr = d.getBoundingClientRect();
+    var t = tip.getBoundingClientRect();
+    var w = t.width || 56, h = t.height || 24;
+    var relLeft = dr.left - sr.left;          /* 红点框左缘（容器内） */
+    var relTop  = dr.top - sr.top;            /* 红点框顶（容器内） */
+    var canLeft = relLeft >= w + 8 + 45;      /* 左侧放得下（45=左侧刻度文字安全区） */
+    var canUp   = relTop >= h + 10;           /* 上方放得下 */
+    tip.style.transform = 'none';
+    tip.style.margin = '0';
+    if(canLeft){
+      /* 红点左上方 */
+      tip.style.left = (-(w + 8)) + 'px';
+      tip.style.right = 'auto';
+      tip.style.top = 'auto';
+      tip.style.bottom = '23px';
+    } else if(canUp){
+      /* 红点正上方、左对齐红点 */
+      tip.style.left = '0';
+      tip.style.right = 'auto';
+      tip.style.top = 'auto';
+      tip.style.bottom = '23px';
+    } else {
+      /* 红点正下方、左对齐红点 */
+      tip.style.left = '0';
+      tip.style.right = 'auto';
+      tip.style.top = '30px';
+      tip.style.bottom = 'auto';
+    }
+  }
+  for(var i=0;i<dots.length;i++){
+    (function(d){
+      d.addEventListener('click', function(ev){
+        ev.stopPropagation();
+        if(d.classList.contains('on')){ d.classList.remove('on'); }
+        else { off(); d.classList.add('on'); placeTip(d); }
+      });
+    })(dots[i]);
+  }
+  window.addEventListener('resize', function(){
+    for(var i=0;i<dots.length;i++){
+      if(dots[i].classList.contains('on')){ placeTip(dots[i]); }
+    }
+  });
+  document.addEventListener('click', function(){ off(); });
+  for(var i=0;i<dots.length;i++){ if(dots[i].classList.contains('on')){ placeTip(dots[i]); } }
+})();
+</script>
+</div></body></html>
