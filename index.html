@@ -323,6 +323,9 @@
     #view-errors .subj-card .arrow{display:none;}
   }
   /* ===== 图片附件：缩略图 + 点击放大 ===== */
+  td.task-cell-td{vertical-align:top;display:flex;align-items:flex-start;gap:6px;min-width:0;}
+  td.task-cell-td .task-cell{flex:1 1 auto;min-width:0;line-height:1.6;}
+  td.task-cell-td .img-thumb{flex:0 0 auto;margin:2px 0 0 0;}
   .img-thumb{display:inline-flex;vertical-align:middle;margin:4px 4px 0 0;position:relative;}
   .img-thumb img{height:52px;width:auto;max-width:150px;border-radius:6px;border:1px solid var(--line);cursor:zoom-in;object-fit:cover;background:#fff;}
   .img-thumb .img-badge{position:absolute;left:0;top:0;font-style:normal;font-size:10px;line-height:1.2;padding:2px 5px;border-radius:6px 0 6px 0;color:#fff;pointer-events:none;z-index:1;}
@@ -1042,40 +1045,53 @@
       {time:'21:00', name:'睡觉', desc:'规定21:00入睡', status:'ok', statusText:'已完成（具体入睡时间未报）'}
     ],
     '2026-10-05': [
-      {time:'—', name:'语文·朗读', desc:'国学经典背诵《咏雪》', status:'todo', statusText:'待确认'},
-      {time:'—', name:'语文·书写', desc:'《a o e》拼音书写（单韵母+四声，参考范写）', img:{src:'images/reference/2026-10-05-语文-拼音范写-aoe.jpg',label:'参考'}, status:'todo', statusText:'待确认'},
-      {time:'—', name:'数学', desc:'书写1-7，每个数字写两行', status:'todo', statusText:'待确认'},
-      {time:'—', name:'阅读', desc:'亲子阅读半小时（假期每日）', status:'todo', statusText:'待确认'},
-      {time:'—', name:'常规', desc:'静坐（动笔前5分钟）', status:'todo', statusText:'待确认'},
-      {time:'—', name:'练字', desc:'练字：书写"我爱我的祖国"（假期练字内容，为假期后书法比赛做准备）', status:'todo', statusText:'待确认'},
-      {time:'—', name:'控笔', desc:'控笔操（执笔与力度）', status:'todo', statusText:'待确认'},
-      {time:'21:00', name:'睡觉', desc:'规定21:00入睡', status:'todo', statusText:'待确认'}
+      {time:'—', name:'语文·朗读', desc:'国学经典背诵《咏雪》', status:'ok', statusText:'已完成'},
+      {time:'—', name:'语文·书写', desc:'《a o e》拼音书写（单韵母+四声，参考范写）', img:{src:'images/reference/2026-10-05-语文-拼音范写-aoe.jpg',label:'参考'}, status:'ok', statusText:'已完成'},
+      {time:'—', name:'数学', desc:'书写1-7，每个数字写两行', status:'ok', statusText:'已完成'},
+      {time:'—', name:'阅读', desc:'亲子阅读半小时（假期每日）', status:'ok', statusText:'已完成'},
+      {time:'—', name:'常规', desc:'静坐（动笔前5分钟）', status:'ok', statusText:'已完成'},
+      {time:'—', name:'练字', desc:'练字：书写"我爱我的祖国"（假期练字内容，为假期后书法比赛做准备）', status:'ok', statusText:'已完成'},
+      {time:'—', name:'控笔', desc:'控笔操（执笔与力度）', status:'ok', statusText:'已完成'},
+      {time:'21:00', name:'睡觉', desc:'规定21:00入睡', status:'ok', statusText:'已完成'}
     ],
     '2026-10-06': [
-      {time:'—', name:'语文·朗读', desc:'国学经典背诵《遗爱寺》', status:'todo', statusText:'待确认'},
-      {time:'—', name:'语文·书写', desc:'《i u ü》拼音书写（单韵母+四声，参考范写）', img:{src:'images/reference/2026-10-06-语文-拼音范写-iuu.jpg',label:'参考'}, status:'todo', statusText:'待确认'},
-      {time:'—', name:'数学', desc:'背7以内数的分成（假期主任务巩固）', status:'todo', statusText:'待确认'},
-      {time:'—', name:'阅读', desc:'亲子阅读半小时（假期每日）', status:'todo', statusText:'待确认'},
-      {time:'—', name:'常规', desc:'静坐（动笔前5分钟）', status:'todo', statusText:'待确认'},
-      {time:'—', name:'练字', desc:'练字：书写"我爱我的祖国"（假期练字内容，为假期后书法比赛做准备）', status:'todo', statusText:'待确认'},
-      {time:'—', name:'控笔', desc:'控笔操（执笔与力度）', status:'todo', statusText:'待确认'},
-      {time:'21:00', name:'睡觉', desc:'规定21:00入睡', status:'todo', statusText:'待确认'}
+      {time:'—', name:'语文·朗读', desc:'国学经典背诵《遗爱寺》', status:'ok', statusText:'已完成'},
+      {time:'—', name:'语文·书写', desc:'《i u ü》拼音书写（单韵母+四声，参考范写）', img:{src:'images/reference/2026-10-06-语文-拼音范写-iuu.jpg',label:'参考'}, status:'ok', statusText:'已完成'},
+      {time:'—', name:'数学', desc:'背7以内数的分成（假期主任务巩固）', status:'ok', statusText:'已完成'},
+      {time:'—', name:'阅读', desc:'亲子阅读半小时（假期每日）', status:'ok', statusText:'已完成'},
+      {time:'—', name:'常规', desc:'静坐（动笔前5分钟）', status:'ok', statusText:'已完成'},
+      {time:'—', name:'练字', desc:'练字：书写"我爱我的祖国"（假期练字内容，为假期后书法比赛做准备）', status:'ok', statusText:'已完成'},
+      {time:'—', name:'控笔', desc:'控笔操（执笔与力度）', status:'ok', statusText:'已完成'},
+      {time:'21:00', name:'睡觉', desc:'规定21:00入睡', status:'ok', statusText:'已完成'}
     ],
     '2026-10-07': [
-      {time:'—', name:'语文·朗读', desc:'国学经典背诵《桃花溪》', status:'todo', statusText:'待确认'},
-      {time:'—', name:'语文·书写', desc:'《bpmf》拼音书写（声母+两拼音节 bā bō bí bū 等，参考范写）', img:{src:'images/reference/2026-10-07-语文-拼音范写-bpmf.jpg',label:'参考'}, status:'todo', statusText:'待确认'},
-      {time:'—', name:'语文·实践', desc:'A4横向识字小报：抄写学过的生字词语/剪贴包装袋汉字/绘画装饰，自主完成家长适度协助（参考识字小报样式）', status:'todo', statusText:'待确认'},
-      {time:'—', name:'数学', desc:'用A4纸画一幅寻找到的生活中的数学', status:'todo', statusText:'待确认'},
-      {time:'—', name:'阅读', desc:'亲子阅读半小时（假期每日）', status:'todo', statusText:'待确认'},
-      {time:'—', name:'常规', desc:'静坐（动笔前5分钟）', status:'todo', statusText:'待确认'},
-      {time:'—', name:'练字', desc:'练字：书写"我爱我的祖国"（假期练字内容，为假期后书法比赛做准备）', status:'todo', statusText:'待确认'},
-      {time:'—', name:'控笔', desc:'控笔操（执笔与力度）', status:'todo', statusText:'待确认'},
-      {time:'全天', name:'整理', desc:'假期最后一天：整理上学需要用的所有东西（假期前不整理书包）', status:'todo', statusText:'待确认'},
-      {time:'21:00', name:'睡觉', desc:'规定21:00入睡，明天开学', status:'todo', statusText:'待确认'}
+      {time:'—', name:'语文·朗读', desc:'国学经典背诵《桃花溪》', status:'ok', statusText:'已完成'},
+      {time:'—', name:'语文·书写', desc:'《bpmf》拼音书写（声母+两拼音节 bā bō bí bū 等，参考范写）', img:{src:'images/reference/2026-10-07-语文-拼音范写-bpmf.jpg',label:'参考'}, status:'ok', statusText:'已完成'},
+      {time:'—', name:'语文·实践', desc:'A4横向识字小报：抄写学过的生字词语/剪贴包装袋汉字/绘画装饰，自主完成家长适度协助（参考识字小报样式）', status:'ok', statusText:'已完成'},
+      {time:'—', name:'数学', desc:'用A4纸画一幅寻找到的生活中的数学', status:'ok', statusText:'已完成'},
+      {time:'—', name:'阅读', desc:'亲子阅读半小时（假期每日）', status:'ok', statusText:'已完成'},
+      {time:'—', name:'常规', desc:'静坐（动笔前5分钟）', status:'ok', statusText:'已完成'},
+      {time:'—', name:'练字', desc:'练字：书写"我爱我的祖国"（假期练字内容，为假期后书法比赛做准备）', status:'ok', statusText:'已完成'},
+      {time:'—', name:'控笔', desc:'控笔操（执笔与力度）', status:'ok', statusText:'已完成'},
+      {time:'全天', name:'整理', desc:'假期最后一天：整理上学需要用的所有东西（假期前不整理书包）', status:'ok', statusText:'已完成'},
+      {time:'21:00', name:'睡觉', desc:'规定21:00入睡，明天开学', status:'ok', statusText:'已完成'}
+    ],
+    '2026-10-08': [
+      {time:'—', name:'语文·预习', desc:'预习dtnl：根据视频读一读里面的音节', status:'todo', statusText:'待完成'},
+      {time:'—', name:'语文·背诵', desc:'国学经典《咏雪》背熟（假期10/5已初背，老师要求今天背熟）', status:'todo', statusText:'待完成'},
+      {time:'—', name:'数学', desc:'比大小练习：9题（1+2○5、4-1○2、3+2○4、4-3○2、2-1○1、4-2○2、3+1○4、2+2○5、5-2○3）；格式三步：①直尺划横线②写出算式得数③比大小填符号（参照练习纸）', img:{src:'images/reference/2026-10-08-数学-比大小练习.jpg',label:'参考'}, status:'todo', statusText:'待完成'},
+      {time:'—', name:'数学·准备', desc:'明天带一本新田字格（家长督促写好名字）', status:'todo', statusText:'待完成'},
+      {time:'—', name:'常规', desc:'静坐（动笔前5分钟，头正、肩平、足安）', status:'todo', statusText:'待完成'},
+      {time:'—', name:'控笔', desc:'控笔操（老师布置）', status:'todo', statusText:'待完成'},
+      {time:'—', name:'练字', desc:'练字（内容待老师确认）', status:'todo', statusText:'待完成'},
+      {time:'21:00', name:'睡觉', desc:'规定21:00入睡', status:'todo', statusText:'待完成'}
     ]
   };
   /* 每日小结（任务日志显示，每晚完成后同步更新当日 rec） */
   var taskRec = {
+    '2026-10-07': ['家长确认：国庆假期作业均已完成——语文（背诵《桃花溪》+bpmf拼音书写+识字小报）、数学（用A4纸画生活中的数学）、练字"我爱我的祖国"、静坐/控笔/阅读','整理：假期最后一天整理上学所有东西，完成','睡觉：21:00入睡（规定），具体时间未报'],
+    '2026-10-06': ['家长确认：假期作业均已完成——语文（背诵《遗爱寺》+iuü拼音书写）、数学（背7以内数的分成）、练字"我爱我的祖国"、静坐/控笔/阅读','睡觉：21:00入睡（规定），具体时间未报'],
+    '2026-10-05': ['家长确认：假期作业均已完成——语文（背诵《咏雪》+aoe拼音书写）、数学（1-7书写）、练字"我爱我的祖国"、静坐/控笔/阅读','睡觉：21:00入睡（规定），具体时间未报'],
     '2026-10-04': ['语文：bpmf音节拼读、《语文园地一》生字（六七八十）书写完成','数学：用学具摆一摆7以内数的分解与组成完成','练字：书写"我爱我的祖国"完成','阅读：完成（具体书目待补）','常规：静坐、控笔操完成','睡觉：具体入睡时间未报'],
     '2026-10-03': ['语文：bpmf音节拼读、《日月山川》生字（日火田禾）书写完成','数学：数字1-7各写两行完成','练字：书写"我爱我的祖国"完成','阅读：完成（具体书目待补）','常规：静坐、控笔操完成','睡觉：21:30入睡，超时30分钟（比前两日22:00提前30分钟，继续往21:00靠）'],
     '2026-10-02': ['语文：书写"口耳目手"各3遍、组两个词，书写规范','读背：拼音练习第一页+课本20-24页完成','数学：5的分合及算式完成；7的分合背诵连续2日不熟练（假期主任务，需熟读成诵）','练字：写字比赛专用纸练"我""爱"字，写的不错','常规：静坐未完成；控笔操未完成','阅读：自主阅读未完成（只听了会儿喜马拉雅故事）','睡觉：22:00入睡超时1小时（连续4晚超时：9/28、9/29 21:45，10/1、10/2 22:00）'],
@@ -1111,6 +1127,7 @@
   };
   /* 完成提醒总结（任务完成后，任务日志显示） */
   var doneAlert = {
+    '2026-10-08': ['家长确认：国庆假期作业均已完成（10/5-10/7）——语文背诵《咏雪》《遗爱寺》《桃花溪》+拼音书写aoe/iuü/bpmf+识字小报、数学1-7书写/7以内分合/生活数学A4画、练字"我爱我的祖国"、静坐/控笔/阅读','10/7假期最后一天整理书包，准备10/8开学','今天（10/8）正式开学，等待老师布置今日作业后更新今晚任务'],
     '2026-10-04': ['10/3、10/4 假期任务全部完成：语文拼读与生字书写、数学（1-7书写/摆一摆7以内分解）、练字"我爱我的祖国"、静坐、控笔、阅读','10/3 睡觉21:30超时30分钟，比10/1、10/2的22:00提前了30分钟——继续执行20:40洗漱、21:00关灯，往准点靠','明天10/5（假期第5天）：aoe拼音书写+《咏雪》背诵+数字1-7书写，坚持"先写作业再玩"'],
     '2026-10-03': ['10/3 假期第3天任务全部完成：bpmf拼读、《日月山川》生字、数字1-7书写、练字"我爱我的祖国"、静坐、控笔、阅读','睡觉21:30，超时30分钟——比前两日22:00提前30分钟，有进步，继续往21:00靠'],
     '2026-10-02': ['完成：语文书写"口耳目手"规范、读背完成、5的分合及算式完成、练字"我""爱"写的不错','未完成：静坐、控笔操、自主阅读（只听了会儿喜马拉雅故事）——假期第2天完成度下滑，明天务必把"先写作业再玩"原则执行起来','薄弱点：7的分合背诵连续2日不熟练——明天改用"摆小棒边摆边背"的方式，分合+加减算式要熟读成诵','睡觉22:00超时1小时，连续4晚（9/28、9/29 21:45，10/1、10/2 22:00）——假期同样执行20:40洗漱、21:00关灯'],
@@ -1151,6 +1168,7 @@
     {date:'2026-09-09', book:'西游记绘本《四探无底洞》', note:'首次阅读', dur:'30分钟', state:'已完成'}
   ];
   var dailyReview = [
+    {date:'10月8日', good:['家长确认：国庆假期作业均已完成——语文背诵3篇+拼音书写3次+识字小报、数学分合/生活数学、练字"我爱我的祖国"、静坐/控笔/阅读','10/7假期最后一天整理书包，为10/8开学做准备','假期书法比赛作品"我爱我的祖国"写得好、识字小报做得不错（照片均忘拍）'], watch:['国庆假期整体表现不好：在姥姥家与姐姐玩疯，任务一催再催才完成，主动性与自律下降','原定11月去北京爬长城的奖励因假期表现不好取消','今日开学，等待老师布置作业后再更新今日任务与明日预告']},
     {date:'10月4日', good:['10/4 假期任务全部完成：bpmf拼读、《语文园地一》生字（六七八十）、摆一摆7以内分解、练字"我爱我的祖国"、静坐、控笔、阅读'], watch:['10/3睡觉21:30超时30分钟，继续执行20:40洗漱、21:00关灯；10/4入睡时间未报']},
     {date:'10月3日', good:['10/3 假期任务全部完成：bpmf拼读、《日月山川》生字（日火田禾）、数字1-7书写、练字"我爱我的祖国"、静坐、控笔、阅读'], watch:['睡觉21:30超时30分钟（比前两日22:00提前30分钟，有进步，继续往21:00靠）']},
     {date:'10月2日', good:['语文书写"口耳目手"各3遍、组两个词，书写规范完成','拼音练习第一页+课本20-24页完成','数学5的分合及加减算式完成','练字：写字比赛专用纸练"我""爱"字，写的不错'], watch:['7的分合背诵连续2日不熟练（10/1、10/2），每个分合对应的加减算式需继续熟读成诵','常规静坐未完成','自主阅读未完成（只听了会儿喜马拉雅故事）','控笔操未完成','22:00入睡超时1小时——连续4晚超时（9/28、9/29 21:45，10/1、10/2 22:00）']},
@@ -1176,12 +1194,7 @@
     {date:'9月19日', good:['语文"日田火禾"书写整体规范、虽有情绪仍坚持完成','数学完成良好、书写不费劲','静坐完成良好','自主看书约30分钟'], watch:['语文书写歪头、横画左高右低、竖画力度不一致写不直（坐姿头正、执笔姿势、力度控制待加强）','控笔操不太熟练、行笔不稳（重点：执笔姿势和力度）','家长要求过高致孩子有些情绪（注意沟通方式，先肯定再纠正）','10点左右入睡超时1小时（连续两晚晚睡21:30/22:00，明天上课日恢复21:00硬边界）','亲子共读未完成；这两天未额外练字（周末作业含书写汉字）']}
   ];
   var tomorrowTasks = [
-    {name:'假期第4天', desc:'10/4（周日）：熟练拼读 bpmf 音节（课本24-25页+拼音天天练2）；《语文园地一》生字书写（六、七、八、十）；用学具摆一摆7以内数的分解与组成'},
-    {name:'练字', desc:'书写"我爱我的祖国"（假期练字内容，为假期后书法比赛做准备）'},
-    {name:'阅读', desc:'亲子阅读半小时（假期每日固定，与作业脱钩）'},
-    {name:'睡眠', desc:'假期同样执行20:40洗漱→21:00关灯'},
-    {name:'常规', desc:'静坐/控笔操每日坚持'},
-    {name:'数学主任务', desc:'2、3、4、5分成+每组分成的两道加法两道减法算式，贯穿假期、需熟练掌握'}
+    {name:'准备', desc:'明天带一本新田字格（家长督促写好名字）'}
   ];
 
   /* 首页近期任务：由 taskDB 自动派生（日期倒序），额外条目（如排队中的创编故事）单独维护 */
@@ -1202,8 +1215,12 @@
 
   /* 练字记录：最新在上，每日练字后同步 */
   var writingLog = [
-    {date:'2026-10-04', content:'书写"我爱我的祖国"（写字比赛专用纸，为假期后书法比赛备赛）', quality:'完成（具体书写质量待补）'},
-    {date:'2026-10-03', content:'书写"我爱我的祖国"（写字比赛专用纸，为假期后书法比赛备赛）', quality:'完成（具体书写质量待补）'},
+    {date:'2026-10-07', content:'书写"我爱我的祖国"（假期练字，为书法比赛备赛）', quality:'完成（家长10/8确认假期作业均已完成）'},
+    {date:'2026-10-06', content:'书写"我爱我的祖国"（假期练字，为书法比赛备赛）', quality:'完成（家长10/8确认假期作业均已完成）'},
+    {date:'2026-10-05', content:'书写"我爱我的祖国"（假期练字，为书法比赛备赛）', quality:'完成（家长10/8确认假期作业均已完成）'},
+    {date:'2026-10-04', content:'书写"我爱我的祖国"（写字比赛专用纸，为假期后书法比赛备赛）', quality:'完成；作品"我爱我的祖国"写得好（作品照片忘拍）'},
+    {date:'2026-10-03', content:'书写"我爱我的祖国"（写字比赛专用纸，为假期后书法比赛备赛）', quality:'完成；作品"我爱我的祖国"写得好（作品照片忘拍）'},
+    {date:'2026-10-02', content:'书写"我爱我的祖国"练"我""爱"字（写字比赛专用纸，为假期后书法比赛备赛）', quality:'完成；练"我""爱"字写的不错'},
     {date:'2026-10-01', content:'书写"我爱我的祖国"练"我"字（写字比赛专用纸，为假期后书法比赛备赛）', quality:'完成；写的不错'},
     {date:'2026-09-29', content:'所学生字一个写三遍（约16个生字）', quality:'完成；书写认真，完成很好'},
     {date:'2026-09-28', content:'练字（当晚静坐/控笔操后完成，具体内容未记录）', quality:'完成；约19:00-20:00完成'},
@@ -1481,6 +1498,10 @@
 
   /* 成长记录：事件流水（从每日复盘/家长反馈中抽取），type: 'good' | 'warn' */
   var growthLog = [
+    {date:'2026-10-08', name:'假期自律', type:'warn', note:'国庆假期（10/1-10/7）在姥姥家与姐姐玩疯，每天任务一催再催才完成，主动性与自律明显下降（家长已沟通批评）'},
+    {date:'2026-10-08', name:'规则执行', type:'warn', note:'因假期表现不好，原定11月去北京爬长城的奖励取消（奖惩与表现挂钩）'},
+    {date:'2026-10-08', name:'书写态度', type:'good', note:'假期书法比赛作品"我爱我的祖国"完成，写得好（作品照片忘拍）'},
+    {date:'2026-10-07', name:'实践作业', type:'good', note:'A4识字小报（手抄报）完成，做得不错（作品照片忘拍）'},
     {date:'2026-10-04', name:'主动学习', type:'good', note:'假期第4天任务全部完成（10/3、10/4连续两天假期任务全闭环）'},
     {date:'2026-10-03', name:'按时睡觉', type:'warn', note:'21:30入睡超时30分钟（比前两日22:00提前30分钟，向21:00靠拢）'},
     {date:'2026-10-03', name:'书写态度', type:'good', note:'假期练字书写"我爱我的祖国"（10/3、10/4连续完成，为书法比赛备赛）'},
@@ -1552,7 +1573,7 @@
     if(hasData){
       h = '<table class="today-tb"><tr><th style="width:50px;">序号</th><th style="width:88px;">任务</th><th>说明</th><th style="width:90px;">状态</th></tr>';
       tasks.forEach(function(t, idx){
-        h += '<tr><td>' + (idx + 1) + '</td><td>' + t.name + '</td><td><span class="task-cell">' + t.desc + '</span>' + imgThumb(t.img) + '</td><td><span class="badge ' + t.status + '">' + t.statusText + '</span></td></tr>';
+        h += '<tr><td>' + (idx + 1) + '</td><td>' + t.name + '</td><td class="task-cell-td"><span class="task-cell">' + t.desc + '</span>' + imgThumb(t.img) + '</td><td><span class="badge ' + t.status + '">' + t.statusText + '</span></td></tr>';
       });
       h += '</table>';
       var al = planAlert[key];
@@ -1645,7 +1666,7 @@
     var rows = buildRecent().slice(0, 10);
     var h = '<table class="wide recent-table"><tr><th style="width:50px;">日期</th><th style="width:88px;">学科</th><th>任务</th><th style="width:90px;">状态</th></tr>';
     rows.forEach(function(t){
-      h += '<tr><td>' + t.date + '</td><td>' + t.subj + '</td><td><span class="task-cell">' + t.task + '</span>' + imgThumb(t.img) + '</td><td><span class="badge ' + t.status + '">' + t.statusText + '</span></td></tr>';
+      h += '<tr><td>' + t.date + '</td><td>' + t.subj + '</td><td class="task-cell-td"><span class="task-cell">' + t.task + '</span>' + imgThumb(t.img) + '</td><td><span class="badge ' + t.status + '">' + t.statusText + '</span></td></tr>';
     });
     box.innerHTML = h + '</table>';
   }
@@ -1697,7 +1718,7 @@
       if(tasks.length){
         h += '<table class="wide log-table"><tr><th style="width:50px;">序号</th><th style="width:88px;">学科</th><th>任务</th><th style="width:90px;">状态</th></tr>';
         tasks.forEach(function(t, idx){
-          h += '<tr><td>' + (idx + 1) + '</td><td>' + t.name + '</td><td><span class="task-cell">' + t.desc + '</span>' + imgThumb(t.img) + '</td><td><span class="badge ' + t.status + '">' + t.statusText + '</span></td></tr>';
+          h += '<tr><td>' + (idx + 1) + '</td><td>' + t.name + '</td><td class="task-cell-td"><span class="task-cell">' + t.desc + '</span>' + imgThumb(t.img) + '</td><td><span class="badge ' + t.status + '">' + t.statusText + '</span></td></tr>';
         });
         h += '</table>';
       }
