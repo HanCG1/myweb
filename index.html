@@ -1315,29 +1315,33 @@
       var sr = chart.getBoundingClientRect();
       var dr = d.getBoundingClientRect();
       var t = tip.getBoundingClientRect();
-      var w = t.width || 56, h = t.height || 24;
+      var w = t.width || 60, h = t.height || 24;
       var relLeft = dr.left - sr.left;
       var relTop = dr.top - sr.top;
+      var cx = relLeft + 5.5, cy = relTop + 5.5;
+      var tl, tt;
       tip.style.transform = 'none';
       tip.style.margin = '0';
-      if(relLeft >= w + 12){
+      if(cx - 6 >= w + 8){
         /* 红点左侧（前面），垂直居中 */
-        tip.style.left = (-(w + 10)) + 'px';
-        tip.style.right = 'auto';
-        tip.style.top = (-Math.round((h - 11) / 2)) + 'px';
-        tip.style.bottom = 'auto';
+        tl = cx - w - 10;
+        tt = cy - h / 2;
+      } else if(cy >= h + 14){
+        /* 红点上方，水平居中 */
+        tl = cx - w / 2;
+        tt = cy - h - 12;
       } else {
-        /* 红点上方/下方，水平居中但限制在卡片内不溢出 */
-        tip.style.left = Math.max(4, Math.min(sr.width - w - 4, relLeft + 5.5 - w / 2)) + 'px';
-        tip.style.right = 'auto';
-        if(relTop >= h + 10){
-          tip.style.top = 'auto';
-          tip.style.bottom = '23px';
-        } else {
-          tip.style.top = '30px';
-          tip.style.bottom = 'auto';
-        }
+        /* 红点下方，水平居中 */
+        tl = cx - w / 2;
+        tt = cy + 13;
       }
+      /* 限制在卡片范围内，永不溢出 */
+      tl = Math.max(4, Math.min(sr.width - w - 4, tl));
+      tt = Math.max(4, Math.min(sr.height - h - 4, tt));
+      tip.style.left = (tl - relLeft) + 'px';
+      tip.style.right = 'auto';
+      tip.style.top = (tt - relTop) + 'px';
+      tip.style.bottom = 'auto';
     }
     for(var i2=0;i2<dts.length;i2++){
       (function(d){
