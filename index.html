@@ -309,7 +309,7 @@
     .card h3.sleep-title{flex-wrap:wrap;}
     .card h3.sleep-title .t{white-space:nowrap;}
     .card h3.sleep-title .date-tag{order:2;flex:1 1 100%;margin-left:0;white-space:normal;}
-    .sleep-report{height:200px;}
+    .sleep-report{height:200px;padding-top:20px;}
     .rcol .bars{height:130px;}
     .rhythm{min-height:150px;}
     .rcol .bars i{width:10px;}
@@ -1275,7 +1275,7 @@
       return;
     }
     var h = '<div class="sleep-report">';
-    h += '<div class="yline" style="bottom:100%;"><span>22:30</span></div>';
+    h += '<div class="yline" style="top:0;"><span>22:30</span></div>';
     h += '<div class="yline" style="bottom:67%;"><span>22:00</span></div>';
     h += '<div class="yline" style="bottom:33%;"><span>21:30</span></div>';
     h += '<svg class="sleep-line" viewBox="0 0 100 100" preserveAspectRatio="none"><polyline fill="none" stroke="var(--accent)" stroke-width="1" stroke-linejoin="round" stroke-linecap="round" points=""/></svg>';
@@ -1283,7 +1283,7 @@
     h += '<div class="goal-tag">目标 21:00</div>';
     rows.forEach(function(r){
       var b = (r.mins - 1260) / (1350 - 1260) * 100;
-      b = Math.max(2, Math.min(98, b));
+      b = Math.max(4, Math.min(80, b));
       var late = r.mins > 1265;
       var md = r.date.slice(5).replace('-','/');
       var hh = Math.floor(r.mins/60), mm = r.mins%60;
