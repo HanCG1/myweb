@@ -178,9 +178,32 @@
   .card .body{margin-top:12px;}
   .card.closed .body{display:none;}
   .card.month{background:transparent;border:none;box-shadow:none;padding:0;margin-bottom:12px;}
-  .card.month h3{font-size:14px;padding-bottom:6px;border-bottom:1px solid var(--line-soft);}
-  .card.month .body{margin-top:8px;}
+  .card.month h3{font-size:14px;font-weight:700;padding:8px 10px;background:var(--accent-soft);border:1px solid var(--line);border-radius:8px 8px 0 0;margin:0;}
+  .card.month.closed h3{border-radius:8px;}
+  .card.month .body{margin-top:0;border:1px solid var(--line);border-top:none;border-radius:0 0 8px 8px;padding:2px 8px 8px;background:var(--card-bg);}
+  .card.month.closed .body{display:none;}
   .card.month table{font-size:13px;}
+  /* 错题/薄弱/练字/今日计划/考试：卡片标题块状化（与阅读记录月份标题一致） */
+  #view-errors .card > h3,
+  #view-weak .card > h3,
+  #view-writing .card > h3,
+  #view-today .card > h3,
+  #view-exam .card > h3{
+    background:var(--accent-soft);
+    padding:8px 10px;
+    border-radius:8px;
+    font-weight:700;
+  }
+  #view-errors .card > h3 .arrow,
+  #view-weak .card > h3 .arrow,
+  #view-writing .card > h3 .arrow,
+  #view-today .card > h3 .arrow,
+  #view-exam .card > h3 .arrow{font-size:11px;color:var(--sub);transition:transform .2s;margin-left:auto;}
+  #view-errors .card.open > h3 .arrow,
+  #view-weak .card.open > h3 .arrow,
+  #view-writing .card.open > h3 .arrow,
+  #view-today .card.open > h3 .arrow,
+  #view-exam .card.open > h3 .arrow{transform:rotate(90deg);}
   .date-tag{font-size:12px;color:var(--sub);font-weight:400;}
 
   table{width:100%;border-collapse:collapse;font-size:13.5px;}
@@ -435,11 +458,11 @@
     #weakBoxCn td:last-child,#weakBoxMa td:last-child{padding:3px 0;}
     #weakBoxCn td[colspan],#weakBoxMa td[colspan]{text-align:center;color:var(--sub);}
     #weakBoxCn td[colspan]::before,#weakBoxMa td[colspan]::before{content:none;}
-    /* 科目标题：手机端分组小标题 */
-    #view-weak .subj-card{background:transparent;border:none;box-shadow:none;border-radius:0;padding:0 2px;margin:0 0 4px;}
-    #view-weak .subj-card h3{font-size:13.5px;color:var(--sub);padding:0;border:none;margin:0;line-height:1.5;}
-    #view-weak .subj-card h3 .date-tag{font-size:12px;color:var(--sub);}
-    #view-weak .subj-card .arrow{display:none;}
+    /* 科目标题：手机端块状标题（与阅读记录月份标题一致） */
+    #view-weak .subj-card{background:transparent;border:none;box-shadow:none;border-radius:0;padding:0;margin:0 0 4px;}
+    #view-weak .subj-card h3{font-size:14px;font-weight:700;color:var(--ink);padding:8px 10px;background:var(--accent-soft);border:1px solid var(--line);border-radius:8px;margin:0;line-height:1.5;}
+    #view-weak .subj-card h3 .date-tag{font-size:12px;color:var(--sub);font-weight:400;}
+    #view-weak .subj-card .arrow{display:inline;}
     /* 错题记录：手机端垂直字段卡片 */
     #mistakeBoxCn table,#mistakeBoxMa table{display:block;}
     #mistakeBoxCn table.wide,#mistakeBoxMa table.wide{min-width:0;}
@@ -452,11 +475,11 @@
     #mistakeBoxCn td:nth-child(3),#mistakeBoxMa td:nth-child(3){margin:2px 0;}
     #mistakeBoxCn td[colspan],#mistakeBoxMa td[colspan]{text-align:center;color:var(--sub);}
     #mistakeBoxCn td[colspan]::before,#mistakeBoxMa td[colspan]::before{content:none;}
-    /* 科目标题卡片：手机端改为分组小标题，不单独成卡片 */
-    #view-errors .subj-card{background:transparent;border:none;box-shadow:none;border-radius:0;padding:0 2px;margin:0 0 4px;}
-    #view-errors .subj-card h3{font-size:13.5px;color:var(--sub);padding:0;border:none;margin:0;line-height:1.5;}
-    #view-errors .subj-card h3 .date-tag{font-size:12px;color:var(--sub);}
-    #view-errors .subj-card .arrow{display:none;}
+    /* 科目标题卡片：手机端块状标题 */
+    #view-errors .subj-card{background:transparent;border:none;box-shadow:none;border-radius:0;padding:0;margin:0 0 4px;}
+    #view-errors .subj-card h3{font-size:14px;font-weight:700;color:var(--ink);padding:8px 10px;background:var(--accent-soft);border:1px solid var(--line);border-radius:8px;margin:0;line-height:1.5;}
+    #view-errors .subj-card h3 .date-tag{font-size:12px;color:var(--sub);font-weight:400;}
+    #view-errors .subj-card .arrow{display:inline;}
   }
   /* ===== 图片附件：缩略图 + 点击放大 ===== */
   td.task-cell-td{vertical-align:top;display:flex;align-items:flex-start;gap:6px;min-width:0;}
@@ -764,7 +787,7 @@
       <!-- ===== 成长记录 ===== -->
       <div class="view" id="view-growth">
         <div class="v-head"><h2>成长记录</h2><span class="en">GROWTH</span><span style="margin-left:auto;font-size:12px;color:var(--sub);">习惯养成 · 按主题聚合</span></div>
-        <div class="card open" data-fold>
+        <div class="card closed" data-fold>
           <h3>习惯养成总览 <span class="arrow">▸</span></h3>
           <div class="body" id="growthStatBox"></div>
         </div>
@@ -788,17 +811,6 @@
       <!-- ===== 练字计划 ===== -->
       <div class="view" id="view-writing">
         <div class="v-head"><h2>练字计划</h2><span class="en">PENMANSHIP · 田英章正楷一本通</span><span style="margin-left:auto;font-size:12px;color:var(--sub);">周一至五 10-15分钟 · 作业后 · 周末自愿</span></div>
-        <div class="card">
-          <h3>阶段进度 <span class="arrow">▸</span></h3>
-          <div class="body">
-            <div class="timeline">
-              <div class="tl-item done"><div class="tl-name">① 控笔训练 <span class="tl-period">实际2天 · 9/8完成</span></div><div class="tl-desc">横线 / 竖线 / 斜线 / 弧线 / 圆圈，线条均匀不抖</div></div>
-              <div class="tl-item now"><div class="tl-name">② 基本笔画 <span class="tl-period">进行中 · 9/9起 · 约5周</span></div><div class="tl-desc">点、横、竖、撇、捺、钩、折，与课本生字同步（本周：横→竖，临写"一 二 三 十 上"）</div></div>
-              <div class="tl-item"><div class="tl-name">③ 偏旁部首 <span class="tl-period">未开始 · 约6周</span></div><div class="tl-desc">单人旁、三点水、提手旁等常用偏旁</div></div>
-              <div class="tl-item"><div class="tl-name">④ 间架结构 <span class="tl-period">未开始 · 长期</span></div><div class="tl-desc">重心平稳、结构匀称，常用字应用</div></div>
-            </div>
-          </div>
-        </div>
         <div class="card open" data-fold>
           <h3>练字记录 <span class="arrow">▸</span></h3>
           <div class="body" id="writingBox"></div>
@@ -844,7 +856,7 @@
           <div class="body">
             <div class="rec"><li><span class="tag">机制</span>档案数据由学习管理助手每日维护更新，本页面为只读展示</li>
             <li><span class="tag">备份</span>历史数据源保留于学习档案.md（备份）</li>
-            <li><span class="tag">定时任务</span>每周六 20:30 生成周报 · 每月最后一天 20:30 生成月报，自动归档至对应板块</li></div>
+            <li><span class="tag">定时任务</span>每周日 20:00 生成周报 · 每月最后一天 20:00 生成月报，自动归档至对应板块</li></div>
           </div>
         </div>
       </div>
@@ -987,9 +999,9 @@
     if(tm) tm.textContent = fmtMD(tomorrow) + ' 周' + weeks[tomorrow.getDay()];
     var sun = new Date(now);
     sun.setDate(now.getDate() + ((7 - now.getDay() + 7) % 7));
-    if(now.getDay() === 0 && now.getHours() >= 21){ sun.setDate(sun.getDate() + 7); }
+    if(now.getDay() === 0 && now.getHours() >= 20){ sun.setDate(sun.getDate() + 7); }
     var nr = document.getElementById('nextReport');
-    if(nr) nr.innerHTML = '<span class="dot todo"></span>' + fmtMD(sun) + ' 周日21:00自动生成';
+    if(nr) nr.innerHTML = '<span class="dot todo"></span>' + fmtMD(sun) + ' 周日20:00自动生成';
   }
   setDates();
 
@@ -1079,9 +1091,9 @@
     });
     var mkeys = Object.keys(months).sort().reverse();
     var h = '';
-    mkeys.forEach(function(mk){
+    mkeys.forEach(function(mk, mi){
       var arr = months[mk];
-      h += '<div class="card month closed" data-fold>';
+      h += '<div class="card month' + (mi === 0 ? '' : ' closed') + '" data-fold>';
       h += '<h3>' + (+mk.slice(0,4)) + '年' + (+mk.slice(5,7)) + '月 <span class="date-tag">' + arr.length + ' 条</span><span class="arrow">▸</span></h3>';
       h += '<div class="body"><table class="wide"><tr><th style="width:72px;">日期</th><th style="width:300px;">书目</th><th style="width:90px;">阅读时长</th><th style="width:110px;">孩子状态</th></tr>';
       arr.forEach(function(r){
@@ -1124,11 +1136,11 @@
       h1 = '今日任务待布置';
       sub = '收到老师通知后，我会同步更新今日安排';
     }
-    /* 下次周报（最近一个周日21:00后） */
+    /* 下次周报（最近一个周日20:00后） */
     var sun = new Date(now);
     sun.setDate(now.getDate() + ((7 - now.getDay() + 7) % 7));
-    if(now.getDay() === 0 && now.getHours() >= 21){ sun.setDate(sun.getDate() + 7); }
-    var sunTxt = (sun.getMonth()+1) + '月' + sun.getDate() + '日 周日 21:00';
+    if(now.getDay() === 0 && now.getHours() >= 20){ sun.setDate(sun.getDate() + 7); }
+    var sunTxt = (sun.getMonth()+1) + '月' + sun.getDate() + '日 周日 20:00';
     hero.innerHTML =
       '<div>' +
         '<div class="date">' + (now.getMonth()+1) + '月' + now.getDate() + '日 周' + wd[now.getDay()] + ' · 韩长歌的学习档案</div>' +
@@ -1377,7 +1389,7 @@
     var items = [
       {go:'tasks', ico:'var(--accent-soft)', c:'var(--accent)', name:'今晚任务', val: tt.length ? (remain + ' 项待完成') : '待布置', sub:'点击进入任务日志'},
       {go:'writing', ico:'var(--ok-soft)', c:'var(--ok)', name:'练字进度', val:lz, sub:'书法比赛备赛'},
-      {go:'weekly', ico:'var(--doing-soft)', c:'var(--doing)', name:'下次周报', val:(sun.getMonth()+1)+'/'+sun.getDate()+' 周日 21:00', sub:'自动生成'},
+      {go:'weekly', ico:'var(--doing-soft)', c:'var(--doing)', name:'下次周报', val:(sun.getMonth()+1)+'/'+sun.getDate()+' 周日 20:00', sub:'自动生成'},
       {go:'exam', ico:'var(--err-soft)', c:'var(--err)', name:'下次考试', val: ex ? escHTML(ex.name) : '暂无安排', sub: ex ? '已记录' : '录入考试后显示'}
     ];
     box.innerHTML = items.map(function(it){
@@ -1739,9 +1751,9 @@
     });
     var mkeys = Object.keys(months).sort().reverse();
     var h2 = '';
-    mkeys.forEach(function(mk){
+    mkeys.forEach(function(mk, mi){
       var arr = months[mk];
-      h2 += '<div class="card month closed" data-fold>';
+      h2 += '<div class="card month' + (mi === 0 ? '' : ' closed') + '" data-fold>';
       h2 += '<h3>' + (+mk.slice(0,4)) + '年' + (+mk.slice(5,7)) + '月 <span class="date-tag">' + arr.length + ' 条</span><span class="arrow">▸</span></h3>';
       h2 += '<div class="body"><table class="wide"><tr><th style="width:72px;">日期</th><th style="width:90px;">习惯点</th><th style="width:64px;">类型</th><th>记录</th></tr>';
       arr.forEach(function(r){
