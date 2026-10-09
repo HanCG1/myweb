@@ -177,6 +177,8 @@
   .card.open h3 .arrow{transform:rotate(90deg);}
   .card .body{margin-top:12px;}
   .card.closed .body{display:none;}
+  .tb-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .tb-scroll table{margin-bottom:0;}
   .card.month{background:transparent;border:none;box-shadow:none;padding:0;margin-bottom:12px;}
   .card.month h3{font-size:14px;font-weight:700;padding:8px 10px;background:var(--accent-soft);border:1px solid var(--line);border-radius:8px 8px 0 0;margin:0;}
   .card.month.closed h3{border-radius:8px;}
@@ -1018,11 +1020,11 @@
     var tasks = hasData ? taskDB[key].slice() : [];
     var h;
     if(hasData){
-      h = '<table class="today-tb"><tr><th style="width:50px;">序号</th><th style="width:88px;">任务</th><th>说明</th><th style="width:90px;">状态</th></tr>';
+      h = '<div class="tb-scroll"><table class="today-tb"><tr><th style="width:50px;">序号</th><th style="width:88px;">任务</th><th>说明</th><th style="width:90px;">状态</th></tr>';
       tasks.forEach(function(t, idx){
         h += '<tr><td>' + (idx + 1) + '</td><td>' + t.name + '</td><td class="task-cell-td"><span class="task-cell">' + t.desc + '</span>' + imgThumb(t.img) + '</td><td><span class="badge ' + t.status + '">' + t.statusText + '</span></td></tr>';
       });
-      h += '</table>';
+      h += '</table></div>';
       var al = planAlert[key];
       if(al && al.length){
         h += '<div class="alert-box"><div class="alert-title">今日提醒</div>';
@@ -1031,9 +1033,9 @@
       }
     } else {
       h = '<div class="empty" style="padding:20px 10px;"><b>今日任务待布置</b><span>收到老师通知后，我会更新今日安排</span></div>';
-      h += '<table class="today-tb"><tr><th style="width:50px;">序号</th><th style="width:88px;">任务</th><th>说明</th><th style="width:90px;">状态</th></tr>';
+      h += '<div class="tb-scroll"><table class="today-tb"><tr><th style="width:50px;">序号</th><th style="width:88px;">任务</th><th>说明</th><th style="width:90px;">状态</th></tr>';
       h += '<tr><td>1</td><td>整理</td><td>睡前整理书包带齐文具（每日默认必做）</td><td><span class="badge todo">待完成</span></td></tr>';
-      h += '<tr><td>2</td><td>睡觉</td><td>规定21:00入睡；实际时间待家长告知</td><td><span class="badge todo">待告知</span></td></tr></table>';
+      h += '<tr><td>2</td><td>睡觉</td><td>规定21:00入睡；实际时间待家长告知</td><td><span class="badge todo">待告知</span></td></tr></table></div>';
     }
     box.innerHTML = h;
     var st = document.getElementById('tonightStat');
@@ -1491,11 +1493,11 @@
       h += '<div class="card open" data-fold data-date="' + k + '">';
       h += '<h3>' + k + ' <span class="date-tag">' + tag + '</span><span class="arrow">▸</span></h3><div class="body">';
       if(tasks.length){
-        h += '<table class="wide log-table"><tr><th style="width:50px;">序号</th><th style="width:88px;">学科</th><th>任务</th><th style="width:90px;">状态</th></tr>';
+        h += '<div class="tb-scroll"><table class="wide log-table"><tr><th style="width:50px;">序号</th><th style="width:88px;">学科</th><th>任务</th><th style="width:90px;">状态</th></tr>';
         tasks.forEach(function(t, idx){
           h += '<tr><td>' + (idx + 1) + '</td><td>' + t.name + '</td><td class="task-cell-td"><span class="task-cell">' + t.desc + '</span>' + imgThumb(t.img) + '</td><td><span class="badge ' + t.status + '">' + t.statusText + '</span></td></tr>';
         });
-        h += '</table>';
+        h += '</table></div>';
       }
       var pa = planAlert[k];
       if(pa && pa.length){
