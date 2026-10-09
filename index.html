@@ -268,7 +268,7 @@
   .sleep-report .dot .tip{display:none;position:absolute;background:rgba(43,58,78,.95);color:#fff;font-size:11px;font-weight:600;padding:3px 9px;border-radius:6px;white-space:nowrap;z-index:3;box-shadow:0 2px 6px rgba(0,0,0,.18);}
   .sleep-report .dot.on .tip{display:block;}
   .sleep-report .goal{position:absolute;left:0;right:0;border-top:2px dashed var(--accent);z-index:1;}
-  .sleep-report .goal-tag{position:absolute;bottom:-30px;left:0;font-size:10.5px;color:var(--accent);font-weight:600;background:var(--card-bg);padding-right:6px;z-index:1;}
+  .sleep-report .goal-tag{position:absolute;bottom:6px;left:6px;font-size:10.5px;color:var(--accent);font-weight:600;background:var(--card-bg);padding-right:6px;z-index:1;}
 
   .sleep-tip{position:absolute;background:#0f172a;color:#fff;font-size:12px;padding:4px 10px;border-radius:8px;pointer-events:none;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,.25);z-index:5;opacity:0;transition:opacity .15s;}
   .dash-quick{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:14px;}
@@ -1295,8 +1295,8 @@
     var chart = box.querySelector('.sleep-report');
     var dts = chart.querySelectorAll('.dot');
     var n = dts.length;
-    var padL = window.innerWidth <= 640 ? 14 : 6;
-    var padR = window.innerWidth <= 640 ? 4 : 6;
+    var padL = window.innerWidth <= 640 ? 18 : 6;
+    var padR = window.innerWidth <= 640 ? 10 : 6;
     var span = 100 - padL - padR;
     var poly = chart.querySelector('polyline');
     var pts = [];
@@ -1318,25 +1318,25 @@
       var w = t.width || 56, h = t.height || 24;
       var relLeft = dr.left - sr.left;
       var relTop = dr.top - sr.top;
-      var canLeft = relLeft >= w + 8 + 45;
-      var canUp = relTop >= h + 10;
       tip.style.transform = 'none';
       tip.style.margin = '0';
-      if(canLeft){
-        tip.style.left = (-(w + 8)) + 'px';
+      if(relLeft >= w + 12){
+        /* 红点左侧（前面），垂直居中 */
+        tip.style.left = (-(w + 10)) + 'px';
         tip.style.right = 'auto';
-        tip.style.top = 'auto';
-        tip.style.bottom = '23px';
-      } else if(canUp){
-        tip.style.left = '0';
-        tip.style.right = 'auto';
-        tip.style.top = 'auto';
-        tip.style.bottom = '23px';
-      } else {
-        tip.style.left = '0';
-        tip.style.right = 'auto';
-        tip.style.top = '30px';
+        tip.style.top = (-Math.round((h - 11) / 2)) + 'px';
         tip.style.bottom = 'auto';
+      } else {
+        /* 红点上方/下方，水平居中但限制在卡片内不溢出 */
+        tip.style.left = Math.max(4, Math.min(sr.width - w - 4, relLeft + 5.5 - w / 2)) + 'px';
+        tip.style.right = 'auto';
+        if(relTop >= h + 10){
+          tip.style.top = 'auto';
+          tip.style.bottom = '23px';
+        } else {
+          tip.style.top = '30px';
+          tip.style.bottom = 'auto';
+        }
       }
     }
     for(var i2=0;i2<dts.length;i2++){
@@ -1346,8 +1346,10 @@
           if(d.classList.contains('on')){ d.classList.remove('on'); }
           else { offAll(); d.classList.add('on'); placeTip(d); }
         });
-        d.addEventListener('mouseenter', function(){ offAll(); d.classList.add('on'); placeTip(d); });
-        d.addEventListener('mouseleave', function(){ d.classList.remove('on'); });
+        if(window.innerWidth > 640){
+          d.addEventListener('mouseenter', function(){ offAll(); d.classList.add('on'); placeTip(d); });
+          d.addEventListener('mouseleave', function(){ d.classList.remove('on'); });
+        }
       })(dts[i2]);
     }
     box.addEventListener('click', function(ev){ if(!ev.target.closest('.dot')) offAll(); });
