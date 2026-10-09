@@ -258,6 +258,18 @@
   .dash-info .chip b{color:var(--ink);font-weight:600;}
   .sleep-wrap{position:relative;margin-top:6px;}
   .sleep-wrap svg{width:100%;display:block;}
+  .sleep-report{position:relative;height:150px;margin-top:10px;padding-bottom:30px;border-bottom:1px solid var(--line);}
+  .sleep-report .yline{position:absolute;left:0;right:0;font-size:10.5px;color:var(--sub);z-index:1;}
+  .sleep-report .yline span{background:var(--card-bg);padding-right:6px;}
+  .sleep-report .sleep-line{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:visible;}
+  .sleep-report .dot{position:absolute;width:11px;height:11px;border-radius:50%;background:var(--err);border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transform:translate(-50%,50%);cursor:pointer;z-index:2;}
+  .sleep-report .dot.ok{background:var(--ok);}
+  .sleep-report .dot .t{position:absolute;bottom:-24px;left:50%;transform:translateX(-50%);font-size:11px;color:var(--sub);white-space:nowrap;}
+  .sleep-report .dot .tip{display:none;position:absolute;background:rgba(43,58,78,.95);color:#fff;font-size:11px;font-weight:600;padding:3px 9px;border-radius:6px;white-space:nowrap;z-index:3;box-shadow:0 2px 6px rgba(0,0,0,.18);}
+  .sleep-report .dot.on .tip{display:block;}
+  .sleep-report .goal{position:absolute;left:0;right:0;border-top:2px dashed var(--accent);z-index:1;}
+  .sleep-report .goal-tag{position:absolute;bottom:-30px;left:0;font-size:10.5px;color:var(--accent);font-weight:600;background:var(--card-bg);padding-right:6px;z-index:1;}
+
   .sleep-tip{position:absolute;background:#0f172a;color:#fff;font-size:12px;padding:4px 10px;border-radius:8px;pointer-events:none;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,.25);z-index:5;opacity:0;transition:opacity .15s;}
   .dash-quick{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px;}
   .q{background:var(--card-bg);border:var(--card-border);border-bottom:var(--card-bottom);border-radius:var(--radius);box-shadow:var(--card-shadow);padding:14px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:transform .12s;min-width:0;}
@@ -1204,54 +1216,89 @@
       if(!st) return;
       var mins = parseTime(st.statusText || st.desc || '');
       if(mins == null) return;
-      rows.push({date:d, mins:mins, txt:(st.statusText || st.desc || '')});
+      rows.push({date:d, mins:mins});
     });
     rows = rows.slice(0, 7).reverse();
     if(!rows.length){ box.innerHTML = '<div class="empty" style="padding:20px 10px;"><b>暂无睡眠时间记录</b></div>'; return; }
-    var W = 1000, H = 230, PL = 70, PR = 40, PT = 26, PB = 50, DL = 30, DR = 10;
-    var yTop = PT, yBot = H - PB;
-    function yOf(mins){ return yBot - (mins - 1260) / (1350 - 1260) * (yBot - yTop); }
-    var xL = PL + DL, xR = W - PR - DR;
-    var step = (xR - xL) / (rows.length - 1 || 1);
-    var pts = [];
-    rows.forEach(function(r, i){ pts.push([xL + i*step, yOf(r.mins)]); });
-    var svg = '<svg viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="xMidYMid meet">';
-    svg += '<line x1="' + xL + '" y1="' + yBot + '" x2="' + (W-PR) + '" y2="' + yBot + '" stroke="var(--accent)" stroke-width="2" stroke-dasharray="6 5" opacity=".6"/>';
-    svg += '<text x="' + (PL-16) + '" y="' + (yBot+16) + '" font-size="11" fill="var(--accent)" font-weight="600" text-anchor="end">目标 21:00</text>';
-    svg += '<text x="' + (PL-16) + '" y="' + (yTop-8) + '" font-size="10" fill="var(--sub)" text-anchor="end">22:30</text>';
-    if(pts.length > 1){
-      var d = 'M' + pts.map(function(p){ return p[0].toFixed(1) + ' ' + p[1].toFixed(1); }).join(' L');
-      svg += '<path d="' + d + '" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity=".5"/>';
-    }
-    pts.forEach(function(p, i){
-      var r = rows[i];
+    var h = '<div class="sleep-report">';
+    h += '<div class="yline" style="bottom:100%;"><span>22:30</span></div>';
+    h += '<div class="yline" style="bottom:67%;"><span>22:00</span></div>';
+    h += '<div class="yline" style="bottom:33%;"><span>21:30</span></div>';
+    h += '<svg class="sleep-line" viewBox="0 0 100 100" preserveAspectRatio="none"><polyline fill="none" stroke="var(--accent)" stroke-width="1" stroke-linejoin="round" stroke-linecap="round" points=""/></svg>';
+    h += '<div class="goal" style="bottom:0%;"></div>';
+    h += '<div class="goal-tag">目标 21:00</div>';
+    rows.forEach(function(r){
+      var b = (r.mins - 1260) / (1350 - 1260) * 100;
+      b = Math.max(2, Math.min(98, b));
       var late = r.mins > 1265;
-      var col = late ? 'var(--err)' : 'var(--ok)';
-      svg += '<circle cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="7" fill="#fff" stroke="' + col + '" stroke-width="3" class="sdot" data-i="' + i + '" style="cursor:pointer;"/>';
       var md = r.date.slice(5).replace('-','/');
-      svg += '<text x="' + p[0].toFixed(1) + '" y="' + (H-14) + '" font-size="10.5" fill="var(--sub)" text-anchor="middle">' + md + '</text>';
+      var hh = Math.floor(r.mins/60), mm = r.mins%60;
+      var tip = r.date + ' 入睡 ' + ('0'+hh).slice(-2) + ':' + ('0'+mm).slice(-2) + (late ? '（晚于目标）' : '（达标）');
+      h += '<div class="dot' + (late ? '' : ' ok') + '" style="left:0;bottom:' + b.toFixed(1) + '%;"><span class="t">' + md + '</span><span class="tip">' + escHTML(tip) + '</span></div>';
     });
-    svg += '</svg>';
-    var tip = document.createElement('div');
-    tip.className = 'sleep-tip';
-    box.appendChild(tip);
-    box.insertAdjacentHTML('afterbegin', svg);
-    box.querySelectorAll('.sdot').forEach(function(dot){
-      function show(){
-        var i = +dot.getAttribute('data-i');
-        var r = rows[i];
-        var hh = Math.floor(r.mins/60), mm = r.mins%60;
-        tip.textContent = r.date + ' 入睡 ' + ('0'+hh).slice(-2) + ':' + ('0'+mm).slice(-2) + (r.mins > 1260 ? '（晚于目标）' : '（达标）');
-        var rect = dot.getBoundingClientRect(), boxRect = box.getBoundingClientRect();
-        var relTop = rect.top - boxRect.top;
-        tip.style.left = (rect.left - boxRect.left + rect.width/2) + 'px';
-        tip.style.top = (relTop < 40 ? relTop + rect.height + 6 : relTop - 32) + 'px';
-        tip.style.opacity = 1;
+    h += '</div>';
+    box.innerHTML = h;
+    var chart = box.querySelector('.sleep-report');
+    var dts = chart.querySelectorAll('.dot');
+    var n = dts.length;
+    var padL = window.innerWidth <= 640 ? 14 : 6;
+    var padR = window.innerWidth <= 640 ? 4 : 6;
+    var span = 100 - padL - padR;
+    var poly = chart.querySelector('polyline');
+    var pts = [];
+    for(var i = 0; i < n; i++){
+      var m = dts[i].getAttribute('style').match(/bottom:\s*([0-9.]+)%/);
+      var b = m ? parseFloat(m[1]) : 0;
+      var left = padL + (n === 1 ? span/2 : i * span / (n - 1));
+      dts[i].style.left = left.toFixed(1) + '%';
+      pts.push(left.toFixed(1) + ',' + (100 - b).toFixed(1));
+    }
+    if(poly && pts.length > 1) poly.setAttribute('points', pts.join(' '));
+    function offAll(){ for(var j=0;j<dts.length;j++){ dts[j].classList.remove('on'); } }
+    function placeTip(d){
+      var tip = d.querySelector('.tip');
+      if(!tip) return;
+      var sr = chart.getBoundingClientRect();
+      var dr = d.getBoundingClientRect();
+      var t = tip.getBoundingClientRect();
+      var w = t.width || 56, h = t.height || 24;
+      var relLeft = dr.left - sr.left;
+      var relTop = dr.top - sr.top;
+      var canLeft = relLeft >= w + 8 + 45;
+      var canUp = relTop >= h + 10;
+      tip.style.transform = 'none';
+      tip.style.margin = '0';
+      if(canLeft){
+        tip.style.left = (-(w + 8)) + 'px';
+        tip.style.right = 'auto';
+        tip.style.top = 'auto';
+        tip.style.bottom = '23px';
+      } else if(canUp){
+        tip.style.left = '0';
+        tip.style.right = 'auto';
+        tip.style.top = 'auto';
+        tip.style.bottom = '23px';
+      } else {
+        tip.style.left = '0';
+        tip.style.right = 'auto';
+        tip.style.top = '30px';
+        tip.style.bottom = 'auto';
       }
-      function hide(){ tip.style.opacity = 0; }
-      dot.addEventListener('mouseenter', show);
-      dot.addEventListener('mouseleave', hide);
-      dot.addEventListener('click', function(){ tip.style.opacity === '1' ? hide() : show(); });
+    }
+    for(var i2=0;i2<dts.length;i2++){
+      (function(d){
+        d.addEventListener('click', function(ev){
+          ev.stopPropagation();
+          if(d.classList.contains('on')){ d.classList.remove('on'); }
+          else { offAll(); d.classList.add('on'); placeTip(d); }
+        });
+        d.addEventListener('mouseenter', function(){ offAll(); d.classList.add('on'); placeTip(d); });
+        d.addEventListener('mouseleave', function(){ d.classList.remove('on'); });
+      })(dts[i2]);
+    }
+    box.addEventListener('click', function(ev){ if(!ev.target.closest('.dot')) offAll(); });
+    window.addEventListener('resize', function(){
+      for(var j=0;j<dts.length;j++){ if(dts[j].classList.contains('on')){ placeTip(dts[j]); } }
     });
   }
   function renderDashQuick(){
