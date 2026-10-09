@@ -271,24 +271,25 @@
   .sleep-report .goal-tag{position:absolute;bottom:-30px;left:0;font-size:10.5px;color:var(--accent);font-weight:600;background:var(--card-bg);padding-right:6px;z-index:1;}
 
   .sleep-tip{position:absolute;background:#0f172a;color:#fff;font-size:12px;padding:4px 10px;border-radius:8px;pointer-events:none;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,.25);z-index:5;opacity:0;transition:opacity .15s;}
-  .dash-quick{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px;}
-  .q{background:var(--card-bg);border:var(--card-border);border-bottom:var(--card-bottom);border-radius:var(--radius);box-shadow:var(--card-shadow);padding:14px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:transform .12s;min-width:0;}
+  .dash-quick{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:14px;}
+  .q{background:var(--card-bg);border:var(--card-border);border-bottom:var(--card-bottom);border-radius:var(--radius);box-shadow:var(--card-shadow);padding:16px 18px;display:flex;align-items:center;gap:13px;cursor:pointer;transition:transform .12s;min-width:0;}
   .q:hover{transform:translateY(-2px);}
   .q .ico{width:38px;height:38px;border-radius:var(--logo-radius);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
   .q .qname{font-size:12px;color:var(--sub);}
-  .q .qval{font-size:16px;font-weight:700;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-  .q .qsub{font-size:10px;color:var(--sub);}
-  .rhythm{display:flex;align-items:flex-end;gap:12px;min-height:150px;padding:6px 4px 0;margin-top:10px;}
+  .q .qval{font-size:16px;font-weight:700;color:var(--ink);white-space:normal;word-break:break-all;line-height:1.35;}
+  .q .qsub{font-size:10px;color:var(--sub);margin-top:2px;}
+  .rhythm{display:flex;align-items:flex-end;gap:12px;min-height:170px;padding:6px 4px 0;margin-top:10px;}
   .rcol{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;min-width:0;}
-  .rcol .bars{display:flex;align-items:flex-end;gap:3px;height:130px;width:100%;justify-content:center;}
+  .rcol .bars{display:flex;align-items:flex-end;gap:3px;height:150px;width:100%;justify-content:center;}
   .rcol .bars i{width:14px;border-radius:4px 4px 0 0;min-height:3px;}
   .rcol .bar-ok{background:var(--ok);}
   .rcol .bar-no{background:var(--err);}
   .rcol .bar-todo{background:var(--todo-soft);border:1px solid var(--line);}
   .rcol .rdate{font-size:11px;color:var(--sub);}
-  .dash-legend{display:flex;gap:16px;font-size:11px;color:var(--sub);margin-top:10px;}
+  .dash-legend{display:flex;gap:16px;font-size:11px;color:var(--sub);margin-top:10px;flex-wrap:wrap;}
   .dash-legend span{display:inline-flex;align-items:center;gap:5px;}
   .dash-legend i{width:10px;height:10px;border-radius:3px;display:inline-block;}
+  .dash-legend .tot{margin-left:auto;font-weight:600;color:var(--ink);}
   @media (max-width:1100px){
     .dash-stats{grid-template-columns:repeat(2,1fr);}
     .dash-quick{grid-template-columns:repeat(2,1fr);}
@@ -305,6 +306,12 @@
     .q .qval{font-size:14px;}
     .focus-bar{flex-direction:column;gap:10px;padding:12px 14px;}
     .focus-item{font-size:13px;}
+    .card h3.sleep-title{flex-wrap:wrap;}
+    .card h3.sleep-title .t{white-space:nowrap;}
+    .card h3.sleep-title .date-tag{order:2;flex:1 1 100%;margin-left:0;white-space:normal;}
+    .sleep-report{height:200px;}
+    .rcol .bars{height:130px;}
+    .rhythm{min-height:150px;}
     .rcol .bars i{width:10px;}
   }
   /* 总览 */
@@ -604,7 +611,7 @@
 
         <!-- 睡眠趋势 -->
         <div class="card open" data-fold>
-          <h3>睡眠趋势 <span class="date-tag">最近 7 晚 · 目标 21:00 入睡 · 点击/悬停查看具体时间</span><span class="arrow">▸</span></h3>
+          <h3 class="sleep-title"><span class="t">睡眠趋势</span> <span class="date-tag">最近 7 晚 · 目标 21:00 入睡 · 点击/悬停查看具体时间</span><span class="arrow">▸</span></h3>
           <div class="body"><div class="sleep-wrap" id="dashSleep"></div></div>
         </div>
 
@@ -1220,6 +1227,53 @@
     });
     rows = rows.slice(0, 7).reverse();
     if(!rows.length){ box.innerHTML = '<div class="empty" style="padding:20px 10px;"><b>暂无睡眠时间记录</b></div>'; return; }
+    if(window.innerWidth > 640){
+      /* ===== 桌面端：紧凑 SVG 版（22:30 顶部、目标 21:00 底部） ===== */
+      var W = 1000, H = 210, PL = 76, PR = 40, PT = 30, PB = 46;
+      var y2230 = PT, y21 = H - PB;
+      function yOf(mins){ return y21 + (mins - 1260) / (1350 - 1260) * (y2230 - y21); }
+      var step = (W - PL - PR) / (rows.length - 1 || 1);
+      var pts = [];
+      rows.forEach(function(r, i){ pts.push([PL + i*step, yOf(r.mins)]); });
+      var svg = '<svg viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="xMidYMid meet" style="width:100%;display:block;">';
+      svg += '<line x1="' + PL + '" y1="' + y21 + '" x2="' + (W-PR) + '" y2="' + y21 + '" stroke="var(--accent)" stroke-width="2" stroke-dasharray="6 5" opacity=".6"/>';
+      svg += '<text x="' + (PL-16) + '" y="' + (y21+18) + '" font-size="11" fill="var(--accent)" font-weight="600" text-anchor="end">目标 21:00</text>';
+      svg += '<text x="' + (PL-16) + '" y="' + (y2230-8) + '" font-size="10" fill="var(--sub)" text-anchor="end">22:30</text>';
+      if(pts.length > 1){
+        var d = 'M' + pts.map(function(p){ return p[0].toFixed(1) + ' ' + p[1].toFixed(1); }).join(' L');
+        svg += '<path d="' + d + '" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity=".5"/>';
+      }
+      pts.forEach(function(p, i){
+        var r = rows[i];
+        var late = r.mins > 1265;
+        var col = late ? 'var(--err)' : 'var(--ok)';
+        var md = r.date.slice(5).replace('-','/');
+        svg += '<circle cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="6.5" fill="#fff" stroke="' + col + '" stroke-width="3" class="sdot" data-i="' + i + '" style="cursor:pointer;"/>';
+        svg += '<text x="' + p[0].toFixed(1) + '" y="' + (H-12) + '" font-size="10.5" fill="var(--sub)" text-anchor="middle">' + md + '</text>';
+      });
+      svg += '</svg>';
+      box.innerHTML = svg;
+      var tip = document.createElement('div');
+      tip.className = 'sleep-tip';
+      box.appendChild(tip);
+      box.querySelectorAll('.sdot').forEach(function(dot){
+        function show(){
+          var i = +dot.getAttribute('data-i');
+          var r = rows[i];
+          var hh = Math.floor(r.mins/60), mm = r.mins%60;
+          tip.textContent = r.date + ' 入睡 ' + ('0'+hh).slice(-2) + ':' + ('0'+mm).slice(-2) + (r.mins > 1260 ? '（晚于目标）' : '（达标）');
+          var rect = dot.getBoundingClientRect(), boxRect = box.getBoundingClientRect();
+          tip.style.left = (rect.left - boxRect.left + rect.width/2) + 'px';
+          tip.style.top = (rect.top - boxRect.top - 34) + 'px';
+          tip.style.opacity = 1;
+        }
+        function hide(){ tip.style.opacity = 0; }
+        dot.addEventListener('mouseenter', show);
+        dot.addEventListener('mouseleave', hide);
+        dot.addEventListener('click', function(){ tip.style.opacity === '1' ? hide() : show(); });
+      });
+      return;
+    }
     var h = '<div class="sleep-report">';
     h += '<div class="yline" style="bottom:100%;"><span>22:30</span></div>';
     h += '<div class="yline" style="bottom:67%;"><span>22:00</span></div>';
@@ -1309,7 +1363,7 @@
     var tt = (taskDB[key] || []);
     var remain = tt.filter(function(t){ return t.status === 'todo' || t.status === 'warn' || t.status === 'no'; }).length;
     var wl = (writingLog && writingLog.length) ? writingLog[0] : null;
-    var lz = wl ? escHTML(wl.content).slice(0, 16) : '未开始';
+    var lz = wl ? escHTML(wl.content.slice(0, 16)) : '未开始';
     var sun = new Date(now);
     sun.setDate(now.getDate() + ((7 - now.getDay() + 7) % 7));
     if(now.getDay() === 0 && now.getHours() >= 21){ sun.setDate(sun.getDate() + 7); }
@@ -1359,8 +1413,7 @@
         (x.todo ? '<i class="bar-todo" style="height:' + bh(x.todo) + '%;" title="待办' + x.todo + '"></i>' : '') +
         '</div><div class="rdate">' + md + '</div></div>';
     });
-    h += '<div class="rcol" style="justify-content:center;color:var(--sub);font-size:11px;">本周<br>共 ' + tot + ' 项</div>';
-    box.innerHTML = '<div class="rhythm">' + h + '</div><div class="dash-legend"><span><i style="background:var(--ok);"></i>完成</span><span><i style="background:var(--err);"></i>未完成</span><span><i style="background:var(--todo-soft);border:1px solid var(--line);"></i>待办</span></div>';
+    box.innerHTML = '<div class="rhythm">' + h + '</div><div class="dash-legend"><span><i style="background:var(--ok);"></i>完成</span><span><i style="background:var(--err);"></i>未完成</span><span><i style="background:var(--todo-soft);border:1px solid var(--line);"></i>待办</span><span class="tot">本周 共 ' + tot + ' 项</span></div>';
   }
 
   function renderRecent(){
