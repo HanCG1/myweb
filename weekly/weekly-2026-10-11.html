@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第6周学习周报</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%232383E2%27/%3E%3Ctext x=%2732%27 y=%2744%27 font-size=%2734%27 text-anchor=%27middle%27 fill=%27white%27%3E周%3C/text%3E%3C/svg%3E">
+<style>
+
+  :root{
+    --bg:#FFFFFF; --bg-sub:#F7F7F5; --ink:#37352F; --sub:#787774;
+    --line:#E9E9E7; --accent:#2383E2; --accent-soft:#EBF3FB;
+    --card-bg:#FFFFFF; --radius:10px; --shadow:0 1px 2px rgba(0,0,0,0.05);
+    --ok:#52C41A; --warn:#FAAD14; --err:#EA6668;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'PingFang SC','Microsoft YaHei',-apple-system,sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;font-size:14px;padding:28px 16px 60px;}
+  .wrap{max-width:880px;margin:0 auto;}
+
+  .head{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:18px;}
+  .head h1{font-size:26px;font-weight:700;letter-spacing:0.5px;}
+  .head h1 small{font-size:13px;color:var(--sub);font-weight:400;margin-left:8px;}
+  .head .meta{font-size:12.5px;color:var(--sub);text-align:right;}
+  .pill{display:inline-block;font-size:11.5px;padding:2px 10px;border-radius:20px;background:var(--accent-soft);color:var(--accent);font-weight:600;margin-left:8px;vertical-align:2px;}
+
+  .summary{background:linear-gradient(135deg,#EBF3FB,#F7FBFF);border:1px solid #D6E7F8;border-radius:var(--radius);padding:16px 18px;margin-bottom:20px;}
+  .summary .tag{font-size:12px;color:var(--accent);font-weight:700;letter-spacing:2px;margin-bottom:4px;}
+  .summary p{font-size:14.5px;color:var(--ink);}
+  .summary b{color:var(--accent);}
+
+  .sec-title{display:flex;align-items:center;gap:8px;font-size:16px;font-weight:700;margin:28px 0 12px;}
+  .sec-title .no{width:22px;height:22px;border-radius:6px;background:var(--accent);color:#fff;font-size:12.5px;display:flex;align-items:center;justify-content:center;flex:none;}
+  .sec-title small{color:var(--sub);font-weight:400;font-size:12.5px;}
+
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .card{background:var(--card-bg);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px 16px;}
+  @media(max-width:640px){ .grid-2{grid-template-columns:1fr;} }
+
+  .ov-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:6px;}
+  .ov-row:last-child{margin-bottom:0;}
+  .ov-name{flex:none;width:52px;font-size:13px;font-weight:600;color:var(--ink);padding-top:1px;}
+  .ov-main{flex:1;min-width:0;}
+  .ov-bar{height:10px;background:#EEEEEC;border-radius:6px;overflow:hidden;position:relative;}
+  .ov-fill{height:100%;border-radius:6px;background:linear-gradient(90deg,#2383E2,#5AA6F5);}
+  .ov-fill.warn{background:linear-gradient(90deg,#F0A92E,#FAC863);}
+  .ov-fill.err{background:linear-gradient(90deg,#E05C60,#F0868A);}
+  .ov-num{font-size:12.5px;color:var(--sub);margin-top:2px;font-variant-numeric:tabular-nums;}
+  .ov-num b{color:var(--ink);font-size:13.5px;}
+  .q{display:inline-block;font-size:10.5px;padding:1px 6px;border-radius:4px;background:var(--accent-soft);color:var(--accent);margin-left:4px;font-weight:600;}
+  .ov-sub{font-size:12px;color:var(--sub);margin:-2px 0 10px 62px;}
+
+  .chart{position:relative;display:flex;align-items:flex-end;gap:14px;height:198px;padding:6px 4px 0;border-bottom:1px solid var(--line);margin-top:14px;}
+  .bar-col{flex:1;position:relative;height:100%;}
+  .bar{position:absolute;left:50%;transform:translateX(-50%);bottom:42px;width:44px;border-radius:5px 5px 0 0;background:linear-gradient(180deg,#5AA6F5,#2383E2);}
+  .bar.err{background:linear-gradient(180deg,#F0868A,#E05C60);}
+  .bar.warn{background:linear-gradient(180deg,#FAC863,#F0A92E);}
+  .bar-label{position:absolute;left:50%;transform:translateX(-50%);bottom:0;font-size:11px;color:var(--sub);white-space:nowrap;}
+  .bar-num{position:absolute;left:50%;transform:translateX(-50%);bottom:22px;font-size:11px;color:var(--sub);font-variant-numeric:tabular-nums;}
+  @media(max-width:640px){ .chart{gap:6px;} .bar{width:18px;} }
+
+  .sleep{position:relative;height:120px;margin-top:16px;padding-bottom:26px;border-bottom:1px solid var(--line);}
+  .sleep .yline{position:absolute;left:0;right:0;font-size:10.5px;color:var(--sub);z-index:1;}
+  .sleep .yline span{background:var(--bg);padding-right:6px;}
+  .sleep .sleep-line{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:visible;}
+  .sleep .dot{position:absolute;width:11px;height:11px;border-radius:50%;background:var(--err);border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,0.2);transform:translate(-50%,50%);cursor:pointer;z-index:2;}
+  .sleep .dot.ok{background:var(--ok);}
+  .sleep .dot .t{position:absolute;bottom:-24px;left:50%;transform:translateX(-50%);font-size:11px;color:var(--sub);white-space:nowrap;}
+  .sleep .dot .tip{display:none;position:absolute;left:auto;right:auto;top:auto;bottom:auto;transform:none;margin:0;background:rgba(55,53,47,0.95);color:#fff;font-size:11px;font-weight:600;padding:3px 9px;border-radius:6px;white-space:nowrap;z-index:3;}
+  .sleep .dot.on .tip{display:block;}
+  .sleep .goal{position:absolute;left:0;right:0;border-top:2px dashed var(--accent);z-index:1;}
+  .sleep .goal-tag{position:absolute;bottom:-28px;left:0;font-size:10.5px;color:var(--accent);background:var(--bg);padding-right:6px;z-index:1;}
+  .sleep .x{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);font-size:11px;color:var(--sub);}
+
+  .hab{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  @media(max-width:640px){ .hab{grid-template-columns:1fr;} }
+  .hab .card h4{font-size:14px;font-weight:700;margin-bottom:8px;}
+  .hab .keep h4{color:var(--ok);} .hab .fix h4{color:var(--err);}
+  .hab li{list-style:none;font-size:13px;padding:5px 0 5px 20px;position:relative;border-bottom:1px dashed var(--line);}
+  .hab li:last-child{border-bottom:none;}
+  .hab .keep li::before{content:'✓';position:absolute;left:2px;color:var(--ok);font-weight:700;}
+  .hab .fix li::before{content:'!';position:absolute;left:2px;color:var(--err);font-weight:700;}
+
+  .weak{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  @media(max-width:640px){ .weak{grid-template-columns:1fr;} }
+  .weak-card{border-radius:var(--radius);padding:14px 16px;border:1px solid;}
+  .weak-card.hot{background:#FDF1F1;border-color:#F3C2C4;}
+  .weak-card.ok{background:#F2FAEE;border-color:#CDE8BE;}
+  .weak-card.plain{background:#F7F7F5;border-color:#E2E2DF;}
+  .weak-card h4{font-size:14px;font-weight:700;display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap;}
+  .weak-card.hot h4{color:#C93C40;}
+  .weak-card.ok h4{color:#389E0D;}
+  .cnt{font-size:11px;font-weight:700;padding:1px 8px;border-radius:10px;flex:none;}
+  .weak-card.hot .cnt{background:#C93C40;color:#fff;}
+  .weak-card.ok .cnt{background:#389E0D;color:#fff;}
+  .weak-card.plain .cnt{background:#D9D9D6;color:#333;}
+  .weak-card p{font-size:12.8px;color:var(--ink);}
+  .weak-card .why{margin-top:6px;font-size:12px;color:var(--sub);}
+  .weak-card .why b{color:var(--ink);}
+
+  .plain-list{list-style:none;}
+  .plain-list li{font-size:13px;padding:6px 0 6px 22px;position:relative;border-bottom:1px dashed var(--line);}
+  .plain-list li:last-child{border-bottom:none;}
+  .plain-list li::before{content:'★';position:absolute;left:2px;color:var(--warn);font-weight:700;}
+
+  .ins{background:var(--card-bg);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;margin-bottom:12px;box-shadow:var(--shadow);}
+  .ins .i-head{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+  .ins .i-no{flex:none;width:26px;height:26px;border-radius:8px;background:var(--accent);color:#fff;font-size:12.5px;font-weight:700;display:flex;align-items:center;justify-content:center;}
+  .ins h4{font-size:14.5px;font-weight:700;}
+  .ins .row{display:flex;align-items:flex-start;gap:8px;font-size:13px;padding:3px 0;}
+  .ins .row .k{flex:none;font-size:11px;font-weight:700;padding:1px 7px;border-radius:4px;}
+  .ins .row .v{flex:1;min-width:0;color:var(--ink);}
+  .ins .k.pheno{background:var(--accent-soft);color:var(--accent);}
+  .ins .k.ess{background:#F6F2E9;color:#B5892E;}
+  .ins .k.adv{background:#F2FAEE;color:#389E0D;}
+
+  .todo li{list-style:none;display:flex;gap:10px;align-items:flex-start;padding:8px 12px;border-bottom:1px dashed var(--line);font-size:13.5px;}
+  .todo li:last-child{border-bottom:none;}
+  .p{flex:none;width:34px;text-align:center;font-size:10.5px;font-weight:700;border-radius:4px;padding:1px 0;margin-top:2px;}
+  .p1{background:#C93C40;color:#fff;} .p2{background:#F0A92E;color:#fff;} .p3{background:var(--accent-soft);color:var(--accent);}
+
+  .advice{background:linear-gradient(135deg,#F7FBF5,#EFF8EC);border:1px solid #D5E8CC;border-radius:var(--radius);padding:16px 18px;margin-top:28px;}
+  .advice .tag{font-size:12px;color:#389E0D;font-weight:700;letter-spacing:2px;margin-bottom:6px;}
+  .advice p{font-size:13.8px;margin-top:6px;}
+  .advice b{color:#2E7D32;}
+
+  .foot{margin-top:34px;text-align:center;color:#B5B5B0;font-size:12px;}
+  .foot b{color:var(--sub);}
+  .foot a{color:var(--accent);text-decoration:none;font-weight:600;}
+
+</style>
+</head>
+<body><div class="wrap">
+<div class="head"><h1>学习周报 <span class="pill">第6周</span><small>韩长歌 · 一年级</small></h1>
+<div class="meta">10.5 — 10.11（开学第6周 · 国庆假期后3天 + 开学2天 + 周末2天）</div></div>
+<div class="summary"><div class="tag">核心结论</div><p>假期与开学切换的一周：<b>书面作业6天全闭环</b>（语文拼音3课+古诗4首+识字小报、数学1-7书写/比大小/6和7分合一图四式/小单页无错误）、<b>练字6天全勤</b>。但<b>软任务系统性失守</b>——静坐/控笔假期3天+开学2天均未做、<b>睡眠3晚全超时</b>（22:00/21:40/22:30）、<b>7以内分合背诵第4次不熟练</b>（会写不会背）。本周本质：作业不是问题，<b>不检查的习惯才是缺口</b>。</p></div>
+<div class="sec-title"><span class="no">1</span>任务完成概览<small>按学科 · 有任务6天（10/10周六无任务）</small></div>
+<div class="card"><div class="ov-row"><span class="ov-name">语文</span><div class="ov-main"><div class="ov-bar"><div class="ov-fill" style="width:100%"></div></div><div class="ov-num"><b>6/6</b> 天全完成 <span class="q">A-</span></div></div></div><div class="ov-sub">拼音书写3课（aoe/iuü/bpmf）+拼音小页2页全对（10/11）、古诗背诵4首（《咏雪》《遗爱寺》《桃花溪》《画》）、《小白兔和小灰兔》熟练朗读、dtnl预习+抄写（10/9在校完成）、识字小报自主完成；10/11小页题目全部作答正确</div><div class="ov-row"><span class="ov-name">数学</span><div class="ov-main"><div class="ov-bar"><div class="ov-fill warn" style="width:67%"></div></div><div class="ov-num"><b>4/6</b> · 2天部分 <span class="q" style="background:#FDF3E3;color:#B5892E;">会写不会背</span></div></div></div><div class="ov-sub">1-7书写（10/5）、比大小（10/8）、6和7分合+一图四式（10/9在校完成全对）、6/7分成书写+小单页改错无错误（10/11）；10/6、10/11背诵7以内分成不熟练；10/7生活数学A4画为大人协助完成</div><div class="ov-row"><span class="ov-name">练字</span><div class="ov-main"><div class="ov-bar"><div class="ov-fill" style="width:100%"></div></div><div class="ov-num"><b>6/6</b> 全勤 · 无缝衔接</div></div></div><div class="ov-sub">假期备赛"我爱我的祖国"3天（10/5-10/7）→开学3天：竖弯钩/长横/九/王（10/8）、横折弯钩/九/王（10/9）、田/禾/九/王（10/11）</div><div class="ov-row"><span class="ov-name">静坐</span><div class="ov-main"><div class="ov-bar"><div class="ov-fill err" style="width:0%"></div></div><div class="ov-num"><b>0/6</b> <span class="q" style="background:#FDECEC;color:#C93C40;">本周最大失守</span></div></div></div><div class="ov-sub">假期3天（10/5-10/7）未做 + 10/8、10/9未做 + 10/11未报告</div><div class="ov-row"><span class="ov-name">控笔</span><div class="ov-main"><div class="ov-bar"><div class="ov-fill err" style="width:0%"></div></div><div class="ov-num"><b>0/6</b> 同静坐</div></div></div><div class="ov-sub">假期3天 + 10/8、10/9未做 + 10/11未报告</div><div class="ov-row"><span class="ov-name">阅读</span><div class="ov-main"><div class="ov-bar"><div class="ov-fill warn" style="width:67%"></div></div><div class="ov-num"><b>4/6</b> · 假期总量偏少</div></div></div><div class="ov-sub">10/8亲子10分钟、10/11自主阅读完成；10/5-10/7家长确认完成（假期总结显示整个假期自主阅读仅2天、总量偏少）；10/9未读</div><div class="ov-row"><span class="ov-name">整理</span><div class="ov-main"><div class="ov-bar"><div class="ov-fill" style="width:80%"></div></div><div class="ov-num"><b>4/5</b> · 10/10未整理</div></div></div><div class="ov-sub">10/7假期收尾整理上学物品、10/8、10/9、10/11完成；10/10周六未整理书包</div><div class="ov-row"><span class="ov-name">睡眠</span><div class="ov-main"><div class="ov-bar"><div class="ov-fill err" style="width:0%"></div></div><div class="ov-num"><b>0/3</b> 准点 <span class="q" style="background:#FDECEC;color:#C93C40;">连续多周未解</span></div></div></div><div class="ov-sub">有记录3晚（10/8 22:00、10/9 21:40、10/10 22:30）全部超时，平均约22:03；10/5-10/7、10/11未报具体</div></div>
+<div class="sec-title"><span class="no">2</span>一周任务节奏<small>每天完成的任务数（10/10无任务）</small></div>
+<div class="card"><div class="chart"><div class="bar-col"><div class="bar" style="height:109.1px"></div><span class="bar-num">8</span><span class="bar-label">10/5</span></div><div class="bar-col"><div class="bar" style="height:109.1px"></div><span class="bar-num">8</span><span class="bar-label">10/6</span></div><div class="bar-col"><div class="bar" style="height:136.4px"></div><span class="bar-num">10</span><span class="bar-label">10/7</span></div><div class="bar-col"><div class="bar warn" style="height:54.5px"></div><span class="bar-num">4</span><span class="bar-label">10/8</span></div><div class="bar-col"><div class="bar warn" style="height:95.5px"></div><span class="bar-num">7</span><span class="bar-label">10/9</span></div><div class="bar-col"><div class="bar warn" style="height:4px"></div><span class="bar-num">0</span><span class="bar-label">10/10</span></div><div class="bar-col"><div class="bar" style="height:150.0px"></div><span class="bar-num">11</span><span class="bar-label">10/11</span></div></div><p style="font-size:12px;color:var(--sub);margin-top:20px;">假期3天（10/5-10/7）任务全闭环但真实投入度低（见观察）；10/8、10/9开学后书面作业完成、常规项（静坐/控笔/打卡）整段未做；10/11周末任务少反而完成最完整（11项）。</p></div>
+<div class="sec-title"><span class="no">3</span>睡眠记录<small>目标 21:00 入睡 · 本周3晚有记录</small></div>
+<div class="card"><div class="sleep"><div class="yline" style="bottom:0%;"><span>21:00</span></div><div class="yline" style="bottom:33%;"><span>21:30</span></div><div class="yline" style="bottom:67%;"><span>22:00</span></div><div class="yline" style="bottom:100%;"><span>22:30</span></div><svg class="sleep-line" viewBox="0 0 100 100" preserveAspectRatio="none"><polyline fill="none" stroke="rgba(35,131,226,0.7)" stroke-width="1" stroke-linejoin="round" stroke-linecap="round" points="6,33 50,56 94,0"/></svg><div class="goal" style="bottom:0%;"></div><div class="goal-tag">目标 21:00</div><div class="dot" style="left:6.0%;bottom:67%;"><span class="t">10/8</span><span class="tip">22:00</span></div><div class="dot" style="left:50.0%;bottom:44%;"><span class="t">10/9</span><span class="tip">21:40</span></div><div class="dot" style="left:94.0%;bottom:100%;"><span class="t">10/10</span><span class="tip">22:30</span></div></div><p style="font-size:12px;color:var(--sub);margin-top:44px;">有记录3晚，0次准点，平均约22:03。10/8（开学首日）22:00、10/9 21:40、10/10（周六）22:30——周末反而最晚。晚睡与作业量无关（10/8书面20:15已完成），根子在"作业后→关灯"之间没有固定程序。</p></div>
+<div class="sec-title"><span class="no">4</span>习惯与状态<small>保持项 vs 待改进项</small></div>
+<div class="hab"><div class="card keep"><h4>保持项</h4><ul><li>练字6天全勤：假期备赛"我爱我的祖国"无缝过渡到开学笔画（竖弯钩/长横/横折弯钩/田禾九王）</li><li>语文背诵高效：古诗读三五遍就记住、第二天回顾也能背（10/8反馈）</li><li>书面作业质量稳定：10/9分合一图四式全对、10/11拼音小页全对+小单页无错误</li><li>10/11 多邻国英语+思维打卡首次双完成（开学以来）</li><li>整理书包 4/5（10/10周六除外）</li></ul></div><div class="card fix"><h4>待改进项</h4><ul><li>静坐、控笔连续5天未做（假期3天+10/8、10/9），开学未恢复</li><li>睡眠0次准点：22:00 / 21:40 / 22:30，周末最晚</li><li>7以内分合背诵跨周第4次不熟练，摆一摆"不愿意摆"</li><li>10/9 阅读、思维、英语未做；10/10 未整理书包</li><li>假期自主阅读总量偏少（整个假期仅2天）</li></ul></div></div>
+<div class="sec-title"><span class="no">5</span>知识薄弱点<small>本周错题统计与原因</small></div>
+<div class="weak"><div class="weak-card hot"><h4>7以内数的分成与加减算式<span class="cnt">重点薄弱 ×4</span></h4><p>10/1、10/2、10/8、10/11 连续4次记录背诵不熟练；但书写全部正确（10/9一图四式全对、10/11小单页无错误）</p><div class="why"><b>原因：</b>只动笔不口述——老师反复强调"边摆边说、不要只动笔"，但摆一摆"不愿意摆"，分合与算式对应关系未成诵；且与幼小衔接"1分合配1加1减"逻辑不同，需按新要求（1分合配2加2减）重新成诵</div></div><div class="weak-card ok"><h4>假期数学小卷<span class="cnt">已掌握</span></h4><p>两页小题错1题（10/8记录）——会做，属失误非知识漏洞</p><div class="why"><b>原因：</b>粗心失误，已掌握无需订正</div></div><div class="weak-card plain"><h4>语文<span class="cnt">本周无错题</span></h4><p>拼音书写、背诵、朗读、小页全部正确；10/11 拼音小页两页题目作答全对</p><div class="why"><b>保持：</b>识字小报自主完成（自己剪、贴、添画），书写态度稳定</div></div></div>
+<div class="sec-title"><span class="no">6</span>本周亮点与进步<small>正向强化 · 保护学习动力</small></div>
+<div class="card"><ul class="plain-list"><li>假期→开学练字无缝衔接，6天全勤：从"我爱我的祖国"备赛自然过渡到田英章笔画（竖弯钩/长横/横折弯钩/田/禾/九/王）</li><li>10/9 语文数学书面作业全部在校完成，完成效率、效果都很好</li><li>10/11 拼音小页 a o e / i u ü 两页题目全部作答正确，书写规范</li><li>数学小单页（2~5分与合、《第几》）红笔改错无错误，全部批改正确</li><li>10/11 多邻国英语+思维打卡首次双完成，自主阅读、整理书包也完成</li><li>背诵能力稳定：古诗读三五遍记住、隔天回顾能背出</li></ul></div>
+<div class="sec-title"><span class="no">7</span>5条深层观察<small>现象 → 本质 → 建议</small></div>
+<div class="ins"><div class="i-head"><span class="i-no">01</span><h4>假期→开学：书面作业全闭环，软任务系统性失守</h4></div><div class="row"><span class="k pheno">现象</span><span class="v">10/5-10/7假期书面作业全部完成（语文读背书写、数学书写、识字小报）；但家长假期总结明确"静坐、控笔操、打卡没做，自主阅读完成两天"，10/8、10/9开学后静坐/控笔仍未恢复</span></div><div class="row"><span class="k ess">本质</span><span class="v">规则对"有作业单的任务"有效、对"无硬性检查的软任务"失效——孩子执行靠外部结构（老师布置+家长盯），软任务没有锚点就被整段牺牲；假期环境干扰大、战线拉长进一步放大</span></div><div class="row"><span class="k adv">建议</span><span class="v">把静坐/控笔/打卡也做成固定程序而非"可选任务"：动笔前静坐5分钟=热身、书面完成后控笔=收尾、打卡=19:30前固定项，不靠催靠流程</span></div></div><div class="ins"><div class="i-head"><span class="i-no">02</span><h4>睡眠3晚全超时，周末反而最晚——晚睡与作业量无关</h4></div><div class="row"><span class="k pheno">现象</span><span class="v">有记录3晚全部超时（10/8 22:00、10/9 21:40、10/10 22:30）；10/8书面作业20:15已完成、21:40才关灯</span></div><div class="row"><span class="k ess">本质</span><span class="v">晚睡不是"写不完"而是"作业后→关灯"之间没有固定程序——打卡、玩、洗漱全部挤在21点后，周末没有上学压力更晚（22:30）</span></div><div class="row"><span class="k adv">建议</span><span class="v">"20:40洗漱→21:00关灯"设为与作业同等重要的硬边界；打卡19:30前必须结束，连续3晚准点后固化</span></div></div><div class="ins"><div class="i-head"><span class="i-no">03</span><h4>7以内分合：会写不会背，第4次记录不熟练</h4></div><div class="row"><span class="k pheno">现象</span><span class="v">10/6、10/8、10/11三次记录背诵不熟练（累计第4次）；但书写全对（10/9一图四式全对、10/11小单页无错误）</span></div><div class="row"><span class="k ess">本质</span><span class="v">知识停留在"会写"层面、未到"脱口而出"的自动化——老师反复强调边摆边说、不要只动笔，但摆一摆"不愿意摆"，口述练习被跳过，分合与算式对应关系始终未成诵</span></div><div class="row"><span class="k adv">建议</span><span class="v">每天5分钟边摆边说（小棒/圆片），把分合当"口算"练；下周听算开启前必须过关，10/12起连续7天</span></div></div><div class="ins"><div class="i-head"><span class="i-no">04</span><h4>"作业在校完成"反而让回家后的结构断裂</h4></div><div class="row"><span class="k pheno">现象</span><span class="v">10/9语文数学书面作业全部在校完成（效率高），但回家后静坐/控笔/阅读/思维/英语全部未做；10/8同理</span></div><div class="row"><span class="k ess">本质</span><span class="v">书面作业在校消化后，回家没有"任务主轴"，常规项失去附着点被整体跳过——"作业少"不等于"程序少"，晚间结构需要独立于作业存在</span></div><div class="row"><span class="k adv">建议</span><span class="v">固定晚间流水线：到家→静坐（动笔前）→控笔→阅读→20:40洗漱→21:00睡觉，即使没有书面作业也照常执行</span></div></div><div class="ins"><div class="i-head"><span class="i-no">05</span><h4>任务少时执行反而完整：孩子需要"少量高结构"</h4></div><div class="row"><span class="k pheno">现象</span><span class="v">10/11（周日）多邻国英语+思维打卡均完成，阅读、整理、练字也完成（11项）；平日10/8、10/9打卡连续未完成</span></div><div class="row"><span class="k ess">本质</span><span class="v">任务量少且无时间压力时，孩子能完整执行；任务一多，"低优先级"项目（打卡、静坐）先被砍——不是能力不足，是排序机制默认牺牲软任务</span></div><div class="row"><span class="k adv">建议</span><span class="v">平日控制额外练习量，保住宿舍四件套（静坐/控笔/阅读/睡眠）；打卡与书面作业同步开始，避免排到睡前</span></div></div>
+<div class="sec-title"><span class="no">8</span>下周重点<small>10/12-10/18 · 按优先级</small></div>
+<div class="card"><ul class="todo"><li><span class="p p1">P1</span><span><b>数学分合口述过关：</b>10/12起每天5分钟边摆边说2-7分合+2加2减算式，目标脱口而出（下周开启听算，分合是听算基础）</span></li><li><span class="p p1">P1</span><span><b>睡眠回归21:00：</b>20:40洗漱→21:00关灯，连续3晚准点；打卡19:30前结束，不再占用睡前时间</span></li><li><span class="p p2">P2</span><span><b>常规程序化：</b>动笔前静坐5分钟+控笔操固定为作业流程一部分；思维/多邻国打卡当天19:30前完成</span></li><li><span class="p p2">P2</span><span><b>阅读固定时段：</b>每晚20:00-20:30阅读20分钟（亲子或自主），与作业链脱钩</span></li><li><span class="p p3">P3</span><span><b>美术材料：</b>周一、周三美术课带不同形状叶片（保持新鲜）、垫板、2张A4纸</span></li><li><span class="p p3">P3</span><span><b>合唱练习：</b>周末跟视频学唱《一年级》，熟练旋律与歌词（班级合唱比赛）</span></li></ul></div>
+<div class="advice"><div class="tag">给家长的一条建议</div><p>本周最大缺口不是作业，而是<b>不检查的软任务</b>——静坐、控笔、打卡、阅读、睡眠全部失守，而这些正是低年级习惯的根基。与其每天催"快去静坐"，不如把晚间改造成一条<b>固定流水线</b>：18:30动笔（含静坐热身）→19:30前完成书面+打卡→20:00阅读→20:40洗漱→21:00关灯；假期同样执行（上午作业、下午玩）。孩子执行靠的是<b>结构</b>不是意志力，把程序定死，催的次数自然减少。</p><p>10/11"任务少反而完成最完整"值得记住：宁可每天只保四件套（静坐/控笔/阅读/睡眠），也不要为了"安排得满"牺牲它们——这个月练字全勤、作业全对的底子已经很稳，把习惯钉牢比多做几页题更重要。</p></div>
+<div class="foot">数据来源：任务日志 · 错题记录 · 成长记录 · 阅读/练字记录 · 每日复盘<br>本页为 第6周周报（10.5-10.11）<br><a href="../index.html">← 返回学习档案</a></div>
+
+<script>
+(function(){
+  function layoutSleep(){
+    var charts = document.querySelectorAll('.sleep');
+    for(var c=0;c<charts.length;c++){
+      var chart = charts[c];
+      var dots = chart.querySelectorAll('.dot');
+      var poly = chart.querySelector('.sleep-line polyline');
+      var n = dots.length;
+      if(n < 2) continue;
+      var padL = window.innerWidth <= 640 ? 14 : 6;
+      var padR = window.innerWidth <= 640 ? 4 : 6;
+      var span = 100 - padL - padR;
+      var pts = [];
+      for(var i=0;i<n;i++){
+        var st = dots[i].getAttribute('style');
+        var m = st.match(/bottom:\s*([0-9.]+)%/);
+        var b = m ? parseFloat(m[1]) : 0;
+        var left = padL + i * span / (n - 1);
+        dots[i].style.left = left.toFixed(1) + '%';
+        pts.push(left.toFixed(1) + ',' + (100 - b).toFixed(1));
+      }
+      if(poly){ poly.setAttribute('points', pts.join(' ')); }
+    }
+  }
+  layoutSleep();
+  window.addEventListener('resize', function(){ layoutSleep(); });
+})();
+</script>
+<script>
+(function(){
+  var dots = document.querySelectorAll('.sleep .dot');
+  function off(){ for(var i=0;i<dots.length;i++){ dots[i].classList.remove('on'); } }
+  function placeTip(d){
+    var tip = d.querySelector('.tip');
+    if(!tip) return;
+    var sr = d.parentNode.getBoundingClientRect();
+    var dr = d.getBoundingClientRect();
+    var t = tip.getBoundingClientRect();
+    var w = t.width || 56, h = t.height || 24;
+    var relLeft = dr.left - sr.left;
+    var relTop  = dr.top - sr.top;
+    var canLeft = relLeft >= w + 8 + 45;
+    var canUp   = relTop >= h + 10;
+    tip.style.transform = 'none';
+    tip.style.margin = '0';
+    if(canLeft){
+      tip.style.left = (-(w + 8)) + 'px';
+      tip.style.right = 'auto';
+      tip.style.top = 'auto';
+      tip.style.bottom = '23px';
+    } else if(canUp){
+      tip.style.left = '0';
+      tip.style.right = 'auto';
+      tip.style.top = 'auto';
+      tip.style.bottom = '23px';
+    } else {
+      tip.style.left = '0';
+      tip.style.right = 'auto';
+      tip.style.top = '30px';
+      tip.style.bottom = 'auto';
+    }
+  }
+  for(var i=0;i<dots.length;i++){
+    (function(d){
+      d.addEventListener('click', function(ev){
+        ev.stopPropagation();
+        if(d.classList.contains('on')){ d.classList.remove('on'); }
+        else { off(); d.classList.add('on'); placeTip(d); }
+      });
+    })(dots[i]);
+  }
+  window.addEventListener('resize', function(){
+    for(var i=0;i<dots.length;i++){
+      if(dots[i].classList.contains('on')){ placeTip(dots[i]); }
+    }
+  });
+  document.addEventListener('click', function(){ off(); });
+  for(var i=0;i<dots.length;i++){ if(dots[i].classList.contains('on')){ placeTip(dots[i]); } }
+})();
+</script>
+</div></body></html>
