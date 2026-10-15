@@ -207,6 +207,34 @@
   #view-today .card.open > h3 .arrow,
   #view-exam .card.open > h3 .arrow{transform:rotate(90deg);}
   .date-tag{font-size:12px;color:var(--sub);font-weight:400;}
+  /* ===== 作品展示 ===== */
+  .works-filter{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px;}
+  .works-filter button{border:1px solid var(--line);background:var(--card-bg);color:var(--sub);border-radius:999px;padding:5px 12px;font-size:12px;cursor:pointer;}
+  .works-filter button.on{background:var(--accent);border-color:var(--accent);color:#fff;}
+  .works-best{background:linear-gradient(135deg,var(--accent-soft),transparent);border:1px solid var(--line);border-radius:var(--radius);padding:14px;margin-bottom:18px;}
+  .works-best-title{font-size:13px;font-weight:700;margin-bottom:10px;color:var(--ink);}
+  .works-month{font-size:14px;font-weight:700;margin:18px 0 10px;color:var(--ink);}
+  .works-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;}
+  .work-card{background:var(--card-bg);border:var(--card-border);border-radius:var(--radius);overflow:hidden;cursor:pointer;box-shadow:var(--card-shadow);}
+  .work-card img{width:100%;height:170px;object-fit:cover;display:block;background:var(--input-bg);}
+  .work-body{padding:10px 12px 12px;}
+  .work-title{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:5px;line-height:1.4;}
+  .work-meta{font-size:12px;color:var(--sub);margin-bottom:6px;}
+  .work-note{font-size:12.5px;color:var(--ink);line-height:1.6;}
+  .work-tag{display:inline-block;font-size:11px;color:var(--accent);background:var(--accent-soft);border-radius:999px;padding:1px 8px;margin-bottom:6px;}
+  .work-modal{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:200;display:flex;align-items:center;justify-content:center;padding:24px;box-sizing:border-box;}
+  .work-modal-card{position:relative;background:var(--card-bg);border-radius:var(--radius);width:min(96vw,1440px);height:92vh;max-width:none;max-height:none;overflow:hidden;padding:12px;box-sizing:border-box;flex:0 0 auto;display:flex;flex-direction:column;}
+  .work-modal-card img{width:100%;max-height:72vh;object-fit:contain;border-radius:8px;display:block;background:var(--input-bg);}
+  .work-stage{flex:1;overflow:auto;min-height:0;text-align:center;}
+  .work-img-wrap{width:max-content;margin:0 auto;}
+  .work-img-wrap img{display:block;}
+  .work-modal-card h3{margin:12px 0 6px;font-size:18px;text-align:center;}
+  .work-modal-card p{margin:8px 0 0;color:var(--ink);line-height:1.7;font-size:14px;text-align:center;}
+  .work-modal-close{position:absolute;right:8px;top:8px;border:1px solid var(--line);background:var(--card-bg);width:32px;height:32px;border-radius:50%;font-size:18px;cursor:pointer;color:var(--ink);z-index:5;display:flex;align-items:center;justify-content:center;line-height:1;}
+  .work-toolbar{display:flex;align-items:center;flex-wrap:wrap;justify-content:center;gap:6px;margin:0 auto 10px;width:fit-content;max-width:100%;padding:4px;background:transparent;border:none;flex:0 0 auto;}
+  .work-toolbar button{border:1px solid var(--line);background:var(--input-bg);color:var(--ink);border-radius:6px;padding:3px 8px;font-size:12px;cursor:pointer;font-family:inherit;line-height:1.4;}
+  .work-toolbar button:hover{background:var(--menu-hover);}
+  .work-zoom-label{font-size:12px;color:var(--sub);min-width:44px;text-align:center;}
 
   table{width:100%;border-collapse:collapse;font-size:13.5px;}
   th{text-align:left;font-weight:500;color:var(--sub);font-size:12px;padding:6px 8px;border-bottom:1px solid var(--line);}
@@ -574,6 +602,10 @@
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22v-6"/><path d="M12 16c0-4 3.5-7 8.5-8.5C19 12 15.5 15 12 16z"/><path d="M12 15c0-3-2.5-5.5-7-6.5C6.5 12 9 14.5 12 15z"/><path d="M12 11c0-3 1.5-5 5-6-1.5 3-3 4.5-5 6z"/></svg>
         成长记录
       </div>
+      <div class="menu-item" data-view="works">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+        作品展示
+      </div>
     </div>
 
     <div class="menu-group">
@@ -810,6 +842,12 @@
         </div>
       </div>
 
+      <!-- ===== 作品展示 ===== -->
+      <div class="view" id="view-works">
+        <div class="v-head"><h2>作品展示</h2><span class="en">WORKS</span><span style="margin-left:auto;font-size:12px;color:var(--sub);">精选成长作品 · 点击图片查看大图</span></div>
+        <div id="worksBox"></div>
+      </div>
+
       <!-- ===== 练字计划 ===== -->
       <div class="view" id="view-writing">
         <div class="v-head"><h2>练字计划</h2><span class="en">PENMANSHIP · 田英章正楷一本通</span><span style="margin-left:auto;font-size:12px;color:var(--sub);">周一至五 10-15分钟 · 作业后 · 周末自愿</span></div>
@@ -981,7 +1019,7 @@
     mask.addEventListener('click', closeSidebar);
   }
 
-  var validViews = ['dashboard','today','tasks','reading','errors','weak','weekly','exam','writing','chess','growth','settings'];
+  var validViews = ['dashboard','today','tasks','reading','errors','weak','weekly','exam','writing','chess','growth','works','settings'];
   var init = (location.hash || '#dashboard').replace('#', '');
   if(validViews.indexOf(init) === -1) init = 'dashboard';
   switchView(init);
@@ -1467,12 +1505,26 @@
   function renderTomorrow(){
     var box = document.getElementById('tomorrowBox');
     if(!box) return;
-    if(!tomorrowTasks.length){ box.innerHTML = '<div class="empty"><b>明日安排待定</b></div>'; return; }
-    var h = '<div class="rec">';
-    tomorrowTasks.forEach(function(t){
-      h += '<li><span class="tag">' + t.name + '</span>' + t.desc + '</li>';
-    });
-    h += '<li><span class="tag">说明</span>日期自动更新，具体安排以当天老师通知为准</li></div>';
+    var now = new Date();
+    var tm = new Date(now); tm.setDate(now.getDate() + 1);
+    var key = ymdKey(tm);
+    var tasks = taskDB[key] || [];
+    var h = '';
+    if(tasks.length){
+      h = '<div class="rec">';
+      tasks.forEach(function(t){
+        h += '<li><span class="tag">' + t.name + '</span>' + t.desc + '</li>';
+      });
+      h += '<li><span class="tag">说明</span>日期自动更新，具体安排以当天老师通知为准</li></div>';
+    } else {
+      var dow = tm.getDay();
+      if(dow >= 1 && dow <= 5){
+        h = '<div class="empty" style="padding:10px 10px;"><b>明日安排待定</b><span>收到老师通知后更新</span></div>';
+        h += '<div class="rec"><li><span class="tag">整理</span>睡前整理书包带齐文具（每日默认）</li><li><span class="tag">睡觉</span>规定21:00入睡（每日默认）</li></div>';
+      } else {
+        h = '<div class="empty" style="padding:10px 10px;"><b>周末安排待定</b><span>收到老师通知后更新</span></div>';
+      }
+    }
     box.innerHTML = h;
   }
 
@@ -1767,6 +1819,190 @@
     lb.innerHTML = h2;
   }
 
+  function escS(t){ return String(t == null ? '' : t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  var worksFilter = 'all';
+  var worksList = [];
+  function renderWorks(){
+    var box = document.getElementById('worksBox');
+    if(!box) return;
+    var rows = (typeof works !== 'undefined' ? works : []).slice().sort(function(a,b){ return a.date < b.date ? 1 : -1; });
+    var cats = ['all','语文','数学','书写','美术','荣誉'];
+    var labels = {all:'全部',语文:'语文',数学:'数学',书写:'书写',美术:'美术',荣誉:'荣誉'};
+    var chips = '<div class="works-filter">';
+    cats.forEach(function(c){ chips += '<button type="button" data-cat="'+c+'" class="'+(worksFilter===c?'on':'')+'">'+labels[c]+'</button>'; });
+    chips += '</div>';
+    var filtered = rows.filter(function(r){ return worksFilter==='all' || r.category===worksFilter; });
+    worksList = filtered;
+    var best = filtered.filter(function(r){ return r.best; });
+    var groups = {};
+    filtered.forEach(function(r){ var m = r.date.slice(0,7); if(!groups[m]) groups[m]=[]; groups[m].push(r); });
+    var months = Object.keys(groups).sort().reverse();
+    function card(r){
+      return '<div class="work-card" data-img="'+escS(r.img)+'" data-title="'+escS(r.title)+'" data-note="'+escS(r.note||'')+'"><img src="'+escS(r.img)+'" alt="'+escS(r.title)+'"/><div class="work-body"><div class="work-tag">'+escS(r.category)+'</div><div class="work-title">'+escS(r.title)+'</div><div class="work-meta">'+escS(r.date)+'</div><div class="work-note">'+escS(r.note||'')+'</div></div></div>';
+    }
+    var html = chips;
+    if(best.length){
+      html += '<div class="works-best"><div class="works-best-title">代表作品</div><div class="works-grid">' + best.map(card).join('') + '</div></div>';
+    }
+    if(!filtered.length){
+      html += '<div class="empty" style="padding:34px 10px;"><b>暂无作品</b><span>完成作业后，可把有代表性的书写、数学、语文或美术作品选入这里。</span></div>';
+    } else {
+      months.forEach(function(m){
+        html += '<div class="works-month">'+m.replace('-','年')+'月</div><div class="works-grid">'+groups[m].map(card).join('')+'</div>';
+      });
+    }
+    box.innerHTML = html;
+    box.querySelectorAll('.works-filter button').forEach(function(btn){
+      btn.addEventListener('click', function(){ worksFilter = btn.dataset.cat; renderWorks(); });
+    });
+    box.querySelectorAll('.work-card').forEach(function(cardEl){
+      cardEl.addEventListener('click', function(){
+        openWorkModal({img:cardEl.getAttribute('data-img'), title:cardEl.getAttribute('data-title'), note:cardEl.getAttribute('data-note')});
+      });
+    });
+  }
+  function openWorkModal(w){
+    var old = document.getElementById('workModal');
+    if(old) old.remove();
+    var startIdx = worksList.findIndex(function(x){ return x.img === w.img; });
+    if(startIdx < 0) startIdx = 0;
+    var m = document.createElement('div');
+    m.id = 'workModal';
+    m.className = 'work-modal';
+    m.innerHTML = '<div class="work-modal-card">'
+      + '<button class="work-modal-close" type="button">×</button>'
+      + '<div class="work-toolbar">'
+      + '<button type="button" data-nav="prev" title="上一张">‹ 上一张</button>'
+      + '<button type="button" data-nav="next" title="下一张">下一张 ›</button>'
+      + '<span class="work-zoom-label">适应窗口</span>'
+      + '<button type="button" data-z="out" title="缩小">－</button>'
+      + '<button type="button" data-z="in" title="放大">＋</button>'
+      + '<button type="button" data-z="actual" title="1:1原始大小">1:1</button>'
+      + '<button type="button" data-z="fit" title="适应窗口">适应</button>'
+      + '</div>'
+      + '<div class="work-stage"><div class="work-img-wrap"><img src="'+escS(w.img)+'" alt="'+escS(w.title)+'"/></div></div>'
+      + '<h3>'+escS(w.title)+'</h3><p>'+escS(w.note||'')+'</p></div>';
+    var img = m.querySelector('img');
+    var wrap = m.querySelector('.work-img-wrap');
+    var card = m.querySelector('.work-modal-card');
+    var stage = m.querySelector('.work-stage');
+    var label = m.querySelector('.work-zoom-label');
+    var titleEl = m.querySelector('h3');
+    var noteEl = m.querySelector('p');
+    var scale = 0;
+    var idx = startIdx;
+    function applyZoom(){
+      if(scale === 0){
+        img.style.cssText = '';
+        wrap.style.width = '';
+        wrap.style.height = '';
+        img.style.cursor = 'default';
+        label.textContent = '适应窗口';
+      } else {
+        var nw = img.naturalWidth || 800;
+        var nh = img.naturalHeight || 600;
+        img.style.objectFit = '';
+        img.style.display = 'block';
+        img.style.margin = '0 auto';
+        img.style.width = '100%';
+        img.style.height = '100%';
+        img.style.maxWidth = 'none';
+        img.style.maxHeight = 'none';
+        img.style.zoom = '';
+        wrap.style.width = (nw * scale) + 'px';
+        wrap.style.height = (nh * scale) + 'px';
+        img.style.cursor = 'grab';
+        label.textContent = Math.round(scale * 100) + '%';
+      }
+    }
+    function showWork(i){
+      idx = (i + worksList.length) % worksList.length;
+      var cur = worksList[idx] || w;
+      img.src = cur.img;
+      img.alt = cur.title;
+      titleEl.textContent = cur.title;
+      noteEl.textContent = cur.note || '';
+      scale = 0;
+      stage.scrollLeft = 0;
+      stage.scrollTop = 0;
+      applyZoom();
+    }
+    applyZoom();
+    m.querySelectorAll('.work-toolbar button[data-z]').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var z = btn.getAttribute('data-z');
+        if(z === 'out') scale = (scale === 0 ? 0.8 : scale * 0.8);
+        if(z === 'in') scale = (scale === 0 ? 1.25 : scale * 1.25);
+        if(z === 'actual') scale = 1;
+        if(z === 'fit') scale = 0;
+        scale = Math.max(0.2, Math.min(5, scale));
+        applyZoom();
+      });
+    });
+    m.querySelectorAll('.work-toolbar button[data-nav]').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        showWork(idx + (btn.getAttribute('data-nav') === 'prev' ? -1 : 1));
+      });
+    });
+    img.addEventListener('dragstart', function(e){ e.preventDefault(); });
+    card.addEventListener('wheel', function(e){
+      e.preventDefault();
+      var stageRect = stage.getBoundingClientRect();
+      var beforeRect = img.getBoundingClientRect();
+      var fracX = beforeRect.width ? (e.clientX - beforeRect.left) / beforeRect.width : 0.5;
+      var fracY = beforeRect.height ? (e.clientY - beforeRect.top) / beforeRect.height : 0.5;
+      var factor = e.deltaY < 0 ? 1.03 : 1 / 1.03;
+      if(scale === 0){
+        var availW = stage.clientWidth;
+        var availH = window.innerHeight * 0.72;
+        var naturalW = img.naturalWidth || availW;
+        var naturalH = img.naturalHeight || availH;
+        var baseScale = Math.min(availW / naturalW, availH / naturalH);
+        scale = baseScale * factor;
+      } else {
+        scale = scale * factor;
+      }
+      scale = Math.max(0.2, Math.min(5, scale));
+      var beforeScrollLeft = stage.scrollLeft;
+      var beforeScrollTop = stage.scrollTop;
+      applyZoom();
+      var afterRect = img.getBoundingClientRect();
+      stage.scrollLeft = afterRect.left - stageRect.left + beforeScrollLeft + fracX * afterRect.width - (e.clientX - stageRect.left);
+      stage.scrollTop = afterRect.top - stageRect.top + beforeScrollTop + fracY * afterRect.height - (e.clientY - stageRect.top);
+    }, {passive:false});
+    var dragging = false, moved = false, sx = 0, sy = 0, sl = 0, st = 0;
+    img.addEventListener('mousedown', function(e){
+      if(scale === 0) return;
+      dragging = true;
+      moved = false;
+      sx = e.pageX; sy = e.pageY;
+      sl = stage.scrollLeft; st = stage.scrollTop;
+      img.style.cursor = 'grabbing';
+      e.preventDefault();
+    });
+    document.addEventListener('mousemove', function(e){
+      if(!dragging) return;
+      if(Math.abs(e.pageX - sx) > 3 || Math.abs(e.pageY - sy) > 3) moved = true;
+      stage.scrollLeft = sl - (e.pageX - sx);
+      stage.scrollTop = st - (e.pageY - sy);
+    });
+    document.addEventListener('mouseup', function(){
+      dragging = false;
+      if(scale > 0) img.style.cursor = 'grab';
+    });
+    img.addEventListener('click', function(){
+      if(!moved) m.remove();
+    });
+    m.addEventListener('click', function(e){ if(e.target === m) m.remove(); });
+    m.querySelector('.work-modal-close').addEventListener('click', function(){ m.remove(); });
+    document.addEventListener('keydown', function escWork(e){
+      if(!document.getElementById('workModal')){ document.removeEventListener('keydown', escWork); return; }
+      if(e.key === 'Escape'){ m.remove(); document.removeEventListener('keydown', escWork); }
+      if(e.key === 'ArrowLeft') showWork(idx - 1);
+      if(e.key === 'ArrowRight') showWork(idx + 1);
+    });
+    document.body.appendChild(m);
+  }
   function renderChess(){
     var box = document.getElementById('chessBox');
     if(!box) return;
@@ -1801,6 +2037,7 @@
   renderWeekly();
   renderChess();
   renderGrowth();
+  renderWorks();
 
   function bindFold(){
     document.querySelectorAll('[data-fold]').forEach(function(card){
