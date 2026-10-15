@@ -211,8 +211,16 @@
   .works-filter{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px;}
   .works-filter button{border:1px solid var(--line);background:var(--card-bg);color:var(--sub);border-radius:999px;padding:5px 12px;font-size:12px;cursor:pointer;}
   .works-filter button.on{background:var(--accent);border-color:var(--accent);color:#fff;}
-  .works-best{background:linear-gradient(135deg,var(--accent-soft),transparent);border:1px solid var(--line);border-radius:var(--radius);padding:14px;margin-bottom:18px;}
-  .works-best-title{font-size:13px;font-weight:700;margin-bottom:10px;color:var(--ink);}
+  .works-best{position:relative;background:linear-gradient(135deg,var(--accent-soft),transparent);border:1px solid var(--line);border-radius:var(--radius);padding:14px;margin-bottom:18px;}
+  .works-best-head{display:flex;align-items:center;justify-content:flex-start;gap:10px;margin-bottom:10px;}
+  .works-best-title{font-size:13px;font-weight:700;color:var(--ink);}
+  .works-best-nav{position:absolute;top:8px;right:8px;display:flex;gap:6px;z-index:3;}
+  .works-best-nav button{width:28px;height:28px;border:1px solid var(--line);background:var(--card-bg);color:var(--ink);border-radius:50%;cursor:pointer;font-size:16px;line-height:1;}
+  .works-best-nav button:hover{background:var(--menu-hover);}
+  .works-best-viewport{position:relative;overflow:hidden;max-width:520px;margin:0 auto;width:100%;}
+  .works-best-track{display:flex;gap:12px;transition:transform .35s ease;}
+  .works-best-track .work-card{flex:0 0 100%;}
+  .works-best-track .work-card img{height:auto;max-height:52vh;object-fit:contain;}
   .works-month{font-size:14px;font-weight:700;margin:18px 0 10px;color:var(--ink);}
   .works-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;}
   .work-card{background:var(--card-bg);border:var(--card-border);border-radius:var(--radius);overflow:hidden;cursor:pointer;box-shadow:var(--card-shadow);}
@@ -1842,7 +1850,9 @@
     }
     var html = chips;
     if(best.length){
-      html += '<div class="works-best"><div class="works-best-title">代表作品</div><div class="works-grid">' + best.map(card).join('') + '</div></div>';
+      var bestCards = best.map(card);
+      var trackHtml = bestCards[bestCards.length - 1] + bestCards.join('') + bestCards[0];
+      html += '<div class="works-best"><div class="works-best-head"><div class="works-best-title">代表作品</div></div><div class="works-best-viewport"><div class="works-best-track">' + trackHtml + '</div><div class="works-best-nav"><button type="button" data-dir="1" title="上一张">‹</button><button type="button" data-dir="-1" title="下一张">›</button></div></div></div>';
     }
     if(!filtered.length){
       html += '<div class="empty" style="padding:34px 10px;"><b>暂无作品</b><span>完成作业后，可把有代表性的书写、数学、语文或美术作品选入这里。</span></div>';
@@ -1855,6 +1865,44 @@
     box.querySelectorAll('.works-filter button').forEach(function(btn){
       btn.addEventListener('click', function(){ worksFilter = btn.dataset.cat; renderWorks(); });
     });
+    var bestTrack = box.querySelector('.works-best-track');
+    if(bestTrack){
+      var firstCard = bestTrack.querySelector('.work-card');
+      var step0 = firstCard ? firstCard.getBoundingClientRect().width + 12 : 260;
+      bestTrack.style.transition = 'none';
+      bestTrack.style.transform = 'translateX(' + (-step0) + 'px)';
+      bestTrack.dataset.pos = -step0;
+      function goBest(dir){
+        var first = bestTrack.querySelector('.work-card');
+        var step = first ? first.getBoundingClientRect().width + 12 : 260;
+        var n = Math.max(1, bestTrack.querySelectorAll('.work-card').length - 2);
+        var pos = parseFloat(bestTrack.dataset.pos || String(-step));
+        pos += dir * step;
+        bestTrack.style.transition = 'transform .35s ease';
+        bestTrack.style.transform = 'translateX(' + pos + 'px)';
+        bestTrack.dataset.pos = pos;
+        if(pos < -(n + 1) * step){
+          setTimeout(function(){
+            bestTrack.style.transition = 'none';
+            bestTrack.style.transform = 'translateX(' + (-step) + 'px)';
+            bestTrack.dataset.pos = -step;
+          }, 360);
+        }
+        if(pos > 0){
+          setTimeout(function(){
+            bestTrack.style.transition = 'none';
+            bestTrack.style.transform = 'translateX(' + (-n * step) + 'px)';
+            bestTrack.dataset.pos = -n * step;
+          }, 360);
+        }
+      }
+      box.querySelectorAll('[data-dir]').forEach(function(btn){
+        btn.addEventListener('click', function(){ goBest(parseFloat(btn.getAttribute('data-dir'))); });
+      });
+      if(window.__bestCarouselTimer) clearInterval(window.__bestCarouselTimer);
+      window.__bestCarouselTimer = setInterval(function(){ goBest(-1); }, 2000);
+      bestTrack.addEventListener('mouseenter', function(){ if(window.__bestCarouselTimer){ clearInterval(window.__bestCarouselTimer); window.__bestCarouselTimer = null; } });
+    }
     box.querySelectorAll('.work-card').forEach(function(cardEl){
       cardEl.addEventListener('click', function(){
         openWorkModal({img:cardEl.getAttribute('data-img'), title:cardEl.getAttribute('data-title'), note:cardEl.getAttribute('data-note')});
