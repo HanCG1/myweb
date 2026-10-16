@@ -215,7 +215,7 @@
   .works-best-layout{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr);gap:16px;align-items:stretch;}
   .works-profile{background:var(--card-bg);border:1px solid var(--line);border-radius:var(--radius);padding:16px;display:flex;flex-direction:column;align-items:center;gap:16px;}
   .works-profile-head{display:flex;align-items:center;justify-content:center;}
-  .works-profile-avatar{width:380px;height:380px;border-radius:50%;object-fit:cover;object-position:center 18%;border:3px solid var(--card-bg);box-shadow:0 0 0 1px var(--line);}
+  .works-profile-avatar{width:380px;height:380px;border-radius:50%;object-fit:cover;object-position:center 26%;border:3px solid var(--card-bg);box-shadow:0 0 0 1px var(--line);}
   .works-profile-card{width:100%;background:transparent;border:none;border-radius:0;padding:0;text-align:center;}
   .works-profile-card .tags{justify-content:center;}
   .works-profile h4{margin:0 0 6px;font-size:24px;font-weight:800;color:var(--ink);}
@@ -1929,6 +1929,18 @@
       if(window.__bestCarouselTimer) clearInterval(window.__bestCarouselTimer);
       window.__bestCarouselTimer = setInterval(function(){ goBest(-1); }, 4000);
       var bestViewport = bestTrack.parentElement;
+      var touchStartX = 0, touchStartY = 0;
+      bestViewport.addEventListener('touchstart', function(e){
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      }, {passive:true});
+      bestViewport.addEventListener('touchend', function(e){
+        var dx = e.changedTouches[0].clientX - touchStartX;
+        var dy = e.changedTouches[0].clientY - touchStartY;
+        if(Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5){
+          goBest(dx > 0 ? 1 : -1);
+        }
+      }, {passive:true});
       bestViewport.addEventListener('mouseenter', function(){ if(window.__bestCarouselTimer){ clearInterval(window.__bestCarouselTimer); window.__bestCarouselTimer = null; } });
       bestViewport.addEventListener('mouseleave', function(){ if(!window.__bestCarouselTimer){ window.__bestCarouselTimer = setInterval(function(){ goBest(-1); }, 4000); } });
     }
