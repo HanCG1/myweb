@@ -212,12 +212,27 @@
   .works-filter button{border:1px solid var(--line);background:var(--card-bg);color:var(--sub);border-radius:999px;padding:5px 12px;font-size:12px;cursor:pointer;}
   .works-filter button.on{background:var(--accent);border-color:var(--accent);color:#fff;}
   .works-best{position:relative;background:linear-gradient(135deg,var(--accent-soft),transparent);border:1px solid var(--line);border-radius:var(--radius);padding:14px;margin-bottom:18px;}
+  .works-best-layout{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr);gap:16px;align-items:stretch;}
+  .works-profile{background:var(--card-bg);border:1px solid var(--line);border-radius:var(--radius);padding:16px;display:flex;flex-direction:column;align-items:center;gap:16px;}
+  .works-profile-head{display:flex;align-items:center;justify-content:center;}
+  .works-profile-avatar{width:380px;height:380px;border-radius:50%;object-fit:cover;object-position:center 18%;border:3px solid var(--card-bg);box-shadow:0 0 0 1px var(--line);}
+  .works-profile-card{width:100%;background:transparent;border:none;border-radius:0;padding:0;text-align:center;}
+  .works-profile-card .tags{justify-content:center;}
+  .works-profile h4{margin:0 0 6px;font-size:24px;font-weight:800;color:var(--ink);}
+  .works-profile .meta{font-size:12px;color:var(--muted);margin-bottom:10px;}
+  .works-profile .tags{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0;}
+  .works-profile .tags span{font-size:12px;padding:3px 8px;border-radius:999px;background:var(--accent-soft);color:var(--ink);}
+  .works-profile p{font-size:13px;line-height:1.7;color:var(--ink);margin:6px 0;}
+  @media (max-width:760px){.works-best-layout{grid-template-columns:1fr;}}
   .works-best-head{display:flex;align-items:center;justify-content:flex-start;gap:10px;margin-bottom:10px;}
   .works-best-title{font-size:13px;font-weight:700;color:var(--ink);}
   .works-best-nav{position:absolute;top:8px;right:8px;display:flex;gap:6px;z-index:3;}
+  .works-best-dots{position:absolute;top:12px;left:12px;display:flex;align-items:center;gap:10px;z-index:3;}
+  .works-best-dots i{position:relative;width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.7);box-shadow:0 0 3px rgba(0,0,0,.3);transition:all .25s ease;}
+  .works-best-dots i.on{background:#fff;width:14px;height:14px;}
   .works-best-nav button{width:28px;height:28px;border:1px solid var(--line);background:var(--card-bg);color:var(--ink);border-radius:50%;cursor:pointer;font-size:16px;line-height:1;}
   .works-best-nav button:hover{background:var(--menu-hover);}
-  .works-best-viewport{position:relative;overflow:hidden;max-width:520px;margin:0 auto;width:100%;}
+  .works-best-viewport{position:relative;overflow:hidden;width:100%;}
   .works-best-track{display:flex;gap:12px;transition:transform .35s ease;}
   .works-best-track .work-card{flex:0 0 100%;}
   .works-best-track .work-card img{height:auto;max-height:52vh;object-fit:contain;}
@@ -1852,7 +1867,7 @@
     if(best.length){
       var bestCards = best.map(card);
       var trackHtml = bestCards[bestCards.length - 1] + bestCards.join('') + bestCards[0];
-      html += '<div class="works-best"><div class="works-best-head"><div class="works-best-title">代表作品</div></div><div class="works-best-viewport"><div class="works-best-track">' + trackHtml + '</div><div class="works-best-nav"><button type="button" data-dir="1" title="上一张">‹</button><button type="button" data-dir="-1" title="下一张">›</button></div></div></div>';
+      html += '<div class="works-best"><div class="works-best-head"><div class="works-best-title">代表作品</div></div><div class="works-best-layout"><div class="works-best-viewport"><div class="works-best-track">' + trackHtml + '</div><div class="works-best-dots"></div><div class="works-best-nav"><button type="button" data-dir="1" title="上一张">‹</button><button type="button" data-dir="-1" title="下一张">›</button></div></div><aside class="works-profile"><div class="works-profile-head"><img class="works-profile-avatar" src="images/profile/avatar.jpg" alt="韩长歌头像"></div><div class="works-profile-card"><h4>韩长歌</h4><div class="meta" style="margin:0 0 8px;">一年级新生 · 2026年9月1日入学</div><div class="tags"><span>美术创作</span><span>运动会60米季军</span><span>拼音书写</span><span>数学练习</span></div><p style="margin:12px auto 0;max-width:88%;font-size:13px;line-height:1.8;color:var(--ink);text-align:center;">在秋季运动会上努力拼搏，获得60米季军；<br>积极参加国庆主题绘画、<br>革命英雄人物绘画；<br>拼音小页与数学课堂练习保持全对。</p></div></aside></div></div>';
     }
     if(!filtered.length){
       html += '<div class="empty" style="padding:34px 10px;"><b>暂无作品</b><span>完成作业后，可把有代表性的书写、数学、语文或美术作品选入这里。</span></div>';
@@ -1867,41 +1882,55 @@
     });
     var bestTrack = box.querySelector('.works-best-track');
     if(bestTrack){
-      var firstCard = bestTrack.querySelector('.work-card');
-      var step0 = firstCard ? firstCard.getBoundingClientRect().width + 12 : 260;
-      bestTrack.style.transition = 'none';
-      bestTrack.style.transform = 'translateX(' + (-step0) + 'px)';
-      bestTrack.dataset.pos = -step0;
-      function goBest(dir){
+      function bestStep(){
         var first = bestTrack.querySelector('.work-card');
-        var step = first ? first.getBoundingClientRect().width + 12 : 260;
-        var n = Math.max(1, bestTrack.querySelectorAll('.work-card').length - 2);
-        var pos = parseFloat(bestTrack.dataset.pos || String(-step));
-        pos += dir * step;
-        bestTrack.style.transition = 'transform .35s ease';
+        return first ? first.getBoundingClientRect().width + 12 : 260;
+      }
+      function bestCount(){
+        return Math.max(1, bestTrack.querySelectorAll('.work-card').length - 2);
+      }
+      function setBestPos(pos, animate){
+        bestTrack.style.transition = animate ? 'transform .35s ease' : 'none';
         bestTrack.style.transform = 'translateX(' + pos + 'px)';
         bestTrack.dataset.pos = pos;
-        if(pos < -(n + 1) * step){
-          setTimeout(function(){
-            bestTrack.style.transition = 'none';
-            bestTrack.style.transform = 'translateX(' + (-step) + 'px)';
-            bestTrack.dataset.pos = -step;
-          }, 360);
-        }
-        if(pos > 0){
-          setTimeout(function(){
-            bestTrack.style.transition = 'none';
-            bestTrack.style.transform = 'translateX(' + (-n * step) + 'px)';
-            bestTrack.dataset.pos = -n * step;
-          }, 360);
-        }
+        if(!animate) void bestTrack.offsetWidth;
+      }
+      setBestPos(-bestStep(), false);
+      var dots = box.querySelector('.works-best-dots');
+      var currentIndex = 0;
+      dots.innerHTML = '';
+      for(var di=0; di<bestCount(); di++) dots.appendChild(document.createElement('i'));
+      function updateDots(animate){
+        dots.querySelectorAll('i').forEach(function(d,i){ d.className = i===currentIndex ? 'on' : ''; });
+      }
+      updateDots(false);
+      bestTrack.addEventListener('transitionend', function(e){
+        if(e.propertyName !== 'transform') return;
+        var step = bestStep();
+        var n = bestCount();
+        var pos = parseFloat(bestTrack.dataset.pos || '0');
+        if(pos <= -(n + 1) * step) setBestPos(-step, false);
+        else if(pos >= 0) setBestPos(-n * step, false);
+      });
+      function goBest(dir){
+        var step = bestStep();
+        var n = bestCount();
+        var pos = parseFloat(bestTrack.dataset.pos || String(-step));
+        pos += dir * step;
+        pos = Math.max(-(n + 1) * step, Math.min(0, pos));
+        currentIndex = (currentIndex - dir + n) % n;
+        updateDots(true);
+        setBestPos(pos, true);
+        setTimeout(function(){ updateDots(false); }, 360);
       }
       box.querySelectorAll('[data-dir]').forEach(function(btn){
         btn.addEventListener('click', function(){ goBest(parseFloat(btn.getAttribute('data-dir'))); });
       });
       if(window.__bestCarouselTimer) clearInterval(window.__bestCarouselTimer);
-      window.__bestCarouselTimer = setInterval(function(){ goBest(-1); }, 2000);
-      bestTrack.addEventListener('mouseenter', function(){ if(window.__bestCarouselTimer){ clearInterval(window.__bestCarouselTimer); window.__bestCarouselTimer = null; } });
+      window.__bestCarouselTimer = setInterval(function(){ goBest(-1); }, 4000);
+      var bestViewport = bestTrack.parentElement;
+      bestViewport.addEventListener('mouseenter', function(){ if(window.__bestCarouselTimer){ clearInterval(window.__bestCarouselTimer); window.__bestCarouselTimer = null; } });
+      bestViewport.addEventListener('mouseleave', function(){ if(!window.__bestCarouselTimer){ window.__bestCarouselTimer = setInterval(function(){ goBest(-1); }, 4000); } });
     }
     box.querySelectorAll('.work-card').forEach(function(cardEl){
       cardEl.addEventListener('click', function(){
