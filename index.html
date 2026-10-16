@@ -310,7 +310,7 @@
   .dash-hero .pill{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);padding:6px 14px;border-radius:999px;font-size:13px;white-space:nowrap;}
   .dash-hero .pill b{font-size:14px;}
   .focus-bar{
-    display:flex;align-items:stretch;gap:16px;
+    display:flex;flex-direction:column;align-items:flex-start;gap:10px;
     background:var(--accent-soft);border:1px solid var(--line);border-left:5px solid var(--accent);
     border-radius:var(--radius);padding:14px 18px;margin-bottom:14px;
   }
@@ -724,10 +724,6 @@
         <div class="card" id="todayReviewCard" style="display:none;">
           <h3>今日反馈 <span class="arrow">▸</span></h3>
           <div class="body" id="todayReviewBox"></div>
-        </div>
-        <div class="card">
-          <h3>明日预告 <span class="date-tag" id="tomorrowTag">—</span><span class="arrow">▸</span></h3>
-          <div class="body" id="tomorrowBox"></div>
         </div>
         <div class="card open" data-fold>
           <h3>晚间固定框架 <span class="arrow">▸</span></h3>
@@ -1224,7 +1220,10 @@
     }
     var h = '<div class="focus-tag"><span class="pill">本周重点</span></div><div class="focus-items">';
     f.items.forEach(function(it, idx){
-      h += '<div class="focus-item"><span class="focus-no">' + (idx+1) + '</span><span>' + escHTML(it) + '</span></div>';
+      var txt = escHTML(it);
+      var ci = txt.indexOf('：');
+      if(ci > 0) txt = '<b>' + txt.slice(0, ci+1) + '</b>' + txt.slice(ci+1);
+      h += '<div class="focus-item"><span class="focus-no">' + (idx+1) + '</span><span>' + txt + '</span></div>';
     });
     h += '</div>';
     bar.innerHTML = h;
@@ -1686,7 +1685,10 @@
     }
     var h = '<ul class="focus-list">';
     f.items.forEach(function(it, idx){
-      h += '<li><span class="focus-no">' + (idx+1) + '</span><span>' + escT(it) + '</span></li>';
+      var txt = escT(it);
+      var ci = txt.indexOf('：');
+      if(ci > 0) txt = '<b>' + txt.slice(0, ci+1) + '</b>' + txt.slice(ci+1);
+      h += '<li><span class="focus-no">' + (idx+1) + '</span><span>' + txt + '</span></li>';
     });
     h += '</ul>';
     box.innerHTML = h;
