@@ -946,6 +946,7 @@
     items.forEach(function(it){it.classList.toggle('active', it.dataset.view === name);});
     document.getElementById('content').scrollTop = 0;
     if(name === 'exam') drawTrend();
+    if(name === 'works'){ setTimeout(function(){ if(typeof renderWorks === 'function') renderWorks(); }, 0); }
     /* 手机端：切换视图后关闭抽屉菜单 */
     var sb = document.querySelector('.sidebar');
     if(sb) sb.classList.remove('open');
