@@ -854,6 +854,10 @@
           <h3>成长事件流水 <span class="arrow">▸</span></h3>
           <div class="body" id="growthLogBox"></div>
         </div>
+        <div class="card open" data-fold>
+          <h3>家长答疑与应对方案 <span class="arrow">▸</span></h3>
+          <div class="body" id="parentFaqBox"></div>
+        </div>
         <div class="card">
           <h3>状态说明 <span class="arrow">▸</span></h3>
           <div class="body">
@@ -1877,6 +1881,20 @@
       h2 += '</table></div></div>';
     });
     lb.innerHTML = h2;
+    renderParentFaq();
+  }
+
+  function renderParentFaq(){
+    var box = document.getElementById('parentFaqBox');
+    if(!box || typeof parentFAQ === 'undefined') return;
+    var rows = parentFAQ.slice().sort(function(a,b){ return a.date < b.date ? 1 : -1; });
+    if(!rows.length){ box.innerHTML = '<div class="empty"><b>暂无家长答疑</b></div>'; return; }
+    var h = '<table class="wide"><tr><th style="width:72px;">日期</th><th style="width:150px;">问题</th><th>分析与应对方案</th></tr>';
+    rows.forEach(function(r){
+      var md = r.date.slice(5).split('-');
+      h += '<tr><td>' + (+md[0]) + '/' + (+md[1]) + '</td><td><b>' + escS(r.question) + '</b></td><td>' + escS(r.answer) + '</td></tr>';
+    });
+    box.innerHTML = h + '</table>';
   }
 
   function escS(t){ return String(t == null ? '' : t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
