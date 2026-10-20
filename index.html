@@ -540,7 +540,7 @@
   td.task-cell-td .img-thumb{flex:0 0 auto;margin:2px 0 0 0;}
   .img-thumb{display:inline-flex;vertical-align:middle;margin:4px 4px 0 0;position:relative;}
   .img-thumb img{height:52px;width:auto;max-width:150px;border-radius:6px;border:1px solid var(--line);cursor:zoom-in;object-fit:cover;background:#fff;}
-  .img-thumb .img-badge{position:absolute;left:0;top:0;font-style:normal;font-size:10px;line-height:1.2;padding:2px 5px;border-radius:6px 0 6px 0;color:#fff;pointer-events:none;z-index:1;}
+  .img-thumb .img-badge{position:absolute;left:0;top:0;font-style:normal;font-size:10px;line-height:1.2;padding:2px 5px;border-radius:6px 0 6px 0;color:#fff;pointer-events:none;z-index:1;font-weight:700;letter-spacing:0.5px;}
   .img-badge.ref{background:#3a8a5c;}
   .img-badge.done{background:#3b6fb0;}
   .img-thumb:hover img{opacity:0.85;}
@@ -576,10 +576,10 @@
   <!-- ============ 左侧导航 ============ -->
   <aside class="sidebar">
     <div class="brand">
-      <div class="logo">韩</div>
+      <div class="logo" id="brandLogo">韩</div>
       <div>
-        <div class="nm">韩长歌</div>
-        <div class="sb">一年级 · 学习档案</div>
+        <div class="nm" id="brandName">韩长歌</div>
+        <div class="sb" id="brandSub">一年级 · 学习档案</div>
       </div>
     </div>
 
@@ -909,6 +909,23 @@
       <div class="view" id="view-settings">
         <div class="v-head"><h2>数据与设置</h2><span class="en">SETTINGS</span></div>
         <div class="card open" data-fold>
+          <h3>学生信息 <span class="arrow">▸</span></h3>
+          <div class="body">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;max-width:760px;">
+              <label style="display:block;font-size:13px;color:#787774;">学生姓名<input id="siName" placeholder="如：小明" style="display:block;width:100%;box-sizing:border-box;margin-top:6px;padding:9px 10px;border:1px solid #E0DFDA;border-radius:8px;font-size:14px;"></label>
+              <label style="display:block;font-size:13px;color:#787774;">年级<input id="siGrade" placeholder="如：一年级" style="display:block;width:100%;box-sizing:border-box;margin-top:6px;padding:9px 10px;border:1px solid #E0DFDA;border-radius:8px;font-size:14px;"></label>
+              <label style="display:block;font-size:13px;color:#787774;">班级<input id="siClass" placeholder="如：1班" style="display:block;width:100%;box-sizing:border-box;margin-top:6px;padding:9px 10px;border:1px solid #E0DFDA;border-radius:8px;font-size:14px;"></label>
+              <label style="display:block;font-size:13px;color:#787774;">入学日期<input id="siEnroll" type="date" style="display:block;width:100%;box-sizing:border-box;margin-top:6px;padding:9px 10px;border:1px solid #E0DFDA;border-radius:8px;font-size:14px;"></label>
+              <label style="display:block;font-size:13px;color:#787774;">到家时间<input id="siHome" type="time" style="display:block;width:100%;box-sizing:border-box;margin-top:6px;padding:9px 10px;border:1px solid #E0DFDA;border-radius:8px;font-size:14px;"></label>
+              <label style="display:block;font-size:13px;color:#787774;">睡觉时间<input id="siBed" type="time" style="display:block;width:100%;box-sizing:border-box;margin-top:6px;padding:9px 10px;border:1px solid #E0DFDA;border-radius:8px;font-size:14px;"></label>
+            </div>
+            <div style="margin-top:16px;">
+              <button type="button" id="siSave" style="padding:9px 20px;border:0;border-radius:8px;background:#2383E2;color:#fff;cursor:pointer;font-size:14px;">保存学生信息</button>
+            </div>
+            <div style="margin-top:8px;color:#787774;font-size:12px;">保存后本机自动记住；下次打开无需重复填写。</div>
+          </div>
+        </div>
+        <div class="card open" data-fold>
           <h3>界面风格 <span class="arrow">▸</span></h3>
           <div class="body">
             <div class="theme-switch">
@@ -943,6 +960,38 @@
 
   <script src="data.js"></script>
 <script>
+  function applyStudentInfo(){
+    var saved = {};
+    try { saved = JSON.parse(localStorage.getItem('studentInfo') || '{}'); } catch(e){ saved = {}; }
+    window.studentInfo = Object.assign({name:'韩长歌',grade:'一年级',enrollDate:'2026-09-01',homeTime:'18:00',bedTime:'21:00',className:''}, window.studentInfo || {}, saved);
+    var si = window.studentInfo;
+    var bn = document.getElementById('brandName'); if(bn) bn.textContent = si.name;
+    var bs = document.getElementById('brandSub'); if(bs) bs.textContent = si.grade + ' · 学习档案';
+    var bl = document.getElementById('brandLogo'); if(bl) bl.textContent = (si.name||'学').slice(0,1);
+    document.title = si.name + ' · 学习档案';
+    ['siName','siGrade','siClass','siEnroll','siHome','siBed'].forEach(function(id, i){
+      var el = document.getElementById(id); if(!el) return;
+      el.value = [si.name,si.grade,si.className,si.enrollDate,si.homeTime,si.bedTime][i] || '';
+    });
+  }
+  document.addEventListener('DOMContentLoaded', function(){
+    applyStudentInfo();
+    var btn = document.getElementById('siSave');
+    if(btn) btn.addEventListener('click', function(){
+      var si = {
+        name: document.getElementById('siName').value.trim() || '韩长歌',
+        grade: document.getElementById('siGrade').value.trim() || '一年级',
+        className: document.getElementById('siClass').value.trim(),
+        enrollDate: document.getElementById('siEnroll').value || '2026-09-01',
+        homeTime: document.getElementById('siHome').value || '18:00',
+        bedTime: document.getElementById('siBed').value || '21:00'
+      };
+      localStorage.setItem('studentInfo', JSON.stringify(si));
+      window.studentInfo = si;
+      applyStudentInfo();
+      alert('学生信息已保存');
+    });
+  });
 (function(){
   var views = document.querySelectorAll('.view');
   var items = document.querySelectorAll('.menu-item');
@@ -1644,7 +1693,7 @@
         mh += '<tr><td colspan="4" style="color:var(--sub);text-align:center;padding:22px 10px;">暂无听算/口算训练记录</td></tr>';
       } else {
         mRows.forEach(function(r){
-          mh += '<tr><td>' + r.date + '</td><td>' + r.content + '</td><td>' + r.result + '</td><td>' + (r.note || '') + '</td></tr>';
+          mh += '<tr><td>' + r.date + '</td><td>' + r.content + '</td><td>' + r.result + '</td><td>' + (r.note || '') + imgThumb(r.img) + '</td></tr>';
         });
       }
       mentalBox.innerHTML = mh + '</table>';
