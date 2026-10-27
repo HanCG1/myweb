@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第8周学习周报</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%232383E2%27/%3E%3Ctext x=%2732%27 y=%2744%27 font-size=%2734%27 text-anchor=%27middle%27 fill=%27white%27%3E周%3C/text%3E%3C/svg%3E">
+<style>
+:root{--bg:#FFFFFF;--bg-sub:#F7F7F5;--ink:#37352F;--sub:#787774;--line:#E9E9E7;--accent:#2383E2;--accent-soft:#EBF3FB;--card-bg:#FFFFFF;--radius:10px;--shadow:0 1px 2px rgba(0,0,0,.05);--ok:#52C41A;--warn:#FAAD14;--err:#EA6668;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'PingFang SC','Microsoft YaHei',-apple-system,sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;font-size:14px;padding:28px 16px 60px;}
+.wrap{max-width:880px;margin:0 auto;}
+.head{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:18px;}
+.head h1{font-size:26px;font-weight:700;}.head h1 small{font-size:13px;color:var(--sub);font-weight:400;margin-left:8px;}
+.head .meta{font-size:12.5px;color:var(--sub);text-align:right;}
+.pill{display:inline-block;font-size:11.5px;padding:2px 10px;border-radius:20px;background:var(--accent-soft);color:var(--accent);font-weight:600;margin-left:8px;vertical-align:2px;}
+.summary{background:linear-gradient(135deg,#EBF3FB,#F7FBFF);border:1px solid #D6E7F8;border-radius:var(--radius);padding:16px 18px;margin-bottom:20px;}
+.summary .tag{font-size:12px;color:var(--accent);font-weight:700;letter-spacing:2px;margin-bottom:4px;}
+.summary p{font-size:14.5px;}.summary b{color:var(--accent);}
+.sec-title{display:flex;align-items:center;gap:8px;font-size:16px;font-weight:700;margin:28px 0 12px;}
+.sec-title .no{width:22px;height:22px;border-radius:6px;background:var(--accent);color:#fff;font-size:12.5px;display:flex;align-items:center;justify-content:center;flex:none;}
+.sec-title small{color:var(--sub);font-weight:400;font-size:12.5px;}
+.card{background:var(--card-bg);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px 16px;}
+.ov-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;}
+.ov-name{flex:none;width:52px;font-size:13px;font-weight:600;padding-top:1px;}
+.ov-main{flex:1;min-width:0;}
+.ov-bar{height:10px;background:#EEEEEC;border-radius:6px;overflow:hidden;}
+.ov-fill{height:100%;border-radius:6px;background:linear-gradient(90deg,#2383E2,#5AA6F5);}
+.ov-fill.warn{background:linear-gradient(90deg,#F0A92E,#FAC863);}.ov-fill.err{background:linear-gradient(90deg,#E05C60,#F0868A);}
+.ov-num{font-size:12.5px;color:var(--sub);margin-top:2px;}.ov-num b{color:var(--ink);font-size:13.5px;}
+.ov-sub{font-size:12px;color:var(--sub);margin:-4px 0 10px 62px;}
+.q{display:inline-block;font-size:10.5px;padding:1px 6px;border-radius:4px;background:var(--accent-soft);color:var(--accent);margin-left:4px;font-weight:600;}
+.chart{display:flex;align-items:flex-end;gap:14px;height:180px;padding:6px 4px 0;border-bottom:1px solid var(--line);margin-top:14px;}
+.bar-col{flex:1;position:relative;height:100%;}.bar{position:absolute;left:50%;transform:translateX(-50%);bottom:42px;width:44px;border-radius:5px 5px 0 0;background:linear-gradient(180deg,#5AA6F5,#2383E2);}
+.bar.warn{background:linear-gradient(180deg,#FAC863,#F0A92E);}.bar.err{background:linear-gradient(180deg,#F0868A,#E05C60);}
+.bar-label{position:absolute;left:50%;transform:translateX(-50%);bottom:0;font-size:11px;color:var(--sub);white-space:nowrap;}
+.bar-num{position:absolute;left:50%;transform:translateX(-50%);bottom:22px;font-size:11px;color:var(--sub);}
+.sleep{position:relative;height:120px;margin-top:16px;padding-bottom:26px;border-bottom:1px solid var(--line);}
+.sleep .yline{position:absolute;left:0;right:0;font-size:10.5px;color:var(--sub);}.sleep .yline span{background:var(--bg);padding-right:6px;}
+.sleep-line{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;}
+.dot{position:absolute;width:11px;height:11px;border-radius:50%;background:var(--err);border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,.2);transform:translate(-50%,50%);}.dot .t{position:absolute;bottom:-24px;left:50%;transform:translateX(-50%);font-size:11px;color:var(--sub);white-space:nowrap;}
+.sleep .goal{position:absolute;left:0;right:0;border-top:2px dashed var(--accent);}.sleep .goal-tag{position:absolute;bottom:-28px;left:0;font-size:10.5px;color:var(--accent);}
+.hab{display:grid;grid-template-columns:1fr 1fr;gap:14px;}.hab .card h4{font-size:14px;font-weight:700;margin-bottom:8px;}.hab .keep h4{color:var(--ok);}.hab .fix h4{color:var(--err);}
+.hab li{list-style:none;font-size:13px;padding:5px 0;border-bottom:1px dashed var(--line);}.hab li:last-child{border-bottom:none;}
+.hab .keep li::before{content:'✓';position:absolute;left:2px;color:var(--ok);font-weight:700;}.hab .fix li::before{content:'!';position:absolute;left:2px;color:var(--err);font-weight:700;}
+.hab li{position:relative;padding-left:20px;}
+.weak{display:grid;grid-template-columns:1fr 1fr;gap:14px;}.weak-card{border-radius:var(--radius);padding:14px 16px;border:1px solid;}.weak-card.hot{background:#FDF1F1;border-color:#F3C2C4;}.weak-card.ok{background:#F2FAEE;border-color:#CDE8BE;}.weak-card.plain{background:#F7F7F5;border-color:#E2E2DF;}
+.weak-card h4{font-size:14px;font-weight:700;margin-bottom:6px;}.weak-card.hot h4{color:#C93C40;}.weak-card.ok h4{color:#389E0D;}.weak-card p{font-size:12.8px;}.weak-card .why{margin-top:6px;font-size:12px;color:var(--sub);}.weak-card .why b{color:var(--ink);}
+.plain-list{list-style:none;}.plain-list li{font-size:13px;padding:6px 0 6px 22px;position:relative;border-bottom:1px dashed var(--line);}.plain-list li:last-child{border-bottom:none;}.plain-list li::before{content:'★';position:absolute;left:2px;color:var(--warn);}
+.ins{background:var(--card-bg);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;margin-bottom:12px;box-shadow:var(--shadow);}.ins h4{font-size:14.5px;font-weight:700;margin-bottom:8px;}.ins .row{display:flex;gap:8px;font-size:13px;padding:3px 0;}.ins .k{flex:none;font-size:11px;font-weight:700;padding:1px 7px;border-radius:4px;background:var(--accent-soft);color:var(--accent);}
+.todo li{list-style:none;display:flex;gap:10px;align-items:flex-start;padding:8px 12px;border-bottom:1px dashed var(--line);font-size:13.5px;}.todo li:last-child{border-bottom:none;}.p{flex:none;width:34px;text-align:center;font-size:10.5px;font-weight:700;border-radius:4px;padding:1px 0;margin-top:2px;}.p1{background:#C93C40;color:#fff;}.p2{background:#F0A92E;color:#fff;}.p3{background:var(--accent-soft);color:var(--accent);}
+.advice{background:linear-gradient(135deg,#F7FBF5,#EFF8EC);border:1px solid #D5E8CC;border-radius:var(--radius);padding:16px 18px;margin-top:28px;}.advice .tag{font-size:12px;color:#389E0D;font-weight:700;letter-spacing:2px;margin-bottom:6px;}.advice p{font-size:13.8px;margin-top:6px;}.advice b{color:#2E7D32;}
+.foot{margin-top:34px;text-align:center;color:#B5B5B0;font-size:12px;}.foot a{color:var(--accent);text-decoration:none;font-weight:600;}
+@media(max-width:640px){.hab,.weak{grid-template-columns:1fr;}.chart{gap:6px;}.bar{width:18px;}}
+</style>
+</head>
+<body><div class="wrap">
+<div class="head"><h1>学习周报 <span class="pill">第8周</span><small>韩长歌 · 一年级</small></h1><div class="meta">10.19 — 10.25（开学第8周）</div></div>
+<div class="summary"><div class="tag">核心结论</div><p>本周是<b>荣誉与岗位收获周</b>：课堂听算<b>全对</b>、获评“听算小达人”表扬信、成功<b>竞选学习委员</b>，外部认可接连到来，学习动力处于上升期。任务完成率保持高位，语文书写质量稳定。但<b>数学“符号看错”从偶发变成连续</b>（10/20错1道、10/24错5道，均为加减号看错），睡眠仍<b>0晚准点</b>（21:30—22:10）。下周重点不是加量，而是把<b>“先圈符号、出声朗读、到点关灯”</b>三件事固化。</p></div>
+
+<div class="sec-title"><span class="no">1</span>任务完成概览<small>按学科统计 · 10/19-10/22日常反馈，10/24周末任务</small></div>
+<div class="card">
+<div class="ov-row"><span class="ov-name">语文</span><div class="ov-main"><div class="ov-bar"><div class="ov-fill" style="width:96%"></div></div><div class="ov-num"><b>5天全完成</b> · 质量 <span class="q">A-</span></div></div></div><div class="ov-sub">10/19 y/w书写＋拼读、10/20 午/下书写＋园地三读熟、《弟子规·总叙》背诵、10/21 第二单元复习＋日积月累＋ai/ei/ui书写、10/22 声母表抄写两遍＋23个声母背诵＋ai/ei/ui拼读、10/24 ao/ou/iu书写＋园地二小页＋《声律启蒙》《放风筝》背诵；10/24拼读待反馈。</div>
+<div class="ov-row"><span class="ov-name">数学</span><div class="ov-main"><div class="ov-bar"><div class="ov-fill warn" style="width:92%"></div></div><div class="ov-num"><b>5天全完成 · 错题集中</b> <span class="q" style="background:#FDECEC;color:#C93C40;">符号看错×6</span></div></div></div><div class="ov-sub">10/20 6和7加减法（自查3道漏题、错1道减号看加号）；10/21 连加连减；10/22 连加连减规范练习；10/24 两页（4页）小题错5题、均为加减号看错；课堂听算10/20全对。</div>
+<div class="ov-row"><span class="ov-name">练字</span><div class="ov-main"><div class="ov-bar"><div class="ov-fill" style="width:80%"></div></div><div class="ov-num"><b>4/5天</b> 完成</div></div></div><div class="ov-sub">10/19、10/20（了/子/去）、10/22、10/24（下/午/去/了/子/禾/田/手，书写认真规范）。</div>
+<div class="ov-row"><span class="ov-name">静坐控笔</span><div class="ov-main"><div class="ov-bar"><div class="ov-fill warn" style="width:75%"></div></div><div class="ov-num"><b>3/4</b> 10/20断档</div></div></div><div class="ov-sub">10/19、10/22、10/24完成；10/20静坐、控笔操均未做。</div>
+<div class="ov-row"><span class="ov-name">阅读</span><div class="ov-main"><div class="ov-bar"><div class="ov-fill warn" style="width:40%"></div></div><div class="ov-num"><b>2/5天</b> 完成</div></div></div><div class="ov-sub">10/19、10/24自主阅读完成；10/20阅读待反馈未确认；10/22任务清单未含阅读。</div>
+<div class="ov-row"><span class="ov-name">睡眠</span><div class="ov-main"><div class="ov-bar"><div class="ov-fill err" style="width:0%"></div></div><div class="ov-num"><b>0/4准点</b> 平均约21:42</div></div></div><div class="ov-sub">10/19 21:30、10/20 22:10、10/22 21:30、10/24 21:40；21/23/25无记录。</div>
+<div class="ov-row"><span class="ov-name">荣誉</span><div class="ov-main"><div class="ov-bar"><div class="ov-fill" style="width:100%"></div></div><div class="ov-num"><b>2项</b> 课堂听算全对＋表扬信＋学习委员</div></div></div><div class="ov-sub">10/19竞选学习委员成功；10/20课堂听算全对；10/24获“听算小达人”表扬信。</div>
+</div>
+
+<div class="sec-title"><span class="no">2</span>一周任务节奏<small>每日有明确反馈的任务密度</small></div>
+<div class="card"><div class="chart"><div class="bar-col"><div class="bar" style="height:160px"></div><span class="bar-num">9</span><span class="bar-label">10/19</span></div><div class="bar-col"><div class="bar" style="height:160px"></div><span class="bar-num">9</span><span class="bar-label">10/20</span></div><div class="bar-col"><div class="bar warn" style="height:73px"></div><span class="bar-num">4</span><span class="bar-label">10/21</span></div><div class="bar-col"><div class="bar" style="height:142px"></div><span class="bar-num">8</span><span class="bar-label">10/22</span></div><div class="bar-col"><div class="bar" style="height:178px"></div><span class="bar-num">11</span><span class="bar-label">10/24</span></div></div><p style="font-size:12px;color:var(--sub);margin-top:18px;">10/21因洗澡只安排4项，全部很快完成；10/24周末任务最满（11项）仍全部闭环；10/23、10/25无任务记录。</p></div>
+
+<div class="sec-title"><span class="no">3</span>睡眠记录<small>目标21:00入睡 · 本周4晚有记录</small></div>
+<div class="card"><div class="sleep"><div class="yline" style="bottom:0;"><span>21:00</span></div><div class="yline" style="bottom:33%;"><span>21:30</span></div><div class="yline" style="bottom:67%;"><span>22:00</span></div><div class="yline" style="bottom:100%;"><span>22:30</span></div><svg class="sleep-line" viewBox="0 0 100 100" preserveAspectRatio="none"><polyline fill="none" stroke="rgba(35,131,226,.7)" stroke-width="1" points="13,67 40,22 66,67 90,56"/></svg><div class="goal" style="bottom:0;"></div><div class="goal-tag">目标21:00</div><div class="dot" style="left:13%;bottom:33%;"><span class="t">10/19</span></div><div class="dot" style="left:40%;bottom:78%;"><span class="t">10/20</span></div><div class="dot" style="left:66%;bottom:33%;"><span class="t">10/22</span></div><div class="dot" style="left:90%;bottom:44%;"><span class="t">10/24</span></div></div><p style="font-size:12px;color:var(--sub);margin-top:42px;">有记录4晚0次准点，10/20最晚（22:10）。睡眠问题仍是晚间程序不固定：洗漱-上床之间没有硬边界，21:00目标连续多周未稳定实现。</p></div>
+
+<div class="sec-title"><span class="no">4</span>习惯状态观察<small>保持 / 待改进</small></div>
+<div class="hab"><div class="card keep"><h4>保持项</h4><ul><li>语文书写质量稳定：午/下、ao/ou/iu、练字8字都书写认真规范。</li><li>数学做完有自查意识：10/20自查出3道漏题（进步信号）。</li><li>周末任务最满（11项）仍全部闭环，含红色立体手工＋手抄报涂色。</li><li>自己整理书包（10/24），准备周一带葫芦丝、跳绳、听算备用本。</li><li>课堂听算全对＋表扬信，学习动力处于上升期。</li></ul></div><div class="card fix"><h4>待改进项</h4><ul><li>数学符号看错连续出现：10/20错1道、10/24错5道，均为加减号看错。</li><li>睡眠0晚准点，10/20最晚22:10。</li><li>拼读/朗读类任务容易被当附属项：10/24拼读待反馈，bd/nl区分需持续巩固。</li><li>常规断档：10/20静坐、控笔操、多邻国未做；阅读仅2天完成。</li></ul></div></div>
+
+<div class="sec-title"><span class="no">5</span>知识薄弱点分析<small>掌握扎实 / 易错点 / 根本原因</small></div>
+<div class="weak"><div class="weak-card ok"><h4>拼音书写与背诵 <span style="font-size:11px;background:#389E0D;color:#fff;padding:1px 8px;border-radius:10px;">掌握扎实</span></h4><p>声母表抄写两遍、23个声母按课本57页黄框顺序背诵完成；ai/ei/ui、ao/ou/iu书写认真规范；国学《舟过安仁》《弟子规·总叙》《声律启蒙》《放风筝》全部背出。</p><div class="why"><b>原因：</b>每天固定书写＋出声背诵，量小但连续，记忆和书写都在进步。</div></div><div class="weak-card hot"><h4>运算符号审题 <span style="font-size:11px;background:#C93C40;color:#fff;padding:1px 8px;border-radius:10px;">连续易错 ×6</span></h4><p>10/20错1道（减号看加号）、10/24错5道（均加减号看错），当周累计6题。</p><div class="why"><b>根本原因：</b>连加连减、加减混合算式增多后，读题没有“先看符号”的固定动作，默认按加号处理；会算但审题第一步缺失。</div></div><div class="weak-card hot"><h4>检查意识 <span style="font-size:11px;background:#C93C40;color:#fff;padding:1px 8px;border-radius:10px;">重点薄弱</span></h4><p>10/20能自查出3道漏题（有检查动作），但同样没查出符号错。</p><div class="why"><b>根本原因：</b>检查清单里只有“有没有空题”，没有“符号对不对”——检查范围不完整。</div></div><div class="weak-card plain"><h4>睡眠习惯 <span style="font-size:11px;background:#D9D9D6;color:#333;padding:1px 8px;border-radius:10px;">持续未解</span></h4><p>0/4晚准点，21:30—22:10。</p><div class="why"><b>根本原因：</b>洗漱-上床环节没有固定开始时间，晚间程序被任务后置挤占。</div></div></div>
+
+<div class="sec-title"><span class="no">6</span>亮点进步<small>值得具体表扬</small></div>
+<div class="card"><ul class="plain-list"><li>成功竞选学习委员：10/19一分钟演讲完整、态度大方，岗位目标兑现。</li><li>课堂听算全对（10/20），随后获“听算小达人”表扬信（10/24）——认真练习有了可见回报。</li><li>周末11项任务全部闭环：数学4页、ao/ou/iu书写、园地二小页、两首国学、练字8字、红色立体手工＋手抄报涂色、自己整理书包。</li><li>数学自查出3道漏题，说明“做完要检查”的意识正在建立。</li><li>语文书写连续稳定：午/下、ao/ou/iu、练字8字都书写认真规范，卷面干净。</li></ul></div>
+
+<div class="sec-title"><span class="no">7</span>深层观察<small>现象 → 本质 → 建议</small></div>
+<div class="ins"><h4>01 符号看错从“偶发”变成“连续”，卡在审题第一步</h4><div class="row"><span class="k">现象</span><span>10/20错1道、10/24错5道，均为加减号看错；10/26又错1道（第9周第一天延续）。</span></div><div class="row"><span class="k">本质</span><span>连加连减、加减混合题增多后，“默认按加号算”的自动反应暴露出来——不是不会算，而是读题没有先看符号的固定动作。</span></div><div class="row"><span class="k">建议</span><span>从下周起，每一题动笔前先用手指出“+/-”，圈出来再计算；做完回看一次符号。连续5天不错即可进入稳定期。</span></div></div>
+<div class="ins"><h4>02 检查意识有了，但“检查什么”还没列清楚</h4><div class="row"><span class="k">现象</span><span>10/20自查出3道漏题，但同一页的符号错没查出来。</span></div><div class="row"><span class="k">本质</span><span>孩子有“检查”这个动作，但检查清单只有“有没有空题”一项，缺少“符号、得数”两个维度。</span></div><div class="row"><span class="k">建议</span><span>把检查固定为三步：一看符号、二看漏题、三看得数。家长陪做时口头念这三点，孩子自己复述。</span></div></div>
+<div class="ins"><h4>03 荣誉和岗位接连到来，正反馈正在转化为动力</h4><div class="row"><span class="k">现象</span><span>10/19竞选学习委员成功，10/20听算全对，10/24获表扬信——一周内三项认可。</span></div><div class="row"><span class="k">本质</span><span>这个年龄段对外部认可高度敏感，荣誉会直接转化为“更愿意做”的动力，是极佳的激励窗口。</span></div><div class="row"><span class="k">建议</span><span>表扬要具体到行为（“你把符号圈出来检查了，所以全对”），让孩子知道是因为做了什么才被认可。</span></div></div>
+<div class="ins"><h4>04 拼读/朗读仍是“隐形任务”，容易被写完就跳过</h4><div class="row"><span class="k">现象</span><span>10/24拼读任务状态仍是待反馈；此前jqx、zcs也出现“写了没读”。</span></div><div class="row"><span class="k">本质</span><span>书面任务可见可勾，朗读任务看不见、没有“被听到”就等于没完成——任务识别不完整。</span></div><div class="row"><span class="k">建议</span><span>朗读/拼读任务改成“读给家长听”才算完成，家长听到后再打勾；bd/nl每天各口头对比一次。</span></div></div>
+<div class="ins"><h4>05 睡眠连续多周0准点，问题不在作业量而在晚间程序</h4><div class="row"><span class="k">现象</span><span>本周4晚记录全部超时（21:30、22:10、21:30、21:40），作业量小的10/21也无记录可追。</span></div><div class="row"><span class="k">本质</span><span>作业完成得早时，洗漱-上床之间仍会被拖住；21:00锚点没有被当成“程序终点”执行。</span></div><div class="row"><span class="k">建议</span><span>把20:40洗漱设为硬边界（全家一起执行），21:00关灯；目标下周至少3晚准点。</span></div></div>
+
+<div class="sec-title"><span class="no">8</span>下周改进计划<small>对应薄弱点 · 量化落地</small></div>
+<div class="card"><ul class="todo"><li><span class="p p1">P1</span><span><b>符号审题固化：</b>每题动笔前先圈“+/-”，做完回看符号；目标连续5天数学不错符号题。</span></li><li><span class="p p1">P1</span><span><b>睡眠回到21:00：</b>20:40洗漱→21:00关灯硬边界，目标至少3晚准点。</span></li><li><span class="p p2">P2</span><span><b>检查三步法：</b>做完数学按“一看符号、二看漏题、三看得数”自查，家长陪做时口头带一遍。</span></li><li><span class="p p2">P2</span><span><b>朗读出声才算完成：</b>拼音拼读、国学背诵读给家长听再打勾；bd/nl每天口头对比一次。</span></li><li><span class="p p3">P3</span><span><b>听算保持：</b>延续课堂听算全对势头，在家每天听写3-5个当堂拼音＋口头分成，保持熟练。</span></li><li><span class="p p3">P3</span><span><b>常规保底：</b>静坐、控笔操、练字、阅读每日四件套不落，10/20断档的常规项不再放。</span></li></ul></div>
+
+<div class="advice"><div class="tag">给家长的一条建议</div><p>本周孩子处在<b>“被认可→更愿意学”的正循环</b>里：学习委员、听算全对、表扬信都是她实实在在挣来的，请把这些荣誉具体地讲给她听。数学符号看错是本周唯一需要认真处理的真问题，但处理方式要轻——<b>每天陪做时只说一句话“先圈符号再算”</b>，不要因为6道错题去否定整体表现。睡眠继续用全家统一的20:40洗漱边界推进，不批评、只执行。</p></div>
+<div class="foot">数据来源：任务日志 · 错题记录 · 成长记录 · 阅读/练字记录<br>本页为 第8周周报（10.19-10.25）<br><a href="../index.html">← 返回学习档案</a></div>
+</div></body></html>
